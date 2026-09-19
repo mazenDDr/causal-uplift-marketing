@@ -1,0 +1,17 @@
+.DS_Store
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Data and generated artifacts live on gpu-box or are pulled deliberately.
+/data/
+/outputs/
+
+# Private working notes used by the measured-build workflow.
+AGENTS.md
+docs/TASKS.md
+docs/HANDOFF_LOG.md

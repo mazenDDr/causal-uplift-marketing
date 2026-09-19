@@ -1,0 +1,137 @@
+{
+  "seed": 42,
+  "campaign": "Mens E-Mail",
+  "control": "No E-Mail",
+  "dataset": {
+    "path": "data/raw/hillstrom.csv",
+    "rows": 64000,
+    "bytes": 3964977,
+    "sha256": "0e5893329d8b93cefecc571777672028290ab69865718020c78c7284f291aece",
+    "download_url": "https://raw.githubusercontent.com/AdityaDabrase/ab-testing-email-marketing/main/data/raw/hillstrom.csv",
+    "original_publisher_url": "http://www.minethatdata.com/Kevin_Hillstrom_MineThatData_E-MailAnalytics_DataMiningChallenge_2008.03.20.csv"
+  },
+  "rows": {
+    "campaign_total": 42613,
+    "randomized_training_pool": 25567,
+    "rct_evaluation": 17046
+  },
+  "rct_effects": {
+    "visit": {
+      "estimate": 0.07262700926903673,
+      "ci_lower": 0.061832688020650006,
+      "ci_upper": 0.0831866713598498
+    },
+    "conversion": {
+      "estimate": 0.00703977472720873,
+      "ci_lower": 0.004106535257538425,
+      "ci_upper": 0.009973014196879033
+    },
+    "spend": {
+      "estimate": 0.9201642614103016,
+      "ci_lower": 0.4715248445383081,
+      "ci_upper": 1.4396141910125542
+    }
+  },
+  "observational_samples": {
+    "randomized": {
+      "strength": 0.0,
+      "rows": 25567,
+      "treated_share": 0.5000195564594986,
+      "max_absolute_smd": 0.017709299555429627,
+      "smd": {
+        "history": 0.00045691210638106804,
+        "recency": 0.012939190424442588,
+        "mens": -0.01707939568150617,
+        "womens": 0.01280620355308727,
+        "newbie": -0.003051490260313628,
+        "channel=Multichannel": -0.017709299555429627,
+        "channel=Phone": 0.010501089167675863,
+        "channel=Web": 0.0011903601766436172,
+        "zip_code=Rural": 0.008218532233300165,
+        "zip_code=Surburban": -0.01155624758770723,
+        "zip_code=Urban": 0.005684410379788035
+      },
+      "raw_conversion_association": {
+        "estimate": 0.006648507820491018,
+        "ci_lower": 0.004458184047336023,
+        "ci_upper": 0.008995221924074499
+      },
+      "raw_conversion_ate_error": 0.00039126690671771255
+    },
+    "weak": {
+      "strength": 0.5,
+      "rows": 12760,
+      "treated_share": 0.5025862068965518,
+      "max_absolute_smd": 0.3245851878842858,
+      "smd": {
+        "history": 0.3245851878842858,
+        "recency": -0.3015211520733276,
+        "mens": 0.2074361977086918,
+        "womens": -0.09554896482284372,
+        "newbie": -0.014309983428402253,
+        "channel=Multichannel": 0.18435816552387185,
+        "channel=Phone": -0.030626095089237627,
+        "channel=Web": -0.09040610962985314,
+        "zip_code=Rural": 0.020642562465000496,
+        "zip_code=Surburban": 0.0019880925827928902,
+        "zip_code=Urban": -0.017081296583665653
+      },
+      "raw_conversion_association": {
+        "estimate": 0.008535792088265251,
+        "ci_lower": 0.005560047682607442,
+        "ci_upper": 0.011812012049830541
+      },
+      "raw_conversion_ate_error": 0.0014960173610565211
+    },
+    "medium": {
+      "strength": 1.0,
+      "rows": 12781,
+      "treated_share": 0.49722243955872,
+      "max_absolute_smd": 0.5843357663837678,
+      "smd": {
+        "history": 0.5843357663837678,
+        "recency": -0.5128418576512513,
+        "mens": 0.35060672888823563,
+        "womens": -0.16403825552324275,
+        "newbie": -0.0028957334026734173,
+        "channel=Multichannel": 0.3603514183278138,
+        "channel=Phone": -0.10823875514938262,
+        "channel=Web": -0.12263618951708766,
+        "zip_code=Rural": 0.03484639855969464,
+        "zip_code=Surburban": -0.018282455573004248,
+        "zip_code=Urban": -0.0068999720875768155
+      },
+      "raw_conversion_association": {
+        "estimate": 0.009021473787521828,
+        "ci_lower": 0.0057308545413094865,
+        "ci_upper": 0.01232787091582852
+      },
+      "raw_conversion_ate_error": 0.0019816990603130974
+    },
+    "strong": {
+      "strength": 2.0,
+      "rows": 12680,
+      "treated_share": 0.48233438485804414,
+      "max_absolute_smd": 0.8366550599749724,
+      "smd": {
+        "history": 0.8324328226480363,
+        "recency": -0.8366550599749724,
+        "mens": 0.5260204100421749,
+        "womens": -0.2353509148470111,
+        "newbie": -0.09571479642824254,
+        "channel=Multichannel": 0.5229609450263372,
+        "channel=Phone": -0.19105488366090564,
+        "channel=Web": -0.146429984530021,
+        "zip_code=Rural": 0.008407154120011634,
+        "zip_code=Surburban": -0.007223608248758741,
+        "zip_code=Urban": 0.0012130655465504043
+      },
+      "raw_conversion_association": {
+        "estimate": 0.010754500936395642,
+        "ci_lower": 0.007517868038957566,
+        "ci_upper": 0.014154821231929196
+      },
+      "raw_conversion_ate_error": 0.0037147262091869115
+    }
+  }
+}

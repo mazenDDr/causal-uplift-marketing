@@ -1,0 +1,14 @@
+digraph CausalDAG {
+  graph [bgcolor="transparent", rankdir=LR, pad=0.25, nodesep=0.8];
+  node [shape=box, style="rounded,filled", fontname="Helvetica", fontsize=13,
+        color="#24415a", fillcolor="#eef6fb", margin="0.16,0.10"];
+  edge [color="#24415a", penwidth=1.8, arrowsize=0.8];
+
+  X [label="X\nPre-treatment customer\ncharacteristics"];
+  T [label="T\nMarketing email"];
+  Y [label="Y\nConversion / visit / spend"];
+
+  X -> T [label=" targeting", fontname="Helvetica", fontsize=11];
+  X -> Y [label=" baseline demand", fontname="Helvetica", fontsize=11];
+  T -> Y [label=" causal effect", fontname="Helvetica", fontsize=11, color="#d35f35"];
+}

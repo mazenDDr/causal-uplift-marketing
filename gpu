@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+# Run project commands on gpu-box while keeping the Mac repository as source of truth.
+set -euo pipefail
+
+HOST=gpu-box
+cd "$(dirname "$0")"
+REMOTE_DIR=${GPU_REMOTE_DIR:-$(basename "$PWD")}
+SESSION=${GPU_SESSION:-train}
+LOG=outputs/$SESSION.log
+ENV_SETUP='export PATH=$HOME/miniconda3/envs/main/bin:/usr/lib/wsl/lib:$PATH PYTHONUNBUFFERED=1'
+
+push() {
+  ssh -n "$HOST" "mkdir -p $REMOTE_DIR"
+  rsync -az --delete --exclude-from=.rsyncignore ./ "$HOST:$REMOTE_DIR/"
+}
+
+quote_args() {
+  [[ "${1:-}" == *.py ]] && set -- python "$@"
+  printf '%q ' "$@"
+}
+
+case "${1:-}" in
+  push) push ;;
+  run)
+    shift
+    [ $# -gt 0 ] || { echo "usage: ./gpu run train.py [ARGS]"; exit 1; }
+    if ssh "$HOST" "tmux has-session -t $SESSION 2>/dev/null"; then
+      echo "session '$SESSION' is already running on $HOST"
+      exit 1
+    fi
+    push
+    inner="$ENV_SETUP; $(quote_args "$@") 2>&1 | tee $LOG; echo \"[exit \${PIPESTATUS[0]}]\" >> $LOG"
+    ssh "$HOST" "cd $REMOTE_DIR && mkdir -p outputs && tmux new-session -d -s $SESSION -c ~/$REMOTE_DIR bash -c $(printf '%q' "$inner")"
+    echo "started on $HOST in tmux session '$SESSION'; check with: ./gpu status"
+    ;;
+  status)
+    ssh "$HOST" "tmux has-session -t $SESSION 2>/dev/null && echo 'RUNNING ($SESSION)' || echo 'NOT RUNNING ($SESSION)'; tail -n ${2:-15} $REMOTE_DIR/$LOG 2>/dev/null || echo '(no log yet)'"
+    ;;
+  logs) ssh "$HOST" "tail -n 50 -f $REMOTE_DIR/$LOG" ;;
+  attach) ssh -t "$HOST" "tmux attach -t $SESSION" ;;
+  stop) ssh "$HOST" "tmux kill-session -t $SESSION" ;;
+  pull)
+    rsync -az "$HOST:$REMOTE_DIR/outputs/" ./outputs/
+    rsync -az "$HOST:$REMOTE_DIR/experiments/results/" ./experiments/results/
+    ;;
+  exec)
+    shift
+    push
+    ssh "$HOST" "cd $REMOTE_DIR && $ENV_SETUP && $(quote_args "$@")"
+    ;;
+  smi) ssh "$HOST" /usr/lib/wsl/lib/nvidia-smi ;;
+  shell) ssh -t "$HOST" "cd $REMOTE_DIR && exec bash -l" ;;
+  *) sed -n '2,13p' "$0"; exit 1 ;;
+esac
