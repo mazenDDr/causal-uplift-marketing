@@ -1,0 +1,32 @@
+project:
+  seed: 42
+  evaluation_fraction: 0.40
+
+data:
+  raw_path: data/raw/hillstrom.csv
+  campaign: Mens E-Mail
+  control: No E-Mail
+  primary_outcome: conversion
+  secondary_outcomes:
+    - visit
+    - spend
+
+confounding:
+  clip_min: 0.05
+  clip_max: 0.95
+  strengths:
+    randomized: 0.0
+    weak: 0.5
+    medium: 1.0
+    strong: 2.0
+  coefficients:
+    history: 0.55
+    recency: -0.45
+    mens: 0.65
+    multichannel: 0.45
+    newbie: -0.35
+
+evaluation:
+  bootstrap_samples: 2000
+  policy_budgets: [0.05, 0.10, 0.20, 0.30, 0.40, 0.50, 0.75, 1.00]
+  email_costs: [0.01, 0.05, 0.10, 0.25, 0.50]

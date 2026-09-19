@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 250" role="img" aria-labelledby="title desc">
+  <title id="title">Marketing email causal graph</title>
+  <desc id="desc">Customer characteristics affect both email treatment and outcomes; email treatment also affects outcomes.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#24415a"/>
+    </marker>
+    <marker id="arrow-effect" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#d35f35"/>
+    </marker>
+  </defs>
+  <style>
+    .node { fill: #eef6fb; stroke: #24415a; stroke-width: 2; }
+    .label { fill: #172b3a; font: 600 17px system-ui, sans-serif; text-anchor: middle; }
+    .sub { fill: #365568; font: 14px system-ui, sans-serif; text-anchor: middle; }
+    .edge { fill: none; stroke: #24415a; stroke-width: 2.5; marker-end: url(#arrow); }
+    .effect { fill: none; stroke: #d35f35; stroke-width: 3; marker-end: url(#arrow-effect); }
+    .edge-label { fill: #526a79; font: 13px system-ui, sans-serif; text-anchor: middle; }
+  </style>
+  <rect class="node" x="35" y="80" width="230" height="90" rx="14"/>
+  <text class="label" x="150" y="112">X</text>
+  <text class="sub" x="150" y="138">Pre-treatment customer</text>
+  <text class="sub" x="150" y="157">characteristics</text>
+  <rect class="node" x="360" y="25" width="185" height="76" rx="14"/>
+  <text class="label" x="452" y="57">T</text>
+  <text class="sub" x="452" y="82">Marketing email</text>
+  <rect class="node" x="650" y="80" width="195" height="90" rx="14"/>
+  <text class="label" x="747" y="112">Y</text>
+  <text class="sub" x="747" y="138">Conversion / visit</text>
+  <text class="sub" x="747" y="157">/ spend</text>
+  <path class="edge" d="M265 100 C305 82 330 69 358 65"/>
+  <text class="edge-label" x="311" y="70">targeting</text>
+  <path class="edge" d="M265 145 C410 215 552 215 648 151"/>
+  <text class="edge-label" x="455" y="218">baseline demand</text>
+  <path class="effect" d="M545 66 C590 73 615 91 648 108"/>
+  <text class="edge-label" x="599" y="63">causal effect</text>
+</svg>
