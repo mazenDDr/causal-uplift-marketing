@@ -1,0 +1,213 @@
+{
+  "seed": 42,
+  "outcome": "conversion",
+  "training_sample": "medium",
+  "training_rows": 12781,
+  "evaluation_rows": 17046,
+  "rct_used_for_model_or_hyperparameter_selection": false,
+  "nuisance_candidate": "random_forest_logistic",
+  "nuisance_selection_source": "versioned T05 observational cross-fit result",
+  "forest_parameters": {
+    "training_sample": "medium",
+    "n_estimators": 400,
+    "min_samples_leaf": 100,
+    "max_depth": 12,
+    "max_samples": 0.45,
+    "max_features": 0.7,
+    "subforest_size": 4,
+    "honest": true,
+    "cate_bins": 10
+  },
+  "fit_runtime_seconds": 3.028824281999732,
+  "score_and_interval_runtime_seconds": 0.6034170450002421,
+  "ate_on_rct_covariate_distribution": {
+    "estimate": 0.005813696215431478,
+    "ci_lower": -0.0024285127201415582,
+    "ci_upper": 0.014055905151004513,
+    "absolute_error_vs_rct": 0.0012260785117772519
+  },
+  "overall_rct_effect": {
+    "estimate": 0.00703977472720873,
+    "ci_lower": 0.004106535257538425,
+    "ci_upper": 0.009973014196879033
+  },
+  "cate_distribution": {
+    "mean": 0.005813696215431478,
+    "standard_deviation": 0.0038883064514782825,
+    "minimum": -0.004227193629794653,
+    "maximum": 0.017161104777003007,
+    "negative_fraction": 0.08353866009621025,
+    "mean_pointwise_interval_width": 0.01554282574577855
+  },
+  "cate_deciles": [
+    {
+      "group": "1",
+      "rows": 1705,
+      "treated_rows": 836,
+      "control_rows": 869,
+      "predicted_cate_mean": -0.0007824977096395423,
+      "observed_rct_uplift": 0.007267882018048573,
+      "observed_ci_lower": 0.00018169705045121415,
+      "observed_ci_upper": 0.014446051117436855
+    },
+    {
+      "group": "2",
+      "rows": 1705,
+      "treated_rows": 825,
+      "control_rows": 880,
+      "predicted_cate_mean": 0.001175302733452447,
+      "observed_rct_uplift": 0.0028030303030303037,
+      "observed_ci_lower": -0.005227272727272728,
+      "observed_ci_upper": 0.011060606060606062
+    },
+    {
+      "group": "3",
+      "rows": 1705,
+      "treated_rows": 845,
+      "control_rows": 860,
+      "predicted_cate_mean": 0.002815352765449769,
+      "observed_rct_uplift": 0.007141874225952938,
+      "observed_ci_lower": 6.192376496490975e-05,
+      "observed_ci_upper": 0.01424246594192927
+    },
+    {
+      "group": "4",
+      "rows": 1705,
+      "treated_rows": 837,
+      "control_rows": 868,
+      "predicted_cate_mean": 0.004340894204511335,
+      "observed_rct_uplift": 0.009728622631848437,
+      "observed_ci_lower": 0.0013643539853217276,
+      "observed_ci_upper": 0.019201228878648235
+    },
+    {
+      "group": "5",
+      "rows": 1705,
+      "treated_rows": 867,
+      "control_rows": 838,
+      "predicted_cate_mean": 0.005567783783191229,
+      "observed_rct_uplift": 0.011374365835060683,
+      "observed_ci_lower": 0.002107230650227239,
+      "observed_ci_upper": 0.020783095633311467
+    },
+    {
+      "group": "6",
+      "rows": 1705,
+      "treated_rows": 834,
+      "control_rows": 871,
+      "predicted_cate_mean": 0.006635367035335742,
+      "observed_rct_uplift": 0.00979606670576283,
+      "observed_ci_lower": 0.0004074811333482,
+      "observed_ci_upper": 0.019440601365061788
+    },
+    {
+      "group": "7",
+      "rows": 1704,
+      "treated_rows": 863,
+      "control_rows": 841,
+      "predicted_cate_mean": 0.007586508945266022,
+      "observed_rct_uplift": 0.005642182305179372,
+      "observed_ci_lower": -0.003688430288391985,
+      "observed_ci_upper": 0.013875428330506498
+    },
+    {
+      "group": "8",
+      "rows": 1704,
+      "treated_rows": 841,
+      "control_rows": 863,
+      "predicted_cate_mean": 0.00856380048837373,
+      "observed_rct_uplift": 0.006157487844162788,
+      "observed_ci_lower": -0.003264061020993879,
+      "observed_ci_upper": 0.0167680973514122
+    },
+    {
+      "group": "9",
+      "rows": 1704,
+      "treated_rows": 884,
+      "control_rows": 820,
+      "predicted_cate_mean": 0.009825188379960563,
+      "observed_rct_uplift": 0.008166868999006732,
+      "observed_ci_lower": -0.004364860390685354,
+      "observed_ci_upper": 0.02000882904756649
+    },
+    {
+      "group": "10",
+      "rows": 1704,
+      "treated_rows": 891,
+      "control_rows": 813,
+      "predicted_cate_mean": 0.012418140621418359,
+      "observed_rct_uplift": 0.001275568311238668,
+      "observed_ci_lower": -0.00925615316759228,
+      "observed_ci_upper": 0.011699611945614405
+    }
+  ],
+  "decile_spearman": {
+    "correlation": -0.18787878787878787,
+    "p_value": 0.6032176100292089,
+    "note": "descriptive only; ten noisy aggregate bins are not a model-selection set"
+  },
+  "top_minus_bottom_decile": {
+    "uplift_difference": -0.005992313706809905,
+    "ci_lower": -0.018209845095172865,
+    "ci_upper": 0.006296869750090908,
+    "incremental_conversions_per_1000_difference": -5.992313706809905
+  },
+  "segment_thresholds_from_training": {
+    "history_median": 155.72,
+    "recency_median": 6.0
+  },
+  "subgroups": [
+    {
+      "group": "recent / high history",
+      "rows": 5438,
+      "treated_rows": 2757,
+      "control_rows": 2681,
+      "predicted_cate_mean": 0.008437735086209555,
+      "observed_rct_uplift": 0.006956082222363826,
+      "observed_ci_lower": 0.0003964003600343477,
+      "observed_ci_upper": 0.01313274392793793
+    },
+    {
+      "group": "recent / low history",
+      "rows": 4327,
+      "treated_rows": 2126,
+      "control_rows": 2201,
+      "predicted_cate_mean": 0.0033119479030231237,
+      "observed_rct_uplift": 0.006275049013469034,
+      "observed_ci_lower": 0.0011150377212444703,
+      "observed_ci_upper": 0.011839311900901968
+    },
+    {
+      "group": "inactive / high history",
+      "rows": 3061,
+      "treated_rows": 1523,
+      "control_rows": 1538,
+      "predicted_cate_mean": 0.006713137537703487,
+      "observed_rct_uplift": 0.011194198706099025,
+      "observed_ci_lower": 0.004634614284482325,
+      "observed_ci_upper": 0.018391490855004366
+    },
+    {
+      "group": "inactive / low history",
+      "rows": 4220,
+      "treated_rows": 2117,
+      "control_rows": 2103,
+      "predicted_cate_mean": 0.0043450591730203785,
+      "observed_rct_uplift": 0.004698508619959654,
+      "observed_ci_lower": -3.144618064797582e-05,
+      "observed_ci_upper": 0.009431608038632081
+    }
+  ],
+  "aggregated_feature_importance": {
+    "recency": 0.15788424581651367,
+    "history": 0.3877043622980494,
+    "history_segment": 0.0975397465845471,
+    "mens": 0.0312051031982686,
+    "womens": 0.026182852768596714,
+    "zip_code": 0.10719004813845731,
+    "newbie": 0.04183100173717818,
+    "channel": 0.15046263945838897
+  },
+  "interpretation_warning": "Feature importance and CATE association do not identify causal mechanisms.",
+  "figure": "experiments/figures/causal_forest_validation.svg"
+}

@@ -8,8 +8,8 @@ into observational data, and measures whether causal estimators recover better t
 than ordinary predictive ML.
 
 **Status:** the RCT split, controlled-confounding foundation, naive targeting baselines, propensity
-diagnostics, propensity-score matching, and LinearDML are verified. Heterogeneous treatment-effect
-modeling is next.
+diagnostics, propensity-score matching, LinearDML, and randomized CATE validation are verified.
+Uplift-tree and uplift-forest comparisons are next.
 
 ## Experimental design
 
@@ -115,6 +115,28 @@ ATE intervals, nuisance metrics, runtimes, selections, package versions, and err
 [`experiments/results/linear_dml_summary.json`](experiments/results/linear_dml_summary.json).
 The conversion nuisance models are also roughly level with a constant-probability baseline on this
 rare outcome; flexibility alone did not create useful outcome prediction.
+
+## Heterogeneous treatment effects
+
+An honest `CausalForestDML` is trained on the medium-confounding sample using the nuisance
+configuration selected in the previous training-only experiment. Its hyperparameters and the
+history/recency subgroup rules are frozen before opening randomized outcomes. The forest scores the
+RCT holdout, which is divided into exact equal-frequency CATE deciles.
+
+![Causal-forest predictions checked against randomized deciles and customer segments](experiments/figures/causal_forest_validation.svg)
+
+This evaluation does **not** validate the forest's individual ranking. Observed randomized uplift
+does not rise with predicted CATE, and the top-minus-bottom decile interval includes zero. The
+pointwise CATE intervals are also wide relative to the variation in predictions. Predefined
+history/recency segments show some differences, but their intervals overlap and the ordering is not
+the forest's predicted ordering.
+
+That negative result is kept as a core project artifact: a sophisticated causal model can recover a
+reasonable average effect without learning a reliable individual targeting order. Exact decile and
+subgroup intervals, top-minus-bottom uncertainty, CATE dispersion, runtimes, and aggregated feature
+importance are generated in
+[`experiments/results/causal_forest_summary.json`](experiments/results/causal_forest_summary.json).
+Feature importance describes where the forest split; it is not evidence of a causal mechanism.
 
 | Feature | Timing | Allowed? | Reason |
 |---|---|---:|---|
