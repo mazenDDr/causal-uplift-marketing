@@ -42,6 +42,7 @@ case "${1:-}" in
   pull)
     rsync -az "$HOST:$REMOTE_DIR/outputs/" ./outputs/
     rsync -az "$HOST:$REMOTE_DIR/experiments/results/" ./experiments/results/
+    rsync -az "$HOST:$REMOTE_DIR/experiments/figures/" ./experiments/figures/
     ;;
   exec)
     shift
