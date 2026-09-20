@@ -1,4 +1,4 @@
-.PHONY: check test foundation naive-baselines propensity-diagnostics matching linear-dml dag
+.PHONY: check test foundation naive-baselines propensity-diagnostics matching linear-dml causal-forest dag
 
 check:
 	python -m ruff check .
@@ -22,6 +22,9 @@ matching:
 
 linear-dml:
 	PYTHONPATH=src python scripts/run_linear_dml.py --config configs/base.yaml
+
+causal-forest:
+	PYTHONPATH=src python scripts/run_causal_forest.py --config configs/base.yaml
 
 dag:
 	dot -Tsvg docs/causal_dag.dot -o docs/causal_dag.svg

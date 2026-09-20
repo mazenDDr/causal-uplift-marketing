@@ -164,3 +164,79 @@ def plot_ate_error_by_strength(
     figure.tight_layout()
     _save_figure(figure, output)
     plt.close(figure)
+
+
+def plot_causal_forest_validation(
+    deciles: list[dict[str, object]],
+    subgroups: list[dict[str, object]],
+    output: Path,
+) -> None:
+    """Plot predicted CATE against randomized effects by rank and customer segment."""
+    figure, axes = plt.subplots(1, 2, figsize=(15, 6))
+
+    decile_axis = axes[0]
+    positions = np.arange(1, len(deciles) + 1)
+    predicted = np.array([row["predicted_cate_mean"] for row in deciles], dtype=float)
+    observed = np.array([row["observed_rct_uplift"] for row in deciles], dtype=float)
+    lower = np.array([row["observed_ci_lower"] for row in deciles], dtype=float)
+    upper = np.array([row["observed_ci_upper"] for row in deciles], dtype=float)
+    decile_axis.plot(
+        positions,
+        predicted,
+        marker="o",
+        color="#d95f0e",
+        linewidth=2,
+        label="Predicted CATE",
+    )
+    decile_axis.errorbar(
+        positions,
+        observed,
+        yerr=np.vstack([observed - lower, upper - observed]),
+        marker="s",
+        color="#2c7fb8",
+        linewidth=1.5,
+        capsize=3,
+        label="Observed RCT uplift (95% CI)",
+    )
+    decile_axis.axhline(0, color="#555555", linewidth=1)
+    decile_axis.set_xticks(positions)
+    decile_axis.set_xlabel("Predicted CATE decile (low to high)")
+    decile_axis.set_ylabel("Conversion effect")
+    decile_axis.set_title("Does CATE ranking survive randomized evaluation?")
+    decile_axis.grid(axis="y", alpha=0.2)
+    decile_axis.legend(frameon=False)
+
+    subgroup_axis = axes[1]
+    labels = [str(row["group"]) for row in subgroups]
+    predicted = np.array([row["predicted_cate_mean"] for row in subgroups], dtype=float)
+    observed = np.array([row["observed_rct_uplift"] for row in subgroups], dtype=float)
+    lower = np.array([row["observed_ci_lower"] for row in subgroups], dtype=float)
+    upper = np.array([row["observed_ci_upper"] for row in subgroups], dtype=float)
+    positions = np.arange(len(labels))
+    subgroup_axis.bar(
+        positions - 0.18,
+        predicted,
+        width=0.36,
+        color="#fdae6b",
+        label="Predicted CATE",
+    )
+    subgroup_axis.errorbar(
+        positions + 0.18,
+        observed,
+        yerr=np.vstack([observed - lower, upper - observed]),
+        fmt="s",
+        color="#2c7fb8",
+        capsize=3,
+        label="Observed RCT uplift (95% CI)",
+    )
+    subgroup_axis.axhline(0, color="#555555", linewidth=1)
+    subgroup_axis.set_xticks(positions, labels=labels, rotation=18, ha="right")
+    subgroup_axis.set_ylabel("Conversion effect")
+    subgroup_axis.set_title("Predefined customer segments")
+    subgroup_axis.grid(axis="y", alpha=0.2)
+    subgroup_axis.legend(frameon=False)
+
+    figure.suptitle("Causal-forest heterogeneity checked against the untouched RCT")
+    figure.tight_layout()
+    _save_figure(figure, output)
+    plt.close(figure)
