@@ -18,7 +18,7 @@ dependencies = [
 
 [project.optional-dependencies]
 causal = [
-  "econml>=0.16",
+  "econml>=0.16,<0.17",
   "causalml>=0.16",
 ]
 viz = [

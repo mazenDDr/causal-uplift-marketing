@@ -1,0 +1,252 @@
+{
+  "seed": 42,
+  "outcome": "conversion",
+  "method": "LinearDML with constant final treatment effect",
+  "cross_fitting": {
+    "folds": 5,
+    "stratification": "joint treatment/outcome state",
+    "same_observation_used_for_nuisance_fit_and_residual": false
+  },
+  "selection_uses_rct": false,
+  "rct_effect": {
+    "estimate": 0.00703977472720873,
+    "ci_lower": 0.004106535257538425,
+    "ci_upper": 0.009973014196879033
+  },
+  "packages": {
+    "econml": "0.16.0",
+    "numpy": "2.3.5",
+    "scikit-learn": "1.6.1"
+  },
+  "samples": {
+    "randomized": {
+      "rows": 25567,
+      "cross_fit_folds": 5,
+      "every_row_scored_out_of_fold_once": true,
+      "selected_nuisance_candidate": "hist_gradient_boosting",
+      "selection_rule": "lowest sum of outcome and treatment Brier loss relative to null",
+      "selection_complete_before_rct_loaded": true,
+      "nuisance_configuration_ate_range": 3.798075669743297e-05,
+      "naive_association": 0.006648507820491018,
+      "candidates": {
+        "random_forest_logistic": {
+          "nuisance_cross_fit_metrics": {
+            "outcome_brier": 0.00873241136349361,
+            "outcome_brier_vs_null": 1.0010835483537015,
+            "treatment_roc_auc": 0.501298771654547,
+            "treatment_brier": 0.25009471693672675,
+            "treatment_brier_vs_null": 1.000378869277307,
+            "treatment_log_loss": 0.6933368224735993,
+            "selection_loss": 2.0014624176310085
+          },
+          "nuisance_validation_runtime_seconds": 1.701128757999868,
+          "dml_fit_runtime_seconds": 2.134069619999991,
+          "ate": {
+            "estimate": 0.006616401813456935,
+            "ci_lower": 0.004321629126282089,
+            "ci_upper": 0.00891117450063178,
+            "absolute_error_vs_rct": 0.00042337291375179557
+          }
+        },
+        "hist_gradient_boosting": {
+          "nuisance_cross_fit_metrics": {
+            "outcome_brier": 0.008714948189905489,
+            "outcome_brier_vs_null": 0.9990815703142568,
+            "treatment_roc_auc": 0.5037770593414654,
+            "treatment_brier": 0.2500974753244393,
+            "treatment_brier_vs_null": 1.0003899028281742,
+            "treatment_log_loss": 0.6933432371328223,
+            "selection_loss": 1.999471473142431
+          },
+          "nuisance_validation_runtime_seconds": 0.4088375129999804,
+          "dml_fit_runtime_seconds": 0.38595595300012064,
+          "ate": {
+            "estimate": 0.006654382570154368,
+            "ci_lower": 0.004366381577780719,
+            "ci_upper": 0.008942383562528015,
+            "absolute_error_vs_rct": 0.0003853921570543626
+          }
+        }
+      },
+      "naive_absolute_error_vs_rct": 0.00039126690671771255,
+      "selected_dml_absolute_error_vs_rct": 0.0003853921570543626
+    },
+    "weak": {
+      "rows": 12760,
+      "cross_fit_folds": 5,
+      "every_row_scored_out_of_fold_once": true,
+      "selected_nuisance_candidate": "random_forest_logistic",
+      "selection_rule": "lowest sum of outcome and treatment Brier loss relative to null",
+      "selection_complete_before_rct_loaded": true,
+      "nuisance_configuration_ate_range": 0.00024022260108464387,
+      "naive_association": 0.008535792088265251,
+      "candidates": {
+        "random_forest_logistic": {
+          "nuisance_cross_fit_metrics": {
+            "outcome_brier": 0.008171985460880143,
+            "outcome_brier_vs_null": 1.0013305939496138,
+            "treatment_roc_auc": 0.6228972625838718,
+            "treatment_brier": 0.23814899580121413,
+            "treatment_brier_vs_null": 0.9526214695105211,
+            "treatment_log_loss": 0.6688784821478884,
+            "selection_loss": 1.9539520634601348
+          },
+          "nuisance_validation_runtime_seconds": 1.4741723839997576,
+          "dml_fit_runtime_seconds": 1.831216064000273,
+          "ate": {
+            "estimate": 0.007392737999984911,
+            "ci_lower": 0.004291791132953527,
+            "ci_upper": 0.010493684867016293,
+            "absolute_error_vs_rct": 0.0003529632727761805
+          }
+        },
+        "hist_gradient_boosting": {
+          "nuisance_cross_fit_metrics": {
+            "outcome_brier": 0.008162914349365976,
+            "outcome_brier_vs_null": 1.0002190915462204,
+            "treatment_roc_auc": 0.6171348566705053,
+            "treatment_brier": 0.23910028023314042,
+            "treatment_brier_vs_null": 0.9564267090430889,
+            "treatment_log_loss": 0.670801562109134,
+            "selection_loss": 1.9566458005893093
+          },
+          "nuisance_validation_runtime_seconds": 0.6051048969998192,
+          "dml_fit_runtime_seconds": 0.6112684070003525,
+          "ate": {
+            "estimate": 0.007632960601069555,
+            "ci_lower": 0.004542452629103895,
+            "ci_upper": 0.010723468573035215,
+            "absolute_error_vs_rct": 0.0005931858738608244
+          }
+        }
+      },
+      "naive_absolute_error_vs_rct": 0.0014960173610565211,
+      "selected_dml_absolute_error_vs_rct": 0.0003529632727761805
+    },
+    "medium": {
+      "rows": 12781,
+      "cross_fit_folds": 5,
+      "every_row_scored_out_of_fold_once": true,
+      "selected_nuisance_candidate": "random_forest_logistic",
+      "selection_rule": "lowest sum of outcome and treatment Brier loss relative to null",
+      "selection_complete_before_rct_loaded": true,
+      "nuisance_configuration_ate_range": 0.00026540015892924547,
+      "naive_association": 0.009021473787521828,
+      "candidates": {
+        "random_forest_logistic": {
+          "nuisance_cross_fit_metrics": {
+            "outcome_brier": 0.0090717670619655,
+            "outcome_brier_vs_null": 1.0001492101180525,
+            "treatment_roc_auc": 0.7159387034820923,
+            "treatment_brier": 0.2141605035854717,
+            "treatment_brier_vs_null": 0.8566684505888744,
+            "treatment_log_loss": 0.6168325755021988,
+            "selection_loss": 1.8568176607069269
+          },
+          "nuisance_validation_runtime_seconds": 1.5397258950001742,
+          "dml_fit_runtime_seconds": 1.8502009449998695,
+          "ate": {
+            "estimate": 0.005667554684102164,
+            "ci_lower": 0.002307848206907565,
+            "ci_upper": 0.009027261161296762,
+            "absolute_error_vs_rct": 0.0013722200431065664
+          }
+        },
+        "hist_gradient_boosting": {
+          "nuisance_cross_fit_metrics": {
+            "outcome_brier": 0.009056206486624748,
+            "outcome_brier_vs_null": 0.9984336791713546,
+            "treatment_roc_auc": 0.711268467523385,
+            "treatment_brier": 0.21561800633915684,
+            "treatment_brier_vs_null": 0.8624986415196225,
+            "treatment_log_loss": 0.6200635060513288,
+            "selection_loss": 1.8609323206909771
+          },
+          "nuisance_validation_runtime_seconds": 0.79847145299982,
+          "dml_fit_runtime_seconds": 0.7742074000002503,
+          "ate": {
+            "estimate": 0.005402154525172918,
+            "ci_lower": 0.0020999539877537116,
+            "ci_upper": 0.008704355062592125,
+            "absolute_error_vs_rct": 0.001637620202035812
+          }
+        }
+      },
+      "naive_absolute_error_vs_rct": 0.0019816990603130974,
+      "selected_dml_absolute_error_vs_rct": 0.0013722200431065664
+    },
+    "strong": {
+      "rows": 12680,
+      "cross_fit_folds": 5,
+      "every_row_scored_out_of_fold_once": true,
+      "selected_nuisance_candidate": "random_forest_logistic",
+      "selection_rule": "lowest sum of outcome and treatment Brier loss relative to null",
+      "selection_complete_before_rct_loaded": true,
+      "nuisance_configuration_ate_range": 0.00016265158166860888,
+      "naive_association": 0.010754500936395642,
+      "candidates": {
+        "random_forest_logistic": {
+          "nuisance_cross_fit_metrics": {
+            "outcome_brier": 0.009086882780294913,
+            "outcome_brier_vs_null": 1.002461069623177,
+            "treatment_roc_auc": 0.8353900310032845,
+            "treatment_brier": 0.16501008066945388,
+            "treatment_brier_vs_null": 0.6608652780508284,
+            "treatment_log_loss": 0.5012334158278047,
+            "selection_loss": 1.6633263476740054
+          },
+          "nuisance_validation_runtime_seconds": 1.479483221999999,
+          "dml_fit_runtime_seconds": 1.8396692920000532,
+          "ate": {
+            "estimate": 0.006568755176145551,
+            "ci_lower": 0.0027266445258984674,
+            "ci_upper": 0.010410865826392633,
+            "absolute_error_vs_rct": 0.00047101955106317907
+          }
+        },
+        "hist_gradient_boosting": {
+          "nuisance_cross_fit_metrics": {
+            "outcome_brier": 0.009052160974364707,
+            "outcome_brier_vs_null": 0.9986305746609748,
+            "treatment_roc_auc": 0.8315836694114874,
+            "treatment_brier": 0.1670730701805549,
+            "treatment_brier_vs_null": 0.6691275498546995,
+            "treatment_log_loss": 0.5053392200184261,
+            "selection_loss": 1.6677581245156743
+          },
+          "nuisance_validation_runtime_seconds": 0.8375078950002717,
+          "dml_fit_runtime_seconds": 0.8510730810003224,
+          "ate": {
+            "estimate": 0.00673140675781416,
+            "ci_lower": 0.002954909123540277,
+            "ci_upper": 0.010507904392088043,
+            "absolute_error_vs_rct": 0.0003083679693945702
+          }
+        }
+      },
+      "naive_absolute_error_vs_rct": 0.0037147262091869115,
+      "selected_dml_absolute_error_vs_rct": 0.00047101955106317907
+    }
+  },
+  "absolute_ate_errors": {
+    "naive": {
+      "randomized": 0.00039126690671771255,
+      "weak": 0.0014960173610565211,
+      "medium": 0.0019816990603130974,
+      "strong": 0.0037147262091869115
+    },
+    "random_forest_logistic": {
+      "randomized": 0.00042337291375179557,
+      "weak": 0.0003529632727761805,
+      "medium": 0.0013722200431065664,
+      "strong": 0.00047101955106317907
+    },
+    "hist_gradient_boosting": {
+      "randomized": 0.0003853921570543626,
+      "weak": 0.0005931858738608244,
+      "medium": 0.001637620202035812,
+      "strong": 0.0003083679693945702
+    }
+  },
+  "figure": "experiments/figures/dml_ate_error.svg"
+}

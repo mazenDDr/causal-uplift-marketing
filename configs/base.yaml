@@ -40,6 +40,15 @@ matching:
     - with_replacement
     - without_replacement
 
+dml:
+  cross_fit_folds: 5
+  nuisance_candidates:
+    - random_forest_logistic
+    - hist_gradient_boosting
+  random_forest_trees: 200
+  min_samples_leaf: 100
+  max_iter: 200
+
 evaluation:
   bootstrap_samples: 2000
   policy_budgets: [0.05, 0.10, 0.20, 0.30, 0.40, 0.50, 0.75, 1.00]
