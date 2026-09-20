@@ -89,3 +89,47 @@ def plot_love_by_strength(smds: dict[str, dict[str, float]], output: Path) -> No
     figure.tight_layout()
     _save_figure(figure, output)
     plt.close(figure)
+
+
+def plot_matching_balance(
+    before: dict[str, dict[str, float]],
+    after: dict[str, dict[str, float]],
+    output: Path,
+) -> None:
+    """Compare absolute SMDs before and after preferred matching by stress level."""
+    figure, axes = plt.subplots(2, 2, figsize=(13, 12), sharex=True)
+    for axis, name in zip(axes.flat, before, strict=True):
+        features = list(before[name])
+        positions = np.arange(len(features))
+        before_values = [abs(before[name][feature]) for feature in features]
+        after_values = [abs(after[name][feature]) for feature in features]
+        for position, start, end in zip(positions, before_values, after_values, strict=True):
+            axis.plot([start, end], [position, position], color="#bdbdbd", linewidth=1.2)
+        axis.scatter(
+            before_values,
+            positions,
+            color="#d95f0e",
+            label="Before",
+            s=38,
+            zorder=3,
+        )
+        axis.scatter(
+            after_values,
+            positions,
+            color="#2c7fb8",
+            label="After",
+            s=38,
+            zorder=3,
+        )
+        axis.axvline(0.10, color="#8c2d04", linestyle="--", linewidth=1.2)
+        axis.set_yticks(positions, labels=features)
+        axis.invert_yaxis()
+        axis.set_title(name.capitalize())
+        axis.grid(axis="x", alpha=0.2)
+    axes[-1, 0].set_xlabel("Absolute standardized mean difference")
+    axes[-1, 1].set_xlabel("Absolute standardized mean difference")
+    axes[0, 0].legend(frameon=False)
+    figure.suptitle("Balance before and after the preferred propensity-score match")
+    figure.tight_layout()
+    _save_figure(figure, output)
+    plt.close(figure)

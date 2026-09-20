@@ -1,0 +1,469 @@
+{
+  "seed": 42,
+  "method": "1:1 nearest-neighbor matching on logit propensity",
+  "propensity_model": "LogisticRegression",
+  "selection_uses_outcomes_or_rct": false,
+  "settings": {
+    "overlap_min": 0.05,
+    "overlap_max": 0.95,
+    "caliper_sd": 0.2,
+    "bootstrap_samples": 2000,
+    "variants": [
+      "with_replacement",
+      "without_replacement"
+    ]
+  },
+  "rct_ate_reference": {
+    "conversion": 0.00703977472720873,
+    "visit": 0.07262700926903673,
+    "spend": 0.9201642614103016
+  },
+  "rct_reference_note": "PSM estimates ATT in the selected observational population; the overall RCT ATE gap is reported as a reference, not labeled estimator error.",
+  "samples": {
+    "randomized": {
+      "rows": 25567,
+      "balance_before": {
+        "max_absolute_smd": 0.017709299555429627,
+        "covariates_above_0_10_absolute_smd": 0
+      },
+      "preferred_variant": "with_replacement",
+      "selection_rule": "pass max |SMD| < 0.10, then retain most treated; otherwise lowest max |SMD|",
+      "variants": {
+        "with_replacement": {
+          "replacement": true,
+          "matched_treated": 12781,
+          "eligible_treated": 12784,
+          "eligible_controls": 12783,
+          "unmatched_eligible_treated": 3,
+          "discarded_rows_outside_overlap": 0,
+          "unique_matched_controls": 6495,
+          "reused_control_matches": 6286,
+          "caliper_logit_distance": 0.008915450175842757,
+          "maximum_matched_logit_distance": 0.007245595560640472,
+          "balance": {
+            "max_absolute_smd": 0.018391531343681784,
+            "covariates_above_0_10_absolute_smd": 0
+          },
+          "standardized_mean_differences": {
+            "history": 0.01000148608474402,
+            "recency": -0.0027343623763319514,
+            "mens": -0.004560677436414904,
+            "womens": 0.0018880736505822687,
+            "newbie": 0.011266472011355257,
+            "channel=Multichannel": -0.0016882889856542863,
+            "channel=Phone": -0.007722924160489139,
+            "channel=Web": 0.00882580054445039,
+            "zip_code=Rural": -0.006255936287832326,
+            "zip_code=Surburban": -0.01353239680545217,
+            "zip_code=Urban": 0.018391531343681784
+          },
+          "att": {
+            "conversion": {
+              "estimate": 0.008606525311008528,
+              "ci_lower": 0.006572255692042876,
+              "ci_upper": 0.010875518347547141,
+              "gap_vs_overall_rct_ate": 0.001566750583799798
+            },
+            "visit": {
+              "estimate": 0.08176199045458102,
+              "ci_lower": 0.07323370628276347,
+              "ci_upper": 0.09044675690478053,
+              "gap_vs_overall_rct_ate": 0.009134981185544289
+            },
+            "spend": {
+              "estimate": 0.9337328847508019,
+              "ci_lower": 0.6050772435646663,
+              "ci_upper": 1.2709165167044834,
+              "gap_vs_overall_rct_ate": 0.013568623340500241
+            }
+          },
+          "runtime_seconds": 0.5901527869998517
+        },
+        "without_replacement": {
+          "replacement": false,
+          "matched_treated": 12547,
+          "eligible_treated": 12784,
+          "eligible_controls": 12783,
+          "unmatched_eligible_treated": 237,
+          "discarded_rows_outside_overlap": 0,
+          "unique_matched_controls": 12547,
+          "reused_control_matches": 0,
+          "caliper_logit_distance": 0.008915450175842757,
+          "maximum_matched_logit_distance": 0.008882734696134525,
+          "balance": {
+            "max_absolute_smd": 0.003578492292394657,
+            "covariates_above_0_10_absolute_smd": 0
+          },
+          "standardized_mean_differences": {
+            "history": 0.0009550371891599592,
+            "recency": 0.0007956590638207454,
+            "mens": -0.0019234552008975715,
+            "womens": 0.0019218541573986024,
+            "newbie": -0.0011157943181496215,
+            "channel=Multichannel": 0.0017207832290949145,
+            "channel=Phone": 0.0012854788761223514,
+            "channel=Web": -0.002406114217125816,
+            "zip_code=Rural": -0.0013290959976237698,
+            "zip_code=Surburban": -0.0025648266590334715,
+            "zip_code=Urban": 0.003578492292394657
+          },
+          "att": {
+            "conversion": {
+              "estimate": 0.006774527775563879,
+              "ci_lower": 0.004461225791025743,
+              "ci_upper": 0.009085837251932733,
+              "gap_vs_overall_rct_ate": -0.00026524695164485083
+            },
+            "visit": {
+              "estimate": 0.07946122579102574,
+              "ci_lower": 0.07109269148003507,
+              "ci_upper": 0.08783175261018569,
+              "gap_vs_overall_rct_ate": 0.006834216521989012
+            },
+            "spend": {
+              "estimate": 0.6817980393719615,
+              "ci_lower": 0.30929383517972425,
+              "ci_upper": 1.0505065354267953,
+              "gap_vs_overall_rct_ate": -0.23836622203834013
+            }
+          },
+          "runtime_seconds": 0.5933070169999155
+        }
+      }
+    },
+    "weak": {
+      "rows": 12760,
+      "balance_before": {
+        "max_absolute_smd": 0.3245851878842858,
+        "covariates_above_0_10_absolute_smd": 4
+      },
+      "preferred_variant": "with_replacement",
+      "selection_rule": "pass max |SMD| < 0.10, then retain most treated; otherwise lowest max |SMD|",
+      "variants": {
+        "with_replacement": {
+          "replacement": true,
+          "matched_treated": 6407,
+          "eligible_treated": 6411,
+          "eligible_controls": 6347,
+          "unmatched_eligible_treated": 4,
+          "discarded_rows_outside_overlap": 2,
+          "unique_matched_controls": 3154,
+          "reused_control_matches": 3253,
+          "caliper_logit_distance": 0.09512503432564605,
+          "maximum_matched_logit_distance": 0.08676797852380291,
+          "balance": {
+            "max_absolute_smd": 0.035455051568387935,
+            "covariates_above_0_10_absolute_smd": 0
+          },
+          "standardized_mean_differences": {
+            "history": 0.035455051568387935,
+            "recency": 0.014334688800015007,
+            "mens": -0.019512626068709713,
+            "womens": -0.008751107697408576,
+            "newbie": 0.007491492810393649,
+            "channel=Multichannel": -0.014699363644056433,
+            "channel=Phone": -0.003465580480787358,
+            "channel=Web": 0.014259685924557071,
+            "zip_code=Rural": -0.030668144014108507,
+            "zip_code=Surburban": 0.026389181555262722,
+            "zip_code=Urban": -0.003828637094318968
+          },
+          "att": {
+            "conversion": {
+              "estimate": 0.007023567972530045,
+              "ci_lower": 0.003901982206961136,
+              "ci_upper": 0.0103012330263774,
+              "gap_vs_overall_rct_ate": -1.6206754678685376e-05
+            },
+            "visit": {
+              "estimate": 0.07569845481504604,
+              "ci_lower": 0.06289605119400656,
+              "ci_upper": 0.08756438270641484,
+              "gap_vs_overall_rct_ate": 0.003071445546009313
+            },
+            "spend": {
+              "estimate": 0.6391696581863586,
+              "ci_lower": 0.18278363508662399,
+              "ci_upper": 1.1171158498517246,
+              "gap_vs_overall_rct_ate": -0.280994603223943
+            }
+          },
+          "runtime_seconds": 0.3159673540001222
+        },
+        "without_replacement": {
+          "replacement": false,
+          "matched_treated": 5270,
+          "eligible_treated": 6411,
+          "eligible_controls": 6347,
+          "unmatched_eligible_treated": 1141,
+          "discarded_rows_outside_overlap": 2,
+          "unique_matched_controls": 5270,
+          "reused_control_matches": 0,
+          "caliper_logit_distance": 0.09512503432564605,
+          "maximum_matched_logit_distance": 0.09454463355512549,
+          "balance": {
+            "max_absolute_smd": 0.01670792505225067,
+            "covariates_above_0_10_absolute_smd": 0
+          },
+          "standardized_mean_differences": {
+            "history": 0.01670792505225067,
+            "recency": -0.0013231086836851332,
+            "mens": -0.008786775570351988,
+            "womens": 0.00684235963170857,
+            "newbie": 0.002277014837574892,
+            "channel=Multichannel": 0.010921084675399761,
+            "channel=Phone": -0.005724845077617271,
+            "channel=Web": -0.0011457379477535384,
+            "zip_code=Rural": -0.012152398480097384,
+            "zip_code=Surburban": 0.010297459592645044,
+            "zip_code=Urban": -0.0015505460260649153
+          },
+          "att": {
+            "conversion": {
+              "estimate": 0.0058823529411764705,
+              "ci_lower": 0.0026565464895635673,
+              "ci_upper": 0.009297912713472486,
+              "gap_vs_overall_rct_ate": -0.0011574217860322597
+            },
+            "visit": {
+              "estimate": 0.08159392789373814,
+              "ci_lower": 0.06811669829222011,
+              "ci_upper": 0.0952561669829222,
+              "gap_vs_overall_rct_ate": 0.008966918624701406
+            },
+            "spend": {
+              "estimate": 0.40093168880455404,
+              "ci_lower": -0.04826242884250475,
+              "ci_upper": 0.8598597722960153,
+              "gap_vs_overall_rct_ate": -0.5192325726057476
+            }
+          },
+          "runtime_seconds": 0.3267226820000815
+        }
+      }
+    },
+    "medium": {
+      "rows": 12781,
+      "balance_before": {
+        "max_absolute_smd": 0.5843357663837678,
+        "covariates_above_0_10_absolute_smd": 7
+      },
+      "preferred_variant": "with_replacement",
+      "selection_rule": "pass max |SMD| < 0.10, then retain most treated; otherwise lowest max |SMD|",
+      "variants": {
+        "with_replacement": {
+          "replacement": true,
+          "matched_treated": 6262,
+          "eligible_treated": 6262,
+          "eligible_controls": 6420,
+          "unmatched_eligible_treated": 0,
+          "discarded_rows_outside_overlap": 99,
+          "unique_matched_controls": 2815,
+          "reused_control_matches": 3447,
+          "caliper_logit_distance": 0.1727393155227453,
+          "maximum_matched_logit_distance": 0.16420801421911868,
+          "balance": {
+            "max_absolute_smd": 0.025680476325510855,
+            "covariates_above_0_10_absolute_smd": 0
+          },
+          "standardized_mean_differences": {
+            "history": 0.014313540800861738,
+            "recency": 0.018533526956038143,
+            "mens": -0.0006635221335644205,
+            "womens": -0.005429454181973012,
+            "newbie": 0.0025550341993081397,
+            "channel=Multichannel": 0.0055555997403779,
+            "channel=Phone": 0.019798370923747387,
+            "channel=Web": -0.02393297280949055,
+            "zip_code=Rural": 0.00791424653759134,
+            "zip_code=Surburban": -0.025680476325510855,
+            "zip_code=Urban": 0.020263742841386684
+          },
+          "att": {
+            "conversion": {
+              "estimate": 0.006547428936442032,
+              "ci_lower": 0.0028744809964867456,
+              "ci_upper": 0.010220376876397317,
+              "gap_vs_overall_rct_ate": -0.0004923457907666986
+            },
+            "visit": {
+              "estimate": 0.07457681251996168,
+              "ci_lower": 0.06148195464707761,
+              "ci_upper": 0.0868732034493772,
+              "gap_vs_overall_rct_ate": 0.0019498032509249474
+            },
+            "spend": {
+              "estimate": 0.8495768125199618,
+              "ci_lower": 0.34219622325135735,
+              "ci_upper": 1.385723650590865,
+              "gap_vs_overall_rct_ate": -0.07058744889033985
+            }
+          },
+          "runtime_seconds": 0.3754257979999238
+        },
+        "without_replacement": {
+          "replacement": false,
+          "matched_treated": 4383,
+          "eligible_treated": 6262,
+          "eligible_controls": 6420,
+          "unmatched_eligible_treated": 1879,
+          "discarded_rows_outside_overlap": 99,
+          "unique_matched_controls": 4383,
+          "reused_control_matches": 0,
+          "caliper_logit_distance": 0.1727393155227453,
+          "maximum_matched_logit_distance": 0.17263764953201255,
+          "balance": {
+            "max_absolute_smd": 0.017450957862455672,
+            "covariates_above_0_10_absolute_smd": 0
+          },
+          "standardized_mean_differences": {
+            "history": 0.010421754216944655,
+            "recency": 0.009867281731039793,
+            "mens": 0.017450957862455672,
+            "womens": -0.016437155987853773,
+            "newbie": -0.0027448204731720604,
+            "channel=Multichannel": 0.006447493839505392,
+            "channel=Phone": 0.007793315396254768,
+            "channel=Web": -0.01144189179731066,
+            "zip_code=Rural": -0.0018931884316713712,
+            "zip_code=Surburban": -0.002754315926977854,
+            "zip_code=Urban": 0.004190078262235173
+          },
+          "att": {
+            "conversion": {
+              "estimate": 0.0031941592516541184,
+              "ci_lower": -0.0004563084645220169,
+              "ci_upper": 0.006844626967830253,
+              "gap_vs_overall_rct_ate": -0.003845615475554612
+            },
+            "visit": {
+              "estimate": 0.08031028975587497,
+              "ci_lower": 0.06662103582021446,
+              "ci_upper": 0.09491216062057951,
+              "gap_vs_overall_rct_ate": 0.007683280486838237
+            },
+            "spend": {
+              "estimate": 0.3032283823864933,
+              "ci_lower": -0.13867231348391512,
+              "ci_upper": 0.7679608715491667,
+              "gap_vs_overall_rct_ate": -0.6169358790238083
+            }
+          },
+          "runtime_seconds": 0.22761068899990278
+        }
+      }
+    },
+    "strong": {
+      "rows": 12680,
+      "balance_before": {
+        "max_absolute_smd": 0.8366550599749724,
+        "covariates_above_0_10_absolute_smd": 7
+      },
+      "preferred_variant": "with_replacement",
+      "selection_rule": "pass max |SMD| < 0.10, then retain most treated; otherwise lowest max |SMD|",
+      "variants": {
+        "with_replacement": {
+          "replacement": true,
+          "matched_treated": 5466,
+          "eligible_treated": 5466,
+          "eligible_controls": 6307,
+          "unmatched_eligible_treated": 0,
+          "discarded_rows_outside_overlap": 907,
+          "unique_matched_controls": 2108,
+          "reused_control_matches": 3358,
+          "caliper_logit_distance": 0.28088414576600035,
+          "maximum_matched_logit_distance": 0.06952796517065529,
+          "balance": {
+            "max_absolute_smd": 0.062043110864543415,
+            "covariates_above_0_10_absolute_smd": 0
+          },
+          "standardized_mean_differences": {
+            "history": 0.062043110864543415,
+            "recency": 0.026975069900206358,
+            "mens": -0.02284267041740005,
+            "womens": 0.016118250640430012,
+            "newbie": 0.05144713141406615,
+            "channel=Multichannel": 0.04673674085661628,
+            "channel=Phone": -0.005571171858082959,
+            "channel=Web": -0.028032708224375775,
+            "zip_code=Rural": 0.021582551937492644,
+            "zip_code=Surburban": 0.02580963607948976,
+            "zip_code=Urban": -0.04162462011169926
+          },
+          "att": {
+            "conversion": {
+              "estimate": 0.009879253567508232,
+              "ci_lower": 0.006403219904866447,
+              "ci_upper": 0.013355287230150018,
+              "gap_vs_overall_rct_ate": 0.002839478840299502
+            },
+            "visit": {
+              "estimate": 0.08726673984632272,
+              "ci_lower": 0.0739114526161727,
+              "ci_upper": 0.10117087449688987,
+              "gap_vs_overall_rct_ate": 0.014639730577285986
+            },
+            "spend": {
+              "estimate": 1.234985364068789,
+              "ci_lower": 0.7436088547383828,
+              "ci_upper": 1.762890276253201,
+              "gap_vs_overall_rct_ate": 0.3148211026584873
+            }
+          },
+          "runtime_seconds": 0.3117770940000355
+        },
+        "without_replacement": {
+          "replacement": false,
+          "matched_treated": 3088,
+          "eligible_treated": 5466,
+          "eligible_controls": 6307,
+          "unmatched_eligible_treated": 2378,
+          "discarded_rows_outside_overlap": 907,
+          "unique_matched_controls": 3088,
+          "reused_control_matches": 0,
+          "caliper_logit_distance": 0.28088414576600035,
+          "maximum_matched_logit_distance": 0.2804598940243406,
+          "balance": {
+            "max_absolute_smd": 0.022241219306024046,
+            "covariates_above_0_10_absolute_smd": 0
+          },
+          "standardized_mean_differences": {
+            "history": 0.022241219306024046,
+            "recency": -0.0011823988663280743,
+            "mens": 0.01045740671532495,
+            "womens": 0.007123244251167094,
+            "newbie": 0.001306355504735576,
+            "channel=Multichannel": 0.0,
+            "channel=Phone": 0.0052096377982911255,
+            "channel=Web": -0.005184707297921118,
+            "zip_code=Rural": 0.021001633483576518,
+            "zip_code=Surburban": -0.014980687817325209,
+            "zip_code=Urban": 0.0
+          },
+          "att": {
+            "conversion": {
+              "estimate": 0.006152849740932643,
+              "ci_lower": 0.0016191709844559584,
+              "ci_upper": 0.011010362694300517,
+              "gap_vs_overall_rct_ate": -0.0008869249862760876
+            },
+            "visit": {
+              "estimate": 0.07512953367875648,
+              "ci_lower": 0.057966321243523314,
+              "ci_upper": 0.09164507772020726,
+              "gap_vs_overall_rct_ate": 0.00250252440971975
+            },
+            "spend": {
+              "estimate": 0.7676165803108809,
+              "ci_lower": 0.14097012629533676,
+              "ci_upper": 1.4202997085492222,
+              "gap_vs_overall_rct_ate": -0.15254768109942074
+            }
+          },
+          "runtime_seconds": 0.19683545299994876
+        }
+      }
+    }
+  },
+  "figure": "experiments/figures/matching_balance.svg"
+}
