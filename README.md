@@ -7,8 +7,8 @@ Hillstrom email experiment as an untouched benchmark, deliberately turns only th
 into observational data, and measures whether causal estimators recover better targeting decisions
 than ordinary predictive ML.
 
-**Status:** the RCT split, controlled-confounding foundation, and naive targeting baselines are
-verified. Adjusted causal estimators are not yet implemented.
+**Status:** the RCT split, controlled-confounding foundation, naive targeting baselines, propensity
+diagnostics, and propensity-score matching are verified. Double ML is the next estimator.
 
 ## Experimental design
 
@@ -57,6 +57,31 @@ The generated propensity diagnostics are stored in
 [`experiments/results/propensity_diagnostics_summary.json`](experiments/results/propensity_diagnostics_summary.json).
 The figures show the fitted treatment-selection model and balance before matching; they are
 diagnostics, not evidence that adjustment has succeeded.
+
+## Propensity-score matching
+
+The matching experiment compares 1:1 nearest neighbors with and without replacement on the logit
+of the estimated propensity score. It trims scores outside `[0.05, 0.95]`, enforces a
+`0.2 × SD(logit propensity)` caliper, and checks every pre-treatment covariate after matching. The
+preferred variant is chosen without outcomes or RCT results: first pass maximum `|SMD| < 0.10`,
+then retain the most treated customers.
+
+![Covariate balance before and after preferred propensity-score matching](experiments/figures/matching_balance.svg)
+
+| Training sample | Max \|SMD\| before | Max \|SMD\| after | Matched treated | Conversion ATT (95% paired bootstrap CI) |
+|---|---:|---:|---:|---:|
+| Randomized | 0.018 | 0.018 | 12,781 | 0.0086 [0.0066, 0.0109] |
+| Weak | 0.325 | 0.035 | 6,407 | 0.0070 [0.0039, 0.0103] |
+| Medium | 0.584 | 0.026 | 6,262 | 0.0065 [0.0029, 0.0102] |
+| Strong | 0.837 | 0.062 | 5,466 | 0.0099 [0.0064, 0.0134] |
+
+All preferred matches pass the balance gate. Matching without replacement produces still lower
+maximum imbalance, but discards more treated customers—2,378 of 5,466 overlap-eligible treated
+customers under strong confounding. The full comparison, secondary outcomes, caliper checks,
+retention counts, and ATT intervals are generated in
+[`experiments/results/matching_summary.json`](experiments/results/matching_summary.json). PSM
+estimates ATT in the selected observational population, so its gap from the overall RCT ATE is a
+reference rather than a like-for-like estimator error.
 
 | Feature | Timing | Allowed? | Reason |
 |---|---|---:|---|
