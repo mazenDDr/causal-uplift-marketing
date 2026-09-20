@@ -1,0 +1,397 @@
+{
+  "seed": 42,
+  "outcome": "conversion",
+  "training_sample": "medium",
+  "training_rows": 12781,
+  "evaluation_rows": 17046,
+  "rct_used_for_model_or_hyperparameter_selection": false,
+  "propensity_adjustment": false,
+  "propensity_warning": "These uplift trees optimize treatment-effect splits but do not correct observational assignment with an explicit propensity model.",
+  "package": {
+    "causalml": "0.16.0"
+  },
+  "parameters": {
+    "training_sample": "medium",
+    "control_name": "control",
+    "treatment_name": "mens_email",
+    "evaluation_function": "KL",
+    "honesty": true,
+    "estimation_sample_size": 0.5,
+    "tree": {
+      "max_depth": 4,
+      "min_samples_leaf": 250,
+      "min_samples_treatment": 100,
+      "n_reg": 100
+    },
+    "forest": {
+      "n_estimators": 200,
+      "max_depth": 5,
+      "max_features": 8,
+      "min_samples_leaf": 200,
+      "min_samples_treatment": 100,
+      "n_reg": 100,
+      "n_jobs": -1
+    },
+    "cate_bins": 10
+  },
+  "models": {
+    "uplift_tree": {
+      "fit_runtime_seconds": 0.04522827700020571,
+      "leaf_count": 7,
+      "leaves": [
+        {
+          "path": "newbie >= 0.1 and zip_code_Rural >= 0.1",
+          "samples": 459,
+          "group_samples": {
+            "control": 230,
+            "mens_email": 229
+          },
+          "conversion_rates": {
+            "control": 0.008695652173913044,
+            "mens_email": 0.017467248908296942
+          },
+          "estimated_uplift": 0.008771596734383899
+        },
+        {
+          "path": "newbie >= 0.1 and not (zip_code_Rural >= 0.1) and history >= 80.656",
+          "samples": 1935,
+          "group_samples": {
+            "control": 817,
+            "mens_email": 1118
+          },
+          "conversion_rates": {
+            "control": 0.0012239902080783353,
+            "mens_email": 0.01073345259391771
+          },
+          "estimated_uplift": 0.009509462385839374
+        },
+        {
+          "path": "newbie >= 0.1 and not (zip_code_Rural >= 0.1) and not (history >= 80.656)",
+          "samples": 824,
+          "group_samples": {
+            "control": 544,
+            "mens_email": 280
+          },
+          "conversion_rates": {
+            "control": 0.001838235294117647,
+            "mens_email": 0.0035714285714285713
+          },
+          "estimated_uplift": 0.0017331932773109243
+        },
+        {
+          "path": "not (newbie >= 0.1) and history >= 153.21 and recency >= 3.0",
+          "samples": 1133,
+          "group_samples": {
+            "control": 532,
+            "mens_email": 601
+          },
+          "conversion_rates": {
+            "control": 0.007518796992481203,
+            "mens_email": 0.028286189683860232
+          },
+          "estimated_uplift": 0.02076739269137903
+        },
+        {
+          "path": "not (newbie >= 0.1) and history >= 153.21 and not (recency >= 3.0)",
+          "samples": 469,
+          "group_samples": {
+            "control": 143,
+            "mens_email": 326
+          },
+          "conversion_rates": {
+            "control": 0.006993006993006993,
+            "mens_email": 0.009202453987730062
+          },
+          "estimated_uplift": 0.002209446994723069
+        },
+        {
+          "path": "not (newbie >= 0.1) and not (history >= 153.21) and recency >= 4.0",
+          "samples": 1159,
+          "group_samples": {
+            "control": 755,
+            "mens_email": 404
+          },
+          "conversion_rates": {
+            "control": 0.0026490066225165563,
+            "mens_email": 0.009900990099009901
+          },
+          "estimated_uplift": 0.007251983476493345
+        },
+        {
+          "path": "not (newbie >= 0.1) and not (history >= 153.21) and not (recency >= 4.0)",
+          "samples": 412,
+          "group_samples": {
+            "control": 192,
+            "mens_email": 220
+          },
+          "conversion_rates": {
+            "control": 0.020833333333333332,
+            "mens_email": 0.013636363636363636
+          },
+          "estimated_uplift": -0.0071969696969696965
+        }
+      ],
+      "score_summary": {
+        "mean": 0.008402288203569608,
+        "standard_deviation": 0.007367103564519095,
+        "minimum": -0.0071969696969696965,
+        "maximum": 0.02076739269137903,
+        "negative_fraction": 0.0703977472720873,
+        "unique_values": 7
+      },
+      "deciles": [
+        {
+          "group": "1",
+          "rows": 1705,
+          "treated_rows": 847,
+          "control_rows": 858,
+          "predicted_cate_mean": -0.004551965414264879,
+          "observed_rct_uplift": 0.00596373323646051,
+          "observed_ci_lower": -0.0022401840583658765,
+          "observed_ci_upper": 0.01419792328883238
+        },
+        {
+          "group": "2",
+          "rows": 1705,
+          "treated_rows": 857,
+          "control_rows": 848,
+          "predicted_cate_mean": 0.001733193277310925,
+          "observed_rct_uplift": 0.0139899495827921,
+          "observed_ci_lower": 0.005809537438629709,
+          "observed_ci_upper": 0.022170361726954493
+        },
+        {
+          "group": "3",
+          "rows": 1705,
+          "treated_rows": 881,
+          "control_rows": 824,
+          "predicted_cate_mean": 0.0036163618566329944,
+          "observed_rct_uplift": 0.011543590139184289,
+          "observed_ci_lower": -0.0015703690642804406,
+          "observed_ci_upper": 0.025321512403160572
+        },
+        {
+          "group": "4",
+          "rows": 1705,
+          "treated_rows": 848,
+          "control_rows": 857,
+          "predicted_cate_mean": 0.007251983476493347,
+          "observed_rct_uplift": 8.668897646463107e-05,
+          "observed_ci_lower": -0.008194413101869177,
+          "observed_ci_upper": 0.008329021818101759
+        },
+        {
+          "group": "5",
+          "rows": 1705,
+          "treated_rows": 836,
+          "control_rows": 869,
+          "predicted_cate_mean": 0.00798282387031754,
+          "observed_rct_uplift": 0.003861062322088306,
+          "observed_ci_lower": -0.004375870631700078,
+          "observed_ci_upper": 0.012234268063715099
+        },
+        {
+          "group": "6",
+          "rows": 1705,
+          "treated_rows": 854,
+          "control_rows": 851,
+          "predicted_cate_mean": 0.009347607984874945,
+          "observed_rct_uplift": 0.003492240840779686,
+          "observed_ci_lower": -0.004720992247720687,
+          "observed_ci_upper": 0.011701345985023818
+        },
+        {
+          "group": "7",
+          "rows": 1704,
+          "treated_rows": 840,
+          "control_rows": 864,
+          "predicted_cate_mean": 0.009509462385839372,
+          "observed_rct_uplift": 0.00958994708994709,
+          "observed_ci_lower": 0.0024470899470899476,
+          "observed_ci_upper": 0.017923280423280424
+        },
+        {
+          "group": "8",
+          "rows": 1704,
+          "treated_rows": 872,
+          "control_rows": 832,
+          "predicted_cate_mean": 0.009509462385839372,
+          "observed_rct_uplift": 0.003274964714184898,
+          "observed_ci_lower": -0.003605769230769231,
+          "observed_ci_upper": 0.010321100917431193
+        },
+        {
+          "group": "9",
+          "rows": 1704,
+          "treated_rows": 835,
+          "control_rows": 869,
+          "predicted_cate_mean": 0.01887125067395539,
+          "observed_rct_uplift": 0.008617517554074819,
+          "observed_ci_lower": -0.0008227503565940621,
+          "observed_ci_upper": 0.018151499073199975
+        },
+        {
+          "group": "10",
+          "rows": 1704,
+          "treated_rows": 853,
+          "control_rows": 851,
+          "predicted_cate_mean": 0.02076739269137903,
+          "observed_rct_uplift": 0.009359377217066192,
+          "observed_ci_lower": -0.001205395211205905,
+          "observed_ci_upper": 0.021090972209785605
+        }
+      ],
+      "decile_spearman": {
+        "correlation": -0.11550205329921227,
+        "p_value": 0.750683041040583,
+        "note": "descriptive only; randomized outcomes were not used for model selection"
+      },
+      "top_minus_bottom_decile": {
+        "uplift_difference": 0.003395643980605682,
+        "ci_lower": -0.009972607784146154,
+        "ci_upper": 0.017619494308495978,
+        "incremental_conversions_per_1000_difference": 3.395643980605682
+      },
+      "ranking_warning": "The tree produces one score per leaf. Exact deciles therefore split tied leaf scores; interpret its leaf estimates and randomized intervals alongside the decile chart."
+    },
+    "uplift_random_forest": {
+      "fit_runtime_seconds": 23.820442964000904,
+      "score_summary": {
+        "mean": 0.008324810280956843,
+        "standard_deviation": 0.0036436582577894657,
+        "minimum": -0.002183914208620741,
+        "maximum": 0.01737970081411217,
+        "negative_fraction": 0.005925143728734014,
+        "unique_values": 10686
+      },
+      "deciles": [
+        {
+          "group": "1",
+          "rows": 1705,
+          "treated_rows": 842,
+          "control_rows": 863,
+          "predicted_cate_mean": 0.0016826426498161042,
+          "observed_rct_uplift": 0.008429138810369836,
+          "observed_ci_lower": 0.0001444995224634824,
+          "observed_ci_upper": 0.016854011444362046
+        },
+        {
+          "group": "2",
+          "rows": 1705,
+          "treated_rows": 817,
+          "control_rows": 888,
+          "predicted_cate_mean": 0.004358220739602143,
+          "observed_rct_uplift": 0.0076375334943266406,
+          "observed_ci_lower": -0.0004435241545094671,
+          "observed_ci_upper": 0.016107600868922777
+        },
+        {
+          "group": "3",
+          "rows": 1705,
+          "treated_rows": 860,
+          "control_rows": 845,
+          "predicted_cate_mean": 0.005824696169757175,
+          "observed_rct_uplift": 0.00807761111875602,
+          "observed_ci_lower": -6.192376496490975e-05,
+          "observed_ci_upper": 0.016258428512453557
+        },
+        {
+          "group": "4",
+          "rows": 1705,
+          "treated_rows": 866,
+          "control_rows": 839,
+          "predicted_cate_mean": 0.006876374105142567,
+          "observed_rct_uplift": 0.003241239020388838,
+          "observed_ci_lower": -0.006070957672583935,
+          "observed_ci_upper": 0.011510183408709917
+        },
+        {
+          "group": "5",
+          "rows": 1705,
+          "treated_rows": 840,
+          "control_rows": 865,
+          "predicted_cate_mean": 0.007996858225537883,
+          "observed_rct_uplift": 0.007314891274428847,
+          "observed_ci_lower": -0.0021056977704376556,
+          "observed_ci_upper": 0.01673548031929535
+        },
+        {
+          "group": "6",
+          "rows": 1705,
+          "treated_rows": 872,
+          "control_rows": 833,
+          "predicted_cate_mean": 0.009037391632645256,
+          "observed_rct_uplift": 0.0052507241428681566,
+          "observed_ci_lower": -0.005447557463352311,
+          "observed_ci_upper": 0.016666265129905166
+        },
+        {
+          "group": "7",
+          "rows": 1704,
+          "treated_rows": 838,
+          "control_rows": 866,
+          "predicted_cate_mean": 0.010004060492597125,
+          "observed_rct_uplift": 0.008468970991087324,
+          "observed_ci_lower": 0.00023149806809350318,
+          "observed_ci_upper": 0.016783609936778982
+        },
+        {
+          "group": "8",
+          "rows": 1704,
+          "treated_rows": 857,
+          "control_rows": 847,
+          "predicted_cate_mean": 0.010936592654268048,
+          "observed_rct_uplift": 0.0010842027390239968,
+          "observed_ci_lower": -0.007138930868643397,
+          "observed_ci_upper": 0.009321112747441379
+        },
+        {
+          "group": "9",
+          "rows": 1704,
+          "treated_rows": 834,
+          "control_rows": 870,
+          "predicted_cate_mean": 0.012172188874485944,
+          "observed_rct_uplift": 0.01458695112875217,
+          "observed_ci_lower": 0.004945009509633672,
+          "observed_ci_upper": 0.02532994294219796
+        },
+        {
+          "group": "10",
+          "rows": 1704,
+          "treated_rows": 897,
+          "control_rows": 807,
+          "predicted_cate_mean": 0.014367394565107758,
+          "observed_rct_uplift": 0.005569991669878529,
+          "observed_ci_lower": -0.0052125424276709235,
+          "observed_ci_upper": 0.016349417513147918
+        }
+      ],
+      "decile_spearman": {
+        "correlation": -0.11515151515151514,
+        "p_value": 0.7514196523258485,
+        "note": "descriptive only; randomized outcomes were not used for model selection"
+      },
+      "top_minus_bottom_decile": {
+        "uplift_difference": -0.002859147140491307,
+        "ci_lower": -0.017226466109133098,
+        "ci_upper": 0.010541510821375472,
+        "incremental_conversions_per_1000_difference": -2.859147140491307
+      }
+    }
+  },
+  "forest_minus_tree_top_decile": {
+    "uplift_difference": -0.0037893855471876625,
+    "ci_lower": -0.019025253663886087,
+    "ci_upper": 0.010466506530104608,
+    "incremental_conversions_per_1000_difference": -3.7893855471876625
+  },
+  "model_agreement": {
+    "top_decile_overlap_rows": 277,
+    "top_decile_jaccard": 0.08847013733631427,
+    "score_spearman": 0.41813452903665604
+  },
+  "figures": {
+    "tree": "experiments/figures/uplift_tree.svg",
+    "randomized_validation": "experiments/figures/uplift_model_validation.svg"
+  }
+}

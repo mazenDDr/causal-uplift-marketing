@@ -240,3 +240,150 @@ def plot_causal_forest_validation(
     figure.tight_layout()
     _save_figure(figure, output)
     plt.close(figure)
+
+
+def plot_uplift_model_validation(
+    model_deciles: dict[str, list[dict[str, object]]],
+    output: Path,
+) -> None:
+    """Compare uplift-tree and uplift-forest ranking on randomized deciles."""
+    figure, axes = plt.subplots(1, 2, figsize=(15, 6), sharey=True)
+    for axis, (name, deciles) in zip(axes, model_deciles.items(), strict=True):
+        positions = np.arange(1, len(deciles) + 1)
+        predicted = np.array([row["predicted_cate_mean"] for row in deciles], dtype=float)
+        observed = np.array([row["observed_rct_uplift"] for row in deciles], dtype=float)
+        lower = np.array([row["observed_ci_lower"] for row in deciles], dtype=float)
+        upper = np.array([row["observed_ci_upper"] for row in deciles], dtype=float)
+        axis.plot(
+            positions,
+            predicted,
+            marker="o",
+            linewidth=2,
+            color="#d95f0e",
+            label="Predicted uplift",
+        )
+        axis.errorbar(
+            positions,
+            observed,
+            yerr=np.vstack([observed - lower, upper - observed]),
+            marker="s",
+            linewidth=1.5,
+            capsize=3,
+            color="#2c7fb8",
+            label="Observed RCT uplift (95% CI)",
+        )
+        axis.axhline(0, color="#555555", linewidth=1)
+        axis.set_xticks(positions)
+        axis.set_xlabel("Predicted uplift decile (low to high)")
+        axis.set_title(name.replace("_", " ").title())
+        axis.grid(axis="y", alpha=0.2)
+    axes[0].set_ylabel("Conversion effect")
+    axes[0].legend(frameon=False)
+    figure.suptitle("Uplift models checked against the untouched randomized holdout")
+    figure.tight_layout()
+    _save_figure(figure, output)
+    plt.close(figure)
+
+
+def plot_uplift_tree_structure(
+    root: object,
+    feature_names: tuple[str, ...],
+    output: Path,
+    *,
+    control_name: str,
+    treatment_name: str,
+) -> None:
+    """Render an uplift tree without requiring a system Graphviz installation."""
+    nodes: list[dict[str, object]] = []
+    edges: list[tuple[int, int, str]] = []
+    leaf_position = 0
+
+    def visit(node: object, depth: int) -> tuple[int, float]:
+        nonlocal leaf_position
+        index = len(nodes)
+        nodes.append({})
+        if node.results is not None:
+            x_position = float(leaf_position)
+            leaf_position += 1
+            rates = {
+                str(group): float(rate)
+                for group, rate in zip(node.classes_, node.results, strict=True)
+            }
+            uplift = rates[treatment_name] - rates[control_name]
+            label = (
+                f"T: {rates[treatment_name]:.3f}\n"
+                f"C: {rates[control_name]:.3f}\n"
+                f"uplift: {uplift:+.3f}\n"
+                f"n: {int(node.summary['samples']):,}"
+            )
+            nodes[index] = {
+                "x": x_position,
+                "y": -depth,
+                "label": label,
+                "leaf": True,
+                "uplift": uplift,
+            }
+            return index, x_position
+
+        true_index, true_x = visit(node.trueBranch, depth + 1)
+        false_index, false_x = visit(node.falseBranch, depth + 1)
+        x_position = (true_x + false_x) / 2
+        feature = feature_names[int(node.col)]
+        operator = ">=" if isinstance(node.value, (int, float)) else "=="
+        label = f"{feature} {operator} {node.value}\nn: {int(node.summary['samples']):,}"
+        nodes[index] = {
+            "x": x_position,
+            "y": -depth,
+            "label": label,
+            "leaf": False,
+            "uplift": 0.0,
+        }
+        edges.extend([(index, true_index, "yes"), (index, false_index, "no")])
+        return index, x_position
+
+    visit(root, 0)
+    max_depth = int(max(-float(node["y"]) for node in nodes))
+    figure_width = max(14.0, leaf_position * 2.0)
+    figure, axis = plt.subplots(figsize=(figure_width, max(7.0, (max_depth + 1) * 2.0)))
+    for parent, child, label in edges:
+        parent_node = nodes[parent]
+        child_node = nodes[child]
+        axis.plot(
+            [parent_node["x"], child_node["x"]],
+            [parent_node["y"], child_node["y"]],
+            color="#969696",
+            linewidth=1.2,
+            zorder=1,
+        )
+        axis.text(
+            (float(parent_node["x"]) + float(child_node["x"])) / 2,
+            (float(parent_node["y"]) + float(child_node["y"])) / 2,
+            label,
+            fontsize=7,
+            color="#555555",
+        )
+    leaf_uplifts = [float(node["uplift"]) for node in nodes if node["leaf"]]
+    scale = max(max(abs(value) for value in leaf_uplifts), 1e-6)
+    for node in nodes:
+        if node["leaf"]:
+            normalized = (float(node["uplift"]) / scale + 1) / 2
+            color = plt.colormaps["RdYlBu"](normalized)
+        else:
+            color = "#f0f0f0"
+        axis.text(
+            node["x"],
+            node["y"],
+            node["label"],
+            ha="center",
+            va="center",
+            fontsize=7.5,
+            bbox={"boxstyle": "round,pad=0.35", "facecolor": color, "edgecolor": "#555555"},
+            zorder=2,
+        )
+    axis.set_xlim(-1, max(leaf_position, 1))
+    axis.set_ylim(-max_depth - 0.7, 0.7)
+    axis.axis("off")
+    axis.set_title("Honest uplift tree trained on observational marketing data")
+    figure.tight_layout()
+    _save_figure(figure, output)
+    plt.close(figure)
