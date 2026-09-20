@@ -10,6 +10,7 @@ htmlcov/
 # Data and generated artifacts live on gpu-box or are pulled deliberately.
 /data/
 /outputs/
+/experiments/figures/*.png
 
 # Private working notes used by the measured-build workflow.
 AGENTS.md

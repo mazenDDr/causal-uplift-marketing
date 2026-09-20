@@ -1,0 +1,206 @@
+{
+  "seed": 42,
+  "model": "LogisticRegression",
+  "features": [
+    "recency",
+    "history",
+    "history_segment",
+    "mens",
+    "womens",
+    "zip_code",
+    "newbie",
+    "channel"
+  ],
+  "overlap_thresholds": {
+    "minimum": 0.05,
+    "maximum": 0.95
+  },
+  "samples": {
+    "randomized": {
+      "roc_auc": 0.5114831197899823,
+      "brier_score": 0.24987618060696254,
+      "log_loss": 0.6928994716600905,
+      "minimum": 0.4695758300195552,
+      "maximum": 0.5711295784773529,
+      "outside_overlap_threshold_fraction": 0.0,
+      "common_support_lower": 0.46975189959084,
+      "common_support_upper": 0.5652700967220412,
+      "outside_empirical_common_support_fraction": 0.0001955645949857238,
+      "treated_quantiles": {
+        "0.01": 0.4742713292305595,
+        "0.05": 0.48213837252450303,
+        "0.5": 0.5002687764289344,
+        "0.95": 0.5161763166652847,
+        "0.99": 0.5399432597528326
+      },
+      "control_quantiles": {
+        "0.01": 0.4742568239428695,
+        "0.05": 0.48163366797797996,
+        "0.5": 0.4999924698887721,
+        "0.95": 0.5153158211990494,
+        "0.99": 0.5371092952404865
+      },
+      "correlation_with_desired_propensity": null,
+      "rmse_vs_desired_propensity": null,
+      "rows": 25567,
+      "treated_share": 0.5000195564594986,
+      "fit_runtime_seconds": 0.023727800999949977,
+      "max_absolute_smd": 0.017709299555429627,
+      "covariates_above_0_10_absolute_smd": 0
+    },
+    "weak": {
+      "roc_auc": 0.6255554001491427,
+      "brier_score": 0.23756277073510876,
+      "log_loss": 0.6675911255467305,
+      "minimum": 0.2753734783990295,
+      "maximum": 0.969726925398948,
+      "outside_overlap_threshold_fraction": 0.00015673981191222572,
+      "common_support_lower": 0.2766686406188893,
+      "common_support_upper": 0.9186353529297125,
+      "outside_empirical_common_support_fraction": 0.00054858934169279,
+      "treated_quantiles": {
+        "0.01": 0.31429884453466805,
+        "0.05": 0.3540267267247907,
+        "0.5": 0.5179783787906728,
+        "0.95": 0.7261755694051444,
+        "0.99": 0.8436739886211806
+      },
+      "control_quantiles": {
+        "0.01": 0.30199825933794266,
+        "0.05": 0.3269666827172353,
+        "0.5": 0.466531567898639,
+        "0.95": 0.6610382088348162,
+        "0.99": 0.7380680136017425
+      },
+      "correlation_with_desired_propensity": 0.9875810888834029,
+      "rmse_vs_desired_propensity": 0.018230188195899895,
+      "rows": 12760,
+      "treated_share": 0.5025862068965518,
+      "fit_runtime_seconds": 0.013939810000010766,
+      "max_absolute_smd": 0.3245851878842858,
+      "covariates_above_0_10_absolute_smd": 4
+    },
+    "medium": {
+      "roc_auc": 0.717274861688709,
+      "brier_score": 0.21370107123023685,
+      "log_loss": 0.6157473928040763,
+      "minimum": 0.1531737460784809,
+      "maximum": 0.998863926672789,
+      "outside_overlap_threshold_fraction": 0.007745872779907676,
+      "common_support_lower": 0.1531737460784809,
+      "common_support_upper": 0.989627214665243,
+      "outside_empirical_common_support_fraction": 0.0006259291135278929,
+      "treated_quantiles": {
+        "0.01": 0.20137478028670133,
+        "0.05": 0.2627375741620494,
+        "0.5": 0.5606877702762683,
+        "0.95": 0.8951561292956325,
+        "0.99": 0.9575629484901134
+      },
+      "control_quantiles": {
+        "0.01": 0.17299509143744252,
+        "0.05": 0.2063761083930358,
+        "0.5": 0.4037581809444799,
+        "0.95": 0.7249536767629139,
+        "0.99": 0.8542793740072835
+      },
+      "correlation_with_desired_propensity": 0.9964129081579637,
+      "rmse_vs_desired_propensity": 0.017702416292724198,
+      "rows": 12781,
+      "treated_share": 0.49722243955872,
+      "fit_runtime_seconds": 0.013952678000009655,
+      "max_absolute_smd": 0.5843357663837678,
+      "covariates_above_0_10_absolute_smd": 7
+    },
+    "strong": {
+      "roc_auc": 0.8367464496078059,
+      "brier_score": 0.16431987916650034,
+      "log_loss": 0.4993926618660403,
+      "minimum": 0.02934533532368812,
+      "maximum": 0.9999832489842119,
+      "outside_overlap_threshold_fraction": 0.07152996845425867,
+      "common_support_lower": 0.03114617508676673,
+      "common_support_upper": 0.9999761118653572,
+      "outside_empirical_common_support_fraction": 0.0013406940063091482,
+      "treated_quantiles": {
+        "0.01": 0.09429240635365874,
+        "0.05": 0.19569161865455537,
+        "0.5": 0.7076333300767801,
+        "0.95": 0.9724212585528753,
+        "0.99": 0.9918372268026358
+      },
+      "control_quantiles": {
+        "0.01": 0.03802169404724582,
+        "0.05": 0.058133027243050604,
+        "0.5": 0.262659438437823,
+        "0.95": 0.7615427172429425,
+        "0.99": 0.9196864994856764
+      },
+      "correlation_with_desired_propensity": 0.9974197818980011,
+      "rmse_vs_desired_propensity": 0.021759268464377653,
+      "rows": 12680,
+      "treated_share": 0.48233438485804414,
+      "fit_runtime_seconds": 0.01548364899997523,
+      "max_absolute_smd": 0.8366550599749724,
+      "covariates_above_0_10_absolute_smd": 7
+    }
+  },
+  "standardized_mean_differences": {
+    "randomized": {
+      "history": 0.00045691210638106804,
+      "recency": 0.012939190424442588,
+      "mens": -0.01707939568150617,
+      "womens": 0.01280620355308727,
+      "newbie": -0.003051490260313628,
+      "channel=Multichannel": -0.017709299555429627,
+      "channel=Phone": 0.010501089167675863,
+      "channel=Web": 0.0011903601766436172,
+      "zip_code=Rural": 0.008218532233300165,
+      "zip_code=Surburban": -0.01155624758770723,
+      "zip_code=Urban": 0.005684410379788035
+    },
+    "weak": {
+      "history": 0.3245851878842858,
+      "recency": -0.3015211520733276,
+      "mens": 0.2074361977086918,
+      "womens": -0.09554896482284372,
+      "newbie": -0.014309983428402253,
+      "channel=Multichannel": 0.18435816552387185,
+      "channel=Phone": -0.030626095089237627,
+      "channel=Web": -0.09040610962985314,
+      "zip_code=Rural": 0.020642562465000496,
+      "zip_code=Surburban": 0.0019880925827928902,
+      "zip_code=Urban": -0.017081296583665653
+    },
+    "medium": {
+      "history": 0.5843357663837678,
+      "recency": -0.5128418576512513,
+      "mens": 0.35060672888823563,
+      "womens": -0.16403825552324275,
+      "newbie": -0.0028957334026734173,
+      "channel=Multichannel": 0.3603514183278138,
+      "channel=Phone": -0.10823875514938262,
+      "channel=Web": -0.12263618951708766,
+      "zip_code=Rural": 0.03484639855969464,
+      "zip_code=Surburban": -0.018282455573004248,
+      "zip_code=Urban": -0.0068999720875768155
+    },
+    "strong": {
+      "history": 0.8324328226480363,
+      "recency": -0.8366550599749724,
+      "mens": 0.5260204100421749,
+      "womens": -0.2353509148470111,
+      "newbie": -0.09571479642824254,
+      "channel=Multichannel": 0.5229609450263372,
+      "channel=Phone": -0.19105488366090564,
+      "channel=Web": -0.146429984530021,
+      "zip_code=Rural": 0.008407154120011634,
+      "zip_code=Surburban": -0.007223608248758741,
+      "zip_code=Urban": 0.0012130655465504043
+    }
+  },
+  "figures": {
+    "propensity_overlap": "experiments/figures/propensity_overlap.svg",
+    "pre_matching_love_plot": "experiments/figures/pre_matching_love_plot.svg"
+  }
+}

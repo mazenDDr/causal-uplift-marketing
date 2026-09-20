@@ -26,6 +26,11 @@ confounding:
     multichannel: 0.45
     newbie: -0.35
 
+propensity:
+  overlap_min: 0.05
+  overlap_max: 0.95
+  max_iter: 2000
+
 evaluation:
   bootstrap_samples: 2000
   policy_budgets: [0.05, 0.10, 0.20, 0.30, 0.40, 0.50, 0.75, 1.00]

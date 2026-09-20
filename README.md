@@ -49,6 +49,15 @@ Historical marketers may target customers with stronger purchase history. Those 
 already more likely to convert. The association between email and conversion therefore combines the
 email's effect with pre-existing customer differences.
 
+![Estimated treatment propensity by confounding strength](experiments/figures/propensity_overlap.svg)
+
+![Pre-matching covariate balance by confounding strength](experiments/figures/pre_matching_love_plot.svg)
+
+The generated propensity diagnostics are stored in
+[`experiments/results/propensity_diagnostics_summary.json`](experiments/results/propensity_diagnostics_summary.json).
+The figures show the fitted treatment-selection model and balance before matching; they are
+diagnostics, not evidence that adjustment has succeeded.
+
 | Feature | Timing | Allowed? | Reason |
 |---|---|---:|---|
 | `history` | pre-treatment | Yes | Prior spend |

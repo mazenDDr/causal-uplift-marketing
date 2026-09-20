@@ -1,4 +1,4 @@
-.PHONY: check test foundation naive-baselines dag
+.PHONY: check test foundation naive-baselines propensity-diagnostics dag
 
 check:
 	python -m ruff check .
@@ -13,6 +13,9 @@ foundation:
 
 naive-baselines:
 	PYTHONPATH=src python scripts/run_naive_baselines.py --config configs/base.yaml
+
+propensity-diagnostics:
+	PYTHONPATH=src python scripts/run_propensity_diagnostics.py --config configs/base.yaml
 
 dag:
 	dot -Tsvg docs/causal_dag.dot -o docs/causal_dag.svg
