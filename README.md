@@ -7,8 +7,8 @@ Hillstrom email experiment as an untouched benchmark, deliberately turns only th
 into observational data, and measures whether causal estimators recover better targeting decisions
 than ordinary predictive ML.
 
-**Status:** the RCT split and controlled-confounding foundation are verified. Causal estimators and
-policy comparisons are not yet implemented.
+**Status:** the RCT split, controlled-confounding foundation, and naive targeting baselines are
+verified. Adjusted causal estimators are not yet implemented.
 
 ## Experimental design
 
@@ -35,6 +35,11 @@ The first frozen run is stored in
 verifies the 60/40 split, dataset checksum, randomized benchmark, covariate imbalance, and raw
 association error for each confounding strength. Later tasks will generate the headline figures and
 full estimator comparison from structured results rather than hand-copying values.
+
+The naive response-model and treatment-as-feature policy run is stored in
+[`experiments/results/naive_baselines_summary.json`](experiments/results/naive_baselines_summary.json).
+It includes development-set predictive metrics, held-out RCT policy effects, paired bootstrap policy
+differences, score summaries, runtimes, and decision disagreement.
 
 ## Why association can be wrong
 

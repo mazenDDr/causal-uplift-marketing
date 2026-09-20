@@ -1,0 +1,206 @@
+{
+  "seed": 42,
+  "training_sample": "medium",
+  "campaign_budget": 0.2,
+  "rct_effects": {
+    "visit": {
+      "estimate": 0.07262700926903673,
+      "ci_lower": 0.061832688020650006,
+      "ci_upper": 0.0831866713598498
+    },
+    "conversion": {
+      "estimate": 0.00703977472720873,
+      "ci_lower": 0.004106535257538425,
+      "ci_upper": 0.009973014196879033
+    },
+    "spend": {
+      "estimate": 0.9201642614103016,
+      "ci_lower": 0.4715248445383081,
+      "ci_upper": 1.4396141910125542
+    }
+  },
+  "naive_associations": {
+    "randomized": {
+      "visit": {
+        "estimate": 0.0792314074436118,
+        "ci_lower": 0.07038980412130198,
+        "ci_upper": 0.08752322833453614,
+        "absolute_error_vs_rct": 0.006604398174575074
+      },
+      "conversion": {
+        "estimate": 0.006648507820491018,
+        "ci_lower": 0.004458184047336023,
+        "ci_upper": 0.008995221924074499,
+        "absolute_error_vs_rct": 0.00039126690671771255
+      },
+      "spend": {
+        "estimate": 0.6695960555036476,
+        "ci_lower": 0.3003762717274891,
+        "ci_upper": 1.0265158383288697,
+        "absolute_error_vs_rct": 0.25056820590665396
+      }
+    },
+    "weak": {
+      "visit": {
+        "estimate": 0.09831443442033501,
+        "ci_lower": 0.0860768421271675,
+        "ci_upper": 0.11040095116586461,
+        "absolute_error_vs_rct": 0.02568742515129828
+      },
+      "conversion": {
+        "estimate": 0.008535792088265251,
+        "ci_lower": 0.005560047682607442,
+        "ci_upper": 0.011812012049830541,
+        "absolute_error_vs_rct": 0.0014960173610565211
+      },
+      "spend": {
+        "estimate": 0.756282015976538,
+        "ci_lower": 0.3063491121397961,
+        "ci_upper": 1.2254622538815076,
+        "absolute_error_vs_rct": 0.16388224543376362
+      }
+    },
+    "medium": {
+      "visit": {
+        "estimate": 0.11085533960065362,
+        "ci_lower": 0.0989192019145275,
+        "ci_upper": 0.12322742690921985,
+        "absolute_error_vs_rct": 0.03822833033161689
+      },
+      "conversion": {
+        "estimate": 0.009021473787521828,
+        "ci_lower": 0.0057308545413094865,
+        "ci_upper": 0.01232787091582852,
+        "absolute_error_vs_rct": 0.0019816990603130974
+      },
+      "spend": {
+        "estimate": 1.0734201558234975,
+        "ci_lower": 0.5797258642420164,
+        "ci_upper": 1.5650916515885132,
+        "absolute_error_vs_rct": 0.15325589441319587
+      }
+    },
+    "strong": {
+      "visit": {
+        "estimate": 0.12658548580779716,
+        "ci_lower": 0.11422583804321011,
+        "ci_upper": 0.13863266956652395,
+        "absolute_error_vs_rct": 0.05395847653876043
+      },
+      "conversion": {
+        "estimate": 0.010754500936395642,
+        "ci_lower": 0.007517868038957566,
+        "ci_upper": 0.014154821231929196,
+        "absolute_error_vs_rct": 0.0037147262091869115
+      },
+      "spend": {
+        "estimate": 1.2596979232303038,
+        "ci_lower": 0.734682192346505,
+        "ci_upper": 1.841236862487739,
+        "absolute_error_vs_rct": 0.3395336618200022
+      }
+    }
+  },
+  "model_development_metrics": {
+    "response_model": {
+      "roc_auc": 0.5457519898086953,
+      "brier_score": 0.009231705392516157
+    },
+    "treatment_feature_model": {
+      "roc_auc": 0.5839367180950099,
+      "brier_score": 0.009235071977005354
+    }
+  },
+  "fit_runtime_seconds": {
+    "response_model": 0.04512970599989785,
+    "treatment_feature_model": 0.04813467699977991
+  },
+  "score_summaries": {
+    "response_probability": {
+      "mean": 0.009080820953933174,
+      "standard_deviation": 0.005970649301551373
+    },
+    "pseudo_uplift": {
+      "mean": 0.0037600122666464533,
+      "standard_deviation": 0.006439999241751183,
+      "minimum": -0.014745605085034943,
+      "maximum": 0.05657586034161501
+    }
+  },
+  "policies": {
+    "random": {
+      "targeted_customers": 3409,
+      "targeted_fraction": 0.19998826704212133,
+      "treated_evaluation_rows": 1731,
+      "control_evaluation_rows": 1678,
+      "observed_uplift": 0.00962019790554214,
+      "ci_lower": 0.0020553477255873236,
+      "ci_upper": 0.016644297115834164,
+      "incremental_conversions_per_1000": 9.62019790554214
+    },
+    "response_model": {
+      "targeted_customers": 3409,
+      "targeted_fraction": 0.19998826704212133,
+      "treated_evaluation_rows": 1710,
+      "control_evaluation_rows": 1699,
+      "observed_uplift": 0.008699992083406478,
+      "ci_lower": 0.0010711495237996915,
+      "ci_upper": 0.016864882679525964,
+      "incremental_conversions_per_1000": 8.699992083406478
+    },
+    "treatment_feature_pseudo_uplift": {
+      "targeted_customers": 3409,
+      "targeted_fraction": 0.19998826704212133,
+      "treated_evaluation_rows": 1723,
+      "control_evaluation_rows": 1686,
+      "observed_uplift": 0.005574568895186125,
+      "ci_lower": -0.002526594005186959,
+      "ci_upper": 0.013170814030261158,
+      "incremental_conversions_per_1000": 5.574568895186125
+    }
+  },
+  "paired_policy_differences": {
+    "response_minus_random": {
+      "uplift_difference": -0.000920205822135662,
+      "ci_lower": -0.0095888300830996,
+      "ci_upper": 0.007669506885999375,
+      "incremental_conversions_per_1000_difference": -0.9202058221356619
+    },
+    "pseudo_uplift_minus_random": {
+      "uplift_difference": -0.004045629010356015,
+      "ci_lower": -0.012736163094269778,
+      "ci_upper": 0.004732708011035438,
+      "incremental_conversions_per_1000_difference": -4.045629010356015
+    },
+    "pseudo_uplift_minus_response": {
+      "uplift_difference": -0.003125423188220353,
+      "ci_lower": -0.009733454286340624,
+      "ci_upper": 0.0032155003040707933,
+      "incremental_conversions_per_1000_difference": -3.125423188220353
+    }
+  },
+  "response_vs_pseudo_uplift": {
+    "different_decision_rows": 2728,
+    "decision_disagreement_fraction": 0.1600375454652118,
+    "response_only": {
+      "targeted_customers": 1364,
+      "targeted_fraction": 0.0800187727326059,
+      "treated_evaluation_rows": 681,
+      "control_evaluation_rows": 683,
+      "observed_uplift": 0.017634045188047034,
+      "ci_lower": 0.005890914876280037,
+      "ci_upper": 0.03083711190373299,
+      "incremental_conversions_per_1000": 17.634045188047033
+    },
+    "pseudo_uplift_only": {
+      "targeted_customers": 1364,
+      "targeted_fraction": 0.0800187727326059,
+      "treated_evaluation_rows": 694,
+      "control_evaluation_rows": 670,
+      "observed_uplift": 0.009983225084949891,
+      "ci_lower": 0.001234461697277302,
+      "ci_upper": 0.018731988472622477,
+      "incremental_conversions_per_1000": 9.983225084949892
+    }
+  }
+}
