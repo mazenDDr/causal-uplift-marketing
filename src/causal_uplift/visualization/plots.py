@@ -133,3 +133,34 @@ def plot_matching_balance(
     figure.tight_layout()
     _save_figure(figure, output)
     plt.close(figure)
+
+
+def plot_ate_error_by_strength(
+    errors: dict[str, dict[str, float]],
+    output: Path,
+) -> None:
+    """Plot absolute conversion ATE error for naive and DML estimators."""
+    strengths = list(next(iter(errors.values())))
+    positions = np.arange(len(strengths))
+    figure, axis = plt.subplots(figsize=(10, 6))
+    colors = ["#d95f0e", "#2c7fb8", "#41ab5d"]
+    markers = ["o", "s", "^"]
+    for color, marker, (name, values) in zip(colors, markers, errors.items(), strict=True):
+        axis.plot(
+            positions,
+            [values[strength] for strength in strengths],
+            marker=marker,
+            linewidth=2,
+            markersize=7,
+            color=color,
+            label=name.replace("_", " ").title(),
+        )
+    axis.set_xticks(positions, labels=[strength.capitalize() for strength in strengths])
+    axis.set_ylabel("Absolute error vs randomized ATE")
+    axis.set_xlabel("Training-data confounding")
+    axis.set_title("Cross-fitted LinearDML corrects measured selection bias")
+    axis.grid(axis="y", alpha=0.2)
+    axis.legend(frameon=False)
+    figure.tight_layout()
+    _save_figure(figure, output)
+    plt.close(figure)

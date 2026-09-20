@@ -8,7 +8,8 @@ into observational data, and measures whether causal estimators recover better t
 than ordinary predictive ML.
 
 **Status:** the RCT split, controlled-confounding foundation, naive targeting baselines, propensity
-diagnostics, and propensity-score matching are verified. Double ML is the next estimator.
+diagnostics, propensity-score matching, and LinearDML are verified. Heterogeneous treatment-effect
+modeling is next.
 
 ## Experimental design
 
@@ -83,6 +84,38 @@ retention counts, and ATT intervals are generated in
 estimates ATT in the selected observational population, so its gap from the overall RCT ATE is a
 reference rather than a like-for-like estimator error.
 
+## Double Machine Learning
+
+LinearDML separates two nuisance problems—predicting conversion from customer history and
+predicting email assignment from the same pre-treatment history—then estimates the treatment
+effect from their residuals. Every observation receives nuisance predictions from models that did
+not train on that observation:
+
+```text
+five joint-stratified folds
+        |
+        +-- train nuisance models on folds 2–5 -> residualize fold 1
+        +-- train nuisance models on folds 1,3–5 -> residualize fold 2
+        +-- repeat until every row is scored out of fold
+        |
+        +-- estimate the treatment effect from residual-on-residual variation
+```
+
+Two nuisance configurations are compared: random-forest outcome plus logistic treatment, and
+histogram-gradient-boosting outcome plus treatment. Selection uses only five-fold out-of-fold
+Brier loss relative to constant baselines. The randomized outcomes are loaded after all selections
+finish and are used only to measure error.
+
+![ATE error for naive association and cross-fitted LinearDML](experiments/figures/dml_ate_error.svg)
+
+As measured selection becomes stronger, naive ATE error grows while both DML configurations stay
+closer to the randomized benchmark. The selected nuisance configuration is not always the one with
+the smallest eventual RCT error, which is expected because the holdout is not a tuning set. Exact
+ATE intervals, nuisance metrics, runtimes, selections, package versions, and errors are generated in
+[`experiments/results/linear_dml_summary.json`](experiments/results/linear_dml_summary.json).
+The conversion nuisance models are also roughly level with a constant-probability baseline on this
+rare outcome; flexibility alone did not create useful outcome prediction.
+
 | Feature | Timing | Allowed? | Reason |
 |---|---|---:|---|
 | `history` | pre-treatment | Yes | Prior spend |
@@ -96,7 +129,7 @@ The observational analyses assume conditional exchangeability, positivity, consi
 interference. These assumptions are documented in [the causal design](docs/causal_design.md); the
 stress tests are designed to show where they become implausible or uninformative.
 
-## Planned measured comparison
+## Measured comparison roadmap
 
 The fixed comparison includes naive differences, a response model, treatment-as-feature pseudo-
 uplift, propensity-score matching, LinearDML, CausalForestDML, an uplift tree, and an uplift random
