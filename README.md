@@ -8,8 +8,8 @@ into observational data, and measures whether causal estimators recover better t
 than ordinary predictive ML.
 
 **Status:** the RCT split, controlled-confounding foundation, naive targeting baselines, propensity
-diagnostics, propensity-score matching, LinearDML, and randomized CATE validation are verified.
-Uplift-tree and uplift-forest comparisons are next.
+diagnostics, propensity-score matching, LinearDML, randomized CATE validation, and explicit uplift
+tree/forest comparisons are verified. Uplift-specific Qini and AUUC evaluation is next.
 
 ## Experimental design
 
@@ -137,6 +137,33 @@ subgroup intervals, top-minus-bottom uncertainty, CATE dispersion, runtimes, and
 importance are generated in
 [`experiments/results/causal_forest_summary.json`](experiments/results/causal_forest_summary.json).
 Feature importance describes where the forest split; it is not evidence of a causal mechanism.
+
+## Uplift tree and uplift random forest
+
+An honest shallow uplift tree and a 200-tree uplift random forest are trained on the same
+medium-confounding observational sample. Their split objectives seek differences between treated
+and control outcomes, rather than ordinary outcome accuracy. They do **not** explicitly adjust for
+the observational treatment propensity, so randomized validation remains essential.
+
+![Interpretable uplift tree trained on observational marketing data](experiments/figures/uplift_tree.svg)
+
+The tree exposes seven customer leaves and their training-side treated rate, control rate, uplift,
+and sample size. Its largest estimated uplift is not treated as a discovered mechanism: these are
+descriptive segments learned from selected observational data.
+
+![Uplift tree and forest predictions checked against randomized deciles](experiments/figures/uplift_model_validation.svg)
+
+Neither model learned a validated ranking on the untouched RCT holdout. The tree's top-minus-bottom
+uplift is +3.40 conversions per 1,000 emails (95% paired bootstrap interval -9.97 to +17.62); the
+forest's is -2.86 (-17.23 to +10.54). The forest-minus-tree top-decile difference is also uncertain
+at -3.79 per 1,000 (-19.03 to +10.47). The forest produces smoother, more granular scores, but that
+did not translate into better randomized ranking evidence.
+
+The tree has only seven distinct leaf scores, so exact deciles split tied customers arbitrarily.
+Its leaf artifact and randomized uncertainty should be read alongside—not replaced by—the decile
+chart. Parameters, every leaf, score distributions, model agreement, runtimes, intervals, and the
+explicit propensity warning are generated in
+[`experiments/results/uplift_models_summary.json`](experiments/results/uplift_models_summary.json).
 
 | Feature | Timing | Allowed? | Reason |
 |---|---|---:|---|

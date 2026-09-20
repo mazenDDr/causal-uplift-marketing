@@ -60,6 +60,28 @@ causal_forest:
   honest: true
   cate_bins: 10
 
+uplift_models:
+  training_sample: medium
+  control_name: control
+  treatment_name: mens_email
+  evaluation_function: KL
+  honesty: true
+  estimation_sample_size: 0.5
+  tree:
+    max_depth: 4
+    min_samples_leaf: 250
+    min_samples_treatment: 100
+    n_reg: 100
+  forest:
+    n_estimators: 200
+    max_depth: 5
+    max_features: 8
+    min_samples_leaf: 200
+    min_samples_treatment: 100
+    n_reg: 100
+    n_jobs: -1
+  cate_bins: 10
+
 evaluation:
   bootstrap_samples: 2000
   policy_budgets: [0.05, 0.10, 0.20, 0.30, 0.40, 0.50, 0.75, 1.00]
