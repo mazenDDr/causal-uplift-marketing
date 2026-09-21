@@ -11,7 +11,7 @@ than ordinary predictive ML.
 diagnostics, propensity-score matching, LinearDML, randomized CATE validation, and explicit uplift
 tree/forest comparisons are verified. Randomized Qini/AUUC and business policy evaluation are also
 complete, including the confounding-strength ATE and policy ablation; the positivity/overlap stress
-test is next.
+test is also complete. The broader robustness suite is next.
 
 ## Measured business result
 
@@ -166,6 +166,38 @@ orthogonalization stabilized average effects here, but did not manufacture preci
 decisions from a low-rate outcome. The structured estimates, intervals, method warnings, and
 runtime are generated in
 [`experiments/results/confounding_ablation_summary.json`](experiments/results/confounding_ablation_summary.json).
+
+## Positivity and overlap stress test
+
+The overlap experiment keeps the selected sample near 12,700 rows while increasing treatment-logit
+strength and relaxing propensity clips from `[0.10, 0.90]` to `[0.001, 0.999]`. Each level is
+sampled five times. The DML nuisance model and matching rules are fixed before the run, and RCT
+outcomes remain closed until all 20 observational fits finish.
+
+![Overlap, weight, effective-sample, and matching diagnostics](experiments/figures/overlap_stress_diagnostics.svg)
+
+| Overlap | Known / fitted IPW effective rows | Mean matched pairs | Match balance pass rate | Mean DML CI width | Mean DML ATE error |
+|---|---:|---:|---:|---:|---:|
+| Healthy | 80.9% / 62.0% | 6,256 | 100% | 0.00662 | 0.00180 |
+| Limited | 47.6% / 10.2% | 5,473 | 100% | 0.00764 | 0.00157 |
+| Poor | 11.0% / 0.21% | 3,636 | 100% | 0.00965 | 0.00306 |
+| Severe | 1.02% / 0.013% | 1,987 | 40% | 0.01336 | 0.00363 |
+
+At severe stress, about 69% of rows have known selection propensities outside `[0.05, 0.95]`.
+Fitted propensities sometimes round numerically to zero or one; the diagnostic applies and records
+an explicit `1e-6` cap, producing observed weights as large as one million instead of silently
+dividing by zero. These weights diagnose support—they are not used to report an IPW effect.
+
+![Repeated DML estimates and uncertainty as overlap deteriorates](experiments/figures/overlap_estimate_stability.svg)
+
+DML's mean analytic interval width roughly doubles from healthy to severe overlap, its
+between-resample standard deviation rises from 0.00153 to 0.00280, and only three of five severe
+intervals cover the randomized point estimate. Matching preserves `|SMD| < 0.10` in only two of
+five severe resamples after discarding an average of 8,569 rows. The result is not that one method
+fails first: without comparable treated and control customers, weighting loses effective sample,
+matching loses rows and balance, and DML becomes wider and less stable. Full per-seed diagnostics
+and intervals are generated in
+[`experiments/results/overlap_stress_summary.json`](experiments/results/overlap_stress_summary.json).
 
 ## Heterogeneous treatment effects
 

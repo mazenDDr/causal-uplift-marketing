@@ -694,6 +694,178 @@ def plot_confounding_policy_ablation(
     plt.close(figure)
 
 
+def plot_overlap_stress_diagnostics(
+    aggregate: dict[str, dict[str, object]],
+    output: Path,
+) -> None:
+    """Show the support, weight, effective-sample, and matching costs of poor overlap."""
+    levels = list(aggregate)
+    positions = np.arange(len(levels))
+    figure, axes = plt.subplots(2, 2, figsize=(14, 10))
+
+    axes[0, 0].plot(
+        positions,
+        [aggregate[level]["desired_outside_overlap_fraction_mean"] for level in levels],
+        marker="o",
+        linewidth=2,
+        label="Known selection propensity",
+    )
+    axes[0, 0].plot(
+        positions,
+        [aggregate[level]["fitted_outside_overlap_fraction_mean"] for level in levels],
+        marker="s",
+        linewidth=2,
+        label="Fitted logistic propensity",
+    )
+    axes[0, 0].set_ylabel("Fraction outside [0.05, 0.95]")
+    axes[0, 0].set_title("Comparable treatment support disappears")
+    axes[0, 0].legend(frameon=False)
+
+    axes[0, 1].plot(
+        positions,
+        [aggregate[level]["desired_weight_max_max"] for level in levels],
+        marker="o",
+        linewidth=2,
+        label="Known propensity",
+    )
+    axes[0, 1].plot(
+        positions,
+        [aggregate[level]["fitted_weight_max_max"] for level in levels],
+        marker="s",
+        linewidth=2,
+        label="Fitted propensity",
+    )
+    axes[0, 1].set_yscale("log")
+    axes[0, 1].set_ylabel("Largest observed IP weight (log scale)")
+    axes[0, 1].set_title("Rare counter-assignments receive extreme weight")
+    axes[0, 1].legend(frameon=False)
+
+    axes[1, 0].plot(
+        positions,
+        [aggregate[level]["desired_effective_sample_fraction_mean"] for level in levels],
+        marker="o",
+        linewidth=2,
+        label="Known propensity",
+    )
+    axes[1, 0].plot(
+        positions,
+        [aggregate[level]["fitted_effective_sample_fraction_mean"] for level in levels],
+        marker="s",
+        linewidth=2,
+        label="Fitted propensity",
+    )
+    axes[1, 0].set_ylabel("IP-weight effective sample / rows")
+    axes[1, 0].set_title("Nominal rows stop being effective information")
+    axes[1, 0].legend(frameon=False)
+
+    axes[1, 1].plot(
+        positions,
+        [aggregate[level]["matching"]["matched_pairs_mean"] for level in levels],
+        marker="D",
+        color="#d95f0e",
+        linewidth=2,
+    )
+    axes[1, 1].set_ylabel("Mean 1:1 matched pairs")
+    axes[1, 1].set_title("Overlap trimming leaves fewer comparisons")
+
+    for axis in axes.flat:
+        axis.set_xticks(positions, labels=[level.capitalize() for level in levels])
+        axis.set_xlabel("Overlap stress")
+        axis.grid(axis="y", alpha=0.2)
+    figure.suptitle("Positivity stress test across five observational resamples")
+    figure.tight_layout()
+    _save_figure(figure, output)
+    plt.close(figure)
+
+
+def plot_overlap_estimate_stability(
+    samples: dict[str, list[dict[str, object]]],
+    aggregate: dict[str, dict[str, object]],
+    rct_effect: dict[str, float],
+    output: Path,
+) -> None:
+    """Compare repeated DML estimates and uncertainty as treatment overlap deteriorates."""
+    levels = list(samples)
+    positions = np.arange(len(levels))
+    figure, axes = plt.subplots(1, 2, figsize=(15, 6))
+
+    for position, level in zip(positions, levels, strict=True):
+        rows = samples[level]
+        estimates = np.array([row["linear_dml"]["estimate"] for row in rows], dtype=float)
+        lower = np.array([row["linear_dml"]["ci_lower"] for row in rows], dtype=float)
+        upper = np.array([row["linear_dml"]["ci_upper"] for row in rows], dtype=float)
+        offsets = np.linspace(-0.13, 0.13, len(rows))
+        axes[0].errorbar(
+            position + offsets,
+            estimates,
+            yerr=np.vstack([estimates - lower, upper - estimates]),
+            fmt="o",
+            color="#2c7fb8",
+            alpha=0.55,
+            capsize=2,
+            linewidth=1,
+        )
+        axes[0].scatter(
+            position,
+            aggregate[level]["linear_dml"]["estimate_mean"],
+            marker="D",
+            color="#08306b",
+            s=55,
+            zorder=4,
+        )
+    axes[0].axhspan(
+        rct_effect["ci_lower"],
+        rct_effect["ci_upper"],
+        color="#969696",
+        alpha=0.15,
+        label="RCT 95% CI",
+    )
+    axes[0].axhline(
+        rct_effect["estimate"],
+        color="#252525",
+        linestyle="--",
+        linewidth=1.5,
+        label="RCT point estimate",
+    )
+    axes[0].set_ylabel("Conversion ATE")
+    axes[0].set_title("Five LinearDML fits per overlap level")
+    axes[0].legend(frameon=False)
+
+    axes[1].plot(
+        positions,
+        [aggregate[level]["linear_dml"]["analytic_ci_width_mean"] for level in levels],
+        marker="o",
+        linewidth=2,
+        label="Mean DML analytic CI width",
+    )
+    axes[1].plot(
+        positions,
+        [aggregate[level]["linear_dml"]["replicate_sd"] for level in levels],
+        marker="s",
+        linewidth=2,
+        label="DML between-resample SD",
+    )
+    axes[1].plot(
+        positions,
+        [aggregate[level]["matching"]["att_ci_width_mean"] for level in levels],
+        marker="^",
+        linewidth=2,
+        label="Mean PSM ATT bootstrap CI width",
+    )
+    axes[1].set_ylabel("Conversion-effect uncertainty")
+    axes[1].set_title("Uncertainty and resampling instability")
+    axes[1].legend(frameon=False)
+
+    for axis in axes:
+        axis.set_xticks(positions, labels=[level.capitalize() for level in levels])
+        axis.set_xlabel("Overlap stress")
+        axis.grid(axis="y", alpha=0.2)
+    figure.suptitle("Causal estimates cannot recover information absent from the data")
+    figure.tight_layout()
+    _save_figure(figure, output)
+    plt.close(figure)
+
+
 def plot_uplift_tree_structure(
     root: object,
     feature_names: tuple[str, ...],

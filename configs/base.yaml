@@ -102,6 +102,16 @@ confounding_ablation:
   email_cost: 0.05
   bootstrap_samples: 1000
 
+overlap_stress:
+  levels:
+    healthy: {strength: 1.0, clip_min: 0.10, clip_max: 0.90}
+    limited: {strength: 2.0, clip_min: 0.05, clip_max: 0.95}
+    poor: {strength: 4.0, clip_min: 0.01, clip_max: 0.99}
+    severe: {strength: 8.0, clip_min: 0.001, clip_max: 0.999}
+  seeds: [42, 43, 44, 45, 46]
+  nuisance_candidate: random_forest_logistic
+  bootstrap_samples: 1000
+
 evaluation:
   bootstrap_samples: 2000
   policy_budgets: [0.05, 0.10, 0.20, 0.30, 0.40, 0.50, 0.75, 1.00]
