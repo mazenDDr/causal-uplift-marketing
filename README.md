@@ -7,14 +7,36 @@ Hillstrom email experiment as an untouched benchmark, deliberately turns only th
 into observational data, and measures whether causal estimators recover better targeting decisions
 than ordinary predictive ML.
 
-**Status:** the RCT split, controlled-confounding foundation, naive targeting baselines, propensity
-diagnostics, propensity-score matching, LinearDML, randomized CATE validation, and explicit uplift
-tree/forest comparisons are verified. Randomized Qini/AUUC and business policy evaluation are also
-complete, including the confounding-strength ATE and policy ablation; the positivity/overlap stress
-test, broader robustness suite, consolidated failure analysis, and frozen Women's Email replication
-are also complete. The one-command experiment runner and tracking audit are next.
+**Status:** the complete 14-stage study is reproducible from one command. It includes matching,
+LinearDML, CausalForestDML, uplift trees/forests, randomized ranking and policy evaluation,
+confounding and overlap stress tests, robustness checks, a frozen Women's Email replication, and an
+interactive decision dashboard.
 
-## Measured business result
+## Results at a glance
+
+![Average-effect recovery and randomized policy uncertainty](experiments/figures/headline_summary.svg)
+
+<!-- BEGIN GENERATED FINAL COMPARISON -->
+| Method | What it estimates | ATE error / 1,000 | Qini / 1,000 (95% CI) | Profit / 1,000 eligible (95% CI) |
+|---|---|---:|---:|---:|
+| Naive association | Raw association | 1.98 | — | — |
+| Response model | Purchase probability | — | 0.106 [-0.748, 0.947] | $145 [-$76, $384] |
+| Treatment-as-feature | Pseudo-uplift | — | 0.184 [-0.721, 1.079] | $114 [-$126, $337] |
+| PSM segments | Matched ATT | ATT, not ATE | — | $276 [$70, $515] |
+| LinearDML | Constant ATE | 1.37 | — | $184 [-$3, $374] |
+| CausalForestDML | CATE | 1.23 | -0.200 [-1.039, 0.663] | -$4 [-$237, $244] |
+| Uplift tree | CATE ranking | — | -0.190 [-1.051, 0.723] | $167 [-$35, $369] |
+| Uplift random forest | CATE ranking | 1.29 | 0.034 [-0.874, 0.873] | $211 [$1, $435] |
+
+*Setting: medium-confounding training data, 20% targeting, $0.05/email, and the untouched randomized holdout. PSM remains ATT rather than being mislabeled as ATE. Every Qini interval and every paired profit difference versus random and response includes zero, so the table does not declare a targeting winner.*
+<!-- END GENERATED FINAL COMPARISON -->
+
+The result is deliberately not a leaderboard. Causal adjustment sharply improves average-effect
+recovery when selection bias is strong, but none of the individualized rankings achieves a Qini
+interval excluding zero. A useful average treatment effect and a useful targeting order are
+different claims, and this project tests them separately.
+
+## Where predictive targeting made the wrong decision
 
 ![Predictive purchase ranking and uplift targeting make different decisions](experiments/figures/prediction_vs_uplift_policy.svg)
 
@@ -52,8 +74,8 @@ comparisons.
 The first frozen run is stored in
 [`experiments/results/foundation_summary.json`](experiments/results/foundation_summary.json). It
 verifies the 60/40 split, dataset checksum, randomized benchmark, covariate imbalance, and raw
-association error for each confounding strength. Later tasks will generate the headline figures and
-full estimator comparison from structured results rather than hand-copying values.
+association error for each confounding strength. The headline figure and final comparison table are
+rebuilt from structured results with `make readme-assets` rather than maintained by hand.
 
 The naive response-model and treatment-as-feature policy run is stored in
 [`experiments/results/naive_baselines_summary.json`](experiments/results/naive_baselines_summary.json).
@@ -406,7 +428,7 @@ The observational analyses assume conditional exchangeability, positivity, consi
 interference. These assumptions are documented in [the causal design](docs/causal_design.md); the
 stress tests are designed to show where they become implausible or uninformative.
 
-## Measured comparison roadmap
+## Methods compared
 
 The fixed comparison includes naive differences, a response model, treatment-as-feature pseudo-
 uplift, propensity-score matching, LinearDML, CausalForestDML, an uplift tree, and an uplift random
@@ -487,7 +509,7 @@ extrapolating results that were never measured.
 - `scripts`: reproducible command-line experiment entry points
 - `configs`: versioned experiment settings
 - `tests`: causal invariants and metric checks
-- `app`: the final Streamlit decision demo
+- `app`: the Streamlit decision demo
 
 ## Limitations known in advance
 
