@@ -9,7 +9,8 @@ than ordinary predictive ML.
 
 **Status:** the RCT split, controlled-confounding foundation, naive targeting baselines, propensity
 diagnostics, propensity-score matching, LinearDML, randomized CATE validation, and explicit uplift
-tree/forest comparisons are verified. Uplift-specific Qini and AUUC evaluation is next.
+tree/forest comparisons are verified. Randomized Qini/AUUC evaluation is also complete; business
+policy and profit curves are next.
 
 ## Experimental design
 
@@ -164,6 +165,33 @@ Its leaf artifact and randomized uncertainty should be read alongside—not repl
 chart. Parameters, every leaf, score distributions, model agreement, runtimes, intervals, and the
 explicit propensity warning are generated in
 [`experiments/results/uplift_models_summary.json`](experiments/results/uplift_models_summary.json).
+
+## Uplift ranking metrics
+
+All five targeting scores are evaluated on the same untouched randomized customers at campaign
+sizes from 5% through 100%. Cumulative gain is the targeted fraction multiplied by its randomized
+treatment-control conversion difference. Qini subtracts the random-targeting line; AUUC retains the
+campaign's average effect. Tied scores receive equal fractional weight at a targeting boundary, so
+the seven-leaf tree cannot gain from arbitrary row order.
+
+![Cumulative uplift and Qini curves on the randomized holdout](experiments/figures/uplift_qini_curves.svg)
+
+![Bootstrap intervals for Qini and AUUC](experiments/figures/uplift_metric_intervals.svg)
+
+| Ranking | Qini × 1,000 (95% CI) | AUUC × 1,000 (95% CI) |
+|---|---:|---:|
+| Response model | 0.106 [-0.748, 0.947] | 3.626 [1.726, 5.526] |
+| Treatment-as-feature | 0.184 [-0.721, 1.079] | 3.704 [1.817, 5.679] |
+| CausalForestDML | -0.200 [-1.039, 0.663] | 3.320 [1.412, 5.216] |
+| Uplift tree | -0.190 [-1.051, 0.723] | 3.330 [1.682, 5.057] |
+| Uplift random forest | 0.034 [-0.874, 0.873] | 3.554 [1.683, 5.500] |
+
+Every Qini interval includes zero. Paired Qini differences between each uplift/causal ranking and
+the response model also include zero. Positive AUUC alone is not ranking evidence here: the overall
+campaign ATE is positive, so random targeting has positive AUUC too. The bootstrap is paired and
+stratified by randomized treatment arm; its uncertainty is conditional on the already-fitted model
+scores. Definitions, curves, intervals, paired differences, and runtime are generated in
+[`experiments/results/uplift_metrics_summary.json`](experiments/results/uplift_metrics_summary.json).
 
 | Feature | Timing | Allowed? | Reason |
 |---|---|---:|---|

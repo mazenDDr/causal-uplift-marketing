@@ -1,4 +1,4 @@
-.PHONY: check test foundation naive-baselines propensity-diagnostics matching linear-dml causal-forest uplift-models dag
+.PHONY: check test foundation naive-baselines propensity-diagnostics matching linear-dml causal-forest uplift-models uplift-metrics dag
 
 check:
 	python -m ruff check .
@@ -28,6 +28,9 @@ causal-forest:
 
 uplift-models:
 	PYTHONPATH=src python scripts/run_uplift_models.py --config configs/base.yaml
+
+uplift-metrics: naive-baselines causal-forest uplift-models
+	PYTHONPATH=src python scripts/run_uplift_metrics.py --config configs/base.yaml
 
 dag:
 	dot -Tsvg docs/causal_dag.dot -o docs/causal_dag.svg
