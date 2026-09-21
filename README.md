@@ -9,8 +9,23 @@ than ordinary predictive ML.
 
 **Status:** the RCT split, controlled-confounding foundation, naive targeting baselines, propensity
 diagnostics, propensity-score matching, LinearDML, randomized CATE validation, and explicit uplift
-tree/forest comparisons are verified. Randomized Qini/AUUC evaluation is also complete; business
-policy and profit curves are next.
+tree/forest comparisons are verified. Randomized Qini/AUUC and business policy evaluation are also
+complete; confounding-strength policy ablations are next.
+
+## Measured business result
+
+![Predictive purchase ranking and uplift targeting make different decisions](experiments/figures/prediction_vs_uplift_policy.svg)
+
+At a 5% campaign budget and $0.05 per email, the response model targets customers with an observed
+randomized effect of -4.71 conversions per 1,000 emails and -$63.35 profit per 1,000 eligible
+customers. The uplift tree improves on it by 23.82 conversions per 1,000 emails (paired 95% CI
+0.99 to 48.34) and $161.53 profit per 1,000 eligible customers (paired 95% CI $27.99 to $311.91).
+Only 76 customers appear in both 852-customer target lists.
+
+This is the concrete failure the project was designed to find: customers most likely to purchase
+are not necessarily those whose behavior changes because of the email. The 5% diagnostic was
+selected from the configured budget grid after inspecting the policy curves, so its nominal
+intervals are not multiplicity-adjusted and should be confirmed in a new experiment.
 
 ## Experimental design
 
@@ -192,6 +207,43 @@ campaign ATE is positive, so random targeting has positive AUUC too. The bootstr
 stratified by randomized treatment arm; its uncertainty is conditional on the already-fitted model
 scores. Definitions, curves, intervals, paired differences, and runtime are generated in
 [`experiments/results/uplift_metrics_summary.json`](experiments/results/uplift_metrics_summary.json).
+
+## Business targeting policies
+
+The frozen rankings are converted into exact top-k policies at 5%, 10%, 20%, 30%, 40%, 50%, 75%,
+and 100% campaign sizes. A seeded, outcome-independent tie breaker handles the shallow uplift tree,
+PSM segments, and constant-effect LinearDML. Incremental revenue is the randomized difference in
+Hillstrom `spend`; profit subtracts the configurable email cost.
+
+![Profit across campaign sizes and email costs](experiments/figures/policy_profit_curves.svg)
+
+![Policy profit intervals at the primary business setting](experiments/figures/policy_20pct_profit.svg)
+
+At the fixed primary setting—20% targeted and $0.05 per email—the point estimates are:
+
+| Policy | Conversions / 1,000 emails | Profit / 1,000 eligible (95% CI) |
+|---|---:|---:|
+| Random | 9.62 | $184 [-$3, $374] |
+| Response model | 8.72 | $145 [-$76, $384] |
+| Treatment-as-feature | 5.56 | $114 [-$126, $337] |
+| PSM segments | 9.71 | $276 [$70, $515] |
+| LinearDML (constant) | 9.62 | $184 [-$3, $374] |
+| CausalForestDML | 4.84 | -$4 [-$237, $244] |
+| Uplift tree | 8.96 | $167 [-$35, $369] |
+| Uplift random forest | 10.15 | $211 [$1, $435] |
+
+Despite some individually positive intervals, every paired 20% profit difference versus both the
+response and random policies includes zero; no primary-setting winner is declared. LinearDML is a
+constant-effect estimator here, so it correctly reduces to the same seeded ordering as random
+rather than pretending to personalize treatment.
+
+Cost-aware rules send when `$50 × predicted conversion uplift > email cost` and are evaluated at
+$0.01, $0.05, $0.10, $0.25, and $0.50. The best point-estimate top-k budget is 100% for every model
+and tested cost, reflecting positive average incremental spend and relatively cheap email—not proof
+that ranking is unnecessary. Those maxima use RCT outcomes and are descriptive, not deployable
+budget choices. Complete visit, spend, revenue, profit, ROI, cost-aware, paired, and policy-curve
+results are generated in
+[`experiments/results/business_policy_summary.json`](experiments/results/business_policy_summary.json).
 
 | Feature | Timing | Allowed? | Reason |
 |---|---|---:|---|
