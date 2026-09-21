@@ -1,4 +1,4 @@
-.PHONY: check test experiments experiment-plan foundation naive-baselines propensity-diagnostics matching linear-dml causal-forest uplift-models uplift-metrics business-policies confounding-ablation overlap-stress robustness failure-analysis womens-replication dag
+.PHONY: check test dashboard experiments experiment-plan foundation naive-baselines propensity-diagnostics matching linear-dml causal-forest uplift-models uplift-metrics business-policies confounding-ablation overlap-stress robustness failure-analysis womens-replication dag
 
 check:
 	python -m ruff check .
@@ -7,6 +7,9 @@ check:
 
 test:
 	PYTHONPATH=src python -m pytest
+
+dashboard:
+	PYTHONPATH=src streamlit run app/streamlit_app.py
 
 experiments:
 	PYTHONPATH=src python scripts/run_experiments.py --config configs/base.yaml

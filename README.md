@@ -464,6 +464,21 @@ The latest machine, package versions, commands, fingerprints, required outputs, 
 and resume actions are recorded in
 [`experiments/results/experiment_runner_summary.json`](experiments/results/experiment_runner_summary.json).
 
+## Explore the decision dashboard
+
+The Streamlit dashboard reads the committed experiment summaries directly—no result is copied into
+the interface by hand. It exposes confounding strength, targeting model, campaign budget, and email
+cost while keeping the randomized holdout visible as the benchmark.
+
+```bash
+pip install -e '.[viz]'
+make dashboard
+```
+
+The full campaign-budget grid is available for the medium-confounding experiment. The other
+confounding levels deliberately remain fixed at the pre-registered 20% budget rather than
+extrapolating results that were never measured.
+
 ## Repository map
 
 - `src/causal_uplift/data`: schema validation, randomized split, and confounding injection
