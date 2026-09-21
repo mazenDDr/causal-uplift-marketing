@@ -164,8 +164,8 @@ def main() -> None:
                         abs(value) for value in before_balance.values()
                     ),
                     "matching": {
-                        "matched_pairs": len(match.pairs),
-                        "matched_treated_fraction": len(match.pairs) / treated_rows,
+                        "matched_pairs": match.matched_treated,
+                        "matched_treated_fraction": match.matched_treated / treated_rows,
                         "eligible_treated": match.eligible_treated,
                         "eligible_controls": match.eligible_controls,
                         "discarded_rows_outside_overlap": match.discarded_outside_overlap,

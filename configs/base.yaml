@@ -112,6 +112,19 @@ overlap_stress:
   nuisance_candidate: random_forest_logistic
   bootstrap_samples: 1000
 
+robustness:
+  training_sample: medium
+  seeds: [42, 43, 44, 45, 46]
+  propensity_models: [logistic, gradient_boosting, random_forest]
+  matching_calipers: [0.10, 0.20, 0.30]
+  matching_replacement: [true, false]
+  matching_ratios: [1, 2]
+  nuisance_candidates: [linear_logistic, random_forest_logistic, hist_gradient_boosting]
+  fixed_nuisance_candidate: random_forest_logistic
+  noise_features: 10
+  sample_fractions: [0.25, 0.50, 0.75, 1.00]
+  bootstrap_samples: 500
+
 evaluation:
   bootstrap_samples: 2000
   policy_budgets: [0.05, 0.10, 0.20, 0.30, 0.40, 0.50, 0.75, 1.00]

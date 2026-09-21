@@ -1,4 +1,4 @@
-.PHONY: check test foundation naive-baselines propensity-diagnostics matching linear-dml causal-forest uplift-models uplift-metrics business-policies confounding-ablation overlap-stress dag
+.PHONY: check test foundation naive-baselines propensity-diagnostics matching linear-dml causal-forest uplift-models uplift-metrics business-policies confounding-ablation overlap-stress robustness dag
 
 check:
 	python -m ruff check .
@@ -40,6 +40,9 @@ confounding-ablation: matching linear-dml
 
 overlap-stress:
 	PYTHONPATH=src python scripts/run_overlap_stress.py --config configs/base.yaml
+
+robustness:
+	PYTHONPATH=src python scripts/run_robustness.py --config configs/base.yaml
 
 dag:
 	dot -Tsvg docs/causal_dag.dot -o docs/causal_dag.svg

@@ -114,10 +114,10 @@ def main() -> None:
             reused_controls = len(result.pairs) - result.pairs["control_source_row_id"].nunique()
             variants[variant] = {
                 "replacement": replacement,
-                "matched_treated": len(result.pairs),
+                "matched_treated": result.matched_treated,
                 "eligible_treated": result.eligible_treated,
                 "eligible_controls": result.eligible_controls,
-                "unmatched_eligible_treated": result.eligible_treated - len(result.pairs),
+                "unmatched_eligible_treated": result.eligible_treated - result.matched_treated,
                 "discarded_rows_outside_overlap": result.discarded_outside_overlap,
                 "unique_matched_controls": result.pairs["control_source_row_id"].nunique(),
                 "reused_control_matches": reused_controls,

@@ -47,6 +47,15 @@ def test_encoder_uses_only_pre_treatment_features() -> None:
     assert "treatment" not in encoder.feature_names_in_
 
 
+def test_encoder_allows_explicit_noise_but_rejects_outcomes() -> None:
+    frame = synthetic_frame(200).assign(noise_0=np.arange(200))
+    columns = [*PRE_TREATMENT_COLUMNS, "noise_0"]
+    encoder = make_confounder_encoder(("noise_0",)).fit(frame.loc[:, columns])
+    assert "noise_0" in encoder.feature_names_in_
+    with pytest.raises(ValueError, match="post-treatment"):
+        make_confounder_encoder(("conversion",))
+
+
 def test_cross_fit_splits_cover_each_row_once_without_train_overlap() -> None:
     frame = synthetic_frame(500)
     splits = make_cross_fit_splits(frame["conversion"], frame["treatment"], folds=5, seed=2)
