@@ -435,7 +435,28 @@ uplift, propensity-score matching, LinearDML, CausalForestDML, an uplift tree, a
 forest. A method is useful only if it improves held-out RCT ATE error, uplift ranking, or business
 policy value with uncertainty—not because it is more sophisticated.
 
-## Reproduce the foundation
+## Reproduce from raw data
+
+Use Python 3.11 on Linux or WSL and install the project with its causal, visualization, and test
+extras. The audited run used Python 3.11.14, EconML 0.16.0, CausalML 0.16.0, NumPy 2.3.5,
+pandas 2.3.3, and scikit-learn 1.6.1; these key versions and the machine platform are recorded in the
+[experiment audit](experiments/results/experiment_runner_summary.json).
+
+```bash
+python3.11 -m venv .venv
+source .venv/bin/activate
+python -m pip install -e '.[causal,viz,dev]'
+python scripts/download_hillstrom.py
+make experiments
+make readme-assets
+make check
+```
+
+The downloader accepts only the 64,000-row Hillstrom file with SHA-256
+`0e5893329d8b93cefecc571777672028290ab69865718020c78c7284f291aece`. A mirror that
+returns different bytes is rejected before replacing an existing file. Raw data and run logs are
+kept outside Git. Figures and JSON summaries already committed to the repository let readers inspect
+the results without rerunning the heavy models.
 
 Data and heavy runs live on `gpu-box`:
 
@@ -517,4 +538,7 @@ extrapolating results that were never measured.
 - Selection on recorded covariates cannot test robustness to truly unmeasured confounding.
 - Weak overlap can make effects unidentified for some customer types; no estimator fixes missing
   comparisons.
+- Small changes in causal-forest scores can reorder near-tied customers across reruns, so its
+  targeting value should be interpreted with the randomized intervals, not as a byte-stable point
+  estimate.
 - Hillstrom is one retailer and one historical campaign. External validity requires new experiments.
