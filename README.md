@@ -10,7 +10,8 @@ than ordinary predictive ML.
 **Status:** the RCT split, controlled-confounding foundation, naive targeting baselines, propensity
 diagnostics, propensity-score matching, LinearDML, randomized CATE validation, and explicit uplift
 tree/forest comparisons are verified. Randomized Qini/AUUC and business policy evaluation are also
-complete; confounding-strength policy ablations are next.
+complete, including the confounding-strength ATE and policy ablation; the positivity/overlap stress
+test is next.
 
 ## Measured business result
 
@@ -131,6 +132,40 @@ ATE intervals, nuisance metrics, runtimes, selections, package versions, and err
 [`experiments/results/linear_dml_summary.json`](experiments/results/linear_dml_summary.json).
 The conversion nuisance models are also roughly level with a constant-probability baseline on this
 rare outcome; flexibility alone did not create useful outcome prediction.
+
+## Confounding-strength ablation
+
+The complete estimator set is retrained on randomized, weak-, medium-, and strong-confounding
+training samples. Nuisance configurations and the 20% policy budget are inherited from earlier
+training-only choices; all policy scores are frozen before randomized outcomes are loaded.
+
+![ATE error as training-data confounding increases](experiments/figures/confounding_ate_ablation.svg)
+
+| Training data | Naive error | LinearDML error | CausalForestDML error | Uplift RF error |
+|---|---:|---:|---:|---:|
+| Randomized | 0.00039 | 0.00039 | 0.00051 | 0.00055 |
+| Weak | 0.00150 | 0.00035 | 0.00016 | 0.00101 |
+| Medium | 0.00198 | 0.00137 | 0.00123 | 0.00129 |
+| Strong | 0.00371 | 0.00047 | 0.00038 | 0.00300 |
+
+The naive association degrades steadily as measured selection grows. Under strong confounding,
+LinearDML and CausalForestDML reduce absolute conversion-effect error by roughly 87% and 90%
+relative to the naive estimate. The uplift random forest has no explicit propensity correction and
+its mean-effect error also grows sharply. PSM is plotted separately as an ATT reference gap—not
+renamed as ATE error—because it targets matched treated customers rather than the overall RCT
+population. The randomized sample has 25,567 rows while each selected observational sample has
+about 12,700; randomized-to-observational differences therefore include the retention-size change,
+whereas weak-to-strong comparisons hold sample size approximately constant.
+
+![Randomized policy value as training-data confounding increases](experiments/figures/confounding_policy_ablation.svg)
+
+Average-effect recovery does not imply a validated customer ranking. At 20% targeting and $0.05
+per email, policy point estimates move non-monotonically across training samples and every paired
+profit difference versus random has a 95% interval containing zero. This is a useful failure result:
+orthogonalization stabilized average effects here, but did not manufacture precise individualized
+decisions from a low-rate outcome. The structured estimates, intervals, method warnings, and
+runtime are generated in
+[`experiments/results/confounding_ablation_summary.json`](experiments/results/confounding_ablation_summary.json).
 
 ## Heterogeneous treatment effects
 

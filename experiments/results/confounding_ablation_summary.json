@@ -1,0 +1,1405 @@
+{
+  "seed": 42,
+  "strengths": [
+    "randomized",
+    "weak",
+    "medium",
+    "strong"
+  ],
+  "rct_effect": {
+    "estimate": 0.00703977472720873,
+    "ci_lower": 0.003986272439281943,
+    "ci_upper": 0.010090343775665846
+  },
+  "policy_setting": {
+    "budget": 0.2,
+    "email_cost": 0.05
+  },
+  "model_selection_uses_rct": false,
+  "rct_outcomes_loaded_after_all_scores_frozen": true,
+  "psm_estimand_warning": "PSM estimates ATT in matched observational treated customers; its gap from the overall RCT ATE is a reference gap, not a like-for-like ATE error.",
+  "linear_dml_policy_warning": "LinearDML is constant-effect in this project and therefore has no personalized ranking; random policy is its honest top-k equivalent.",
+  "samples": {
+    "randomized": {
+      "training_rows": 25567,
+      "nuisance_candidate": "hist_gradient_boosting",
+      "preferred_matching_variant": "with_replacement",
+      "naive_association": 0.006648507820491018,
+      "linear_dml_ate": {
+        "estimate": 0.006654382570154368,
+        "ci_lower": 0.004366381577780719,
+        "ci_upper": 0.008942383562528015,
+        "absolute_error_vs_rct": 0.0003853921570543626
+      },
+      "causal_forest_ate": {
+        "estimate": 0.006525284799282103,
+        "ci_lower": -0.0012247122842095727,
+        "ci_upper": 0.014275281882773778
+      },
+      "uplift_forest_mean_effect": 0.006487923137959663,
+      "psm_att": {
+        "estimate": 0.008606525311008528,
+        "ci_lower": 0.006572255692042876,
+        "ci_upper": 0.010875518347547141,
+        "gap_vs_overall_rct_ate": 0.001566750583799798
+      },
+      "psm_segments": [
+        {
+          "segment": "inactive / high history",
+          "matched_pairs": 2267,
+          "conversion_att": 0.009263343625937363
+        },
+        {
+          "segment": "inactive / low history",
+          "matched_pairs": 3258,
+          "conversion_att": 0.0055248618784530384
+        },
+        {
+          "segment": "recent / high history",
+          "matched_pairs": 4111,
+          "conversion_att": 0.012892240330819751
+        },
+        {
+          "segment": "recent / low history",
+          "matched_pairs": 3145,
+          "conversion_att": 0.005723370429252782
+        }
+      ],
+      "fit_and_score_runtime_seconds": 40.732746169000166,
+      "ate_estimators": {
+        "naive": {
+          "estimand": "ATE on the RCT covariate distribution",
+          "estimate": 0.006648507820491018,
+          "absolute_error_vs_rct_ate": 0.00039126690671771255
+        },
+        "linear_dml": {
+          "estimand": "ATE on the RCT covariate distribution",
+          "estimate": 0.006654382570154368,
+          "absolute_error_vs_rct_ate": 0.0003853921570543626
+        },
+        "causal_forest_dml": {
+          "estimand": "ATE on the RCT covariate distribution",
+          "estimate": 0.006525284799282103,
+          "absolute_error_vs_rct_ate": 0.000514489927926627
+        },
+        "uplift_random_forest": {
+          "estimand": "ATE on the RCT covariate distribution",
+          "estimate": 0.006487923137959663,
+          "absolute_error_vs_rct_ate": 0.000551851589249067
+        },
+        "psm": {
+          "estimand": "ATT in matched observational treated customers",
+          "estimate": 0.008606525311008528,
+          "absolute_error_vs_rct_ate": null,
+          "reference_gap_vs_overall_rct_ate": 0.001566750583799798
+        }
+      },
+      "policies": {
+        "random": {
+          "targeted_customers": 3409,
+          "targeted_fraction": 0.19998826704212133,
+          "conversion": {
+            "estimate": 0.00962019790554214,
+            "ci_lower": 0.002596554865390217,
+            "ci_upper": 0.016644297115834164,
+            "effect_per_1000_emails": 9.62019790554214,
+            "incremental_per_1000_eligible": 1.9239267077316178,
+            "incremental_total_at_holdout_scale": 32.795254659993155
+          },
+          "visit": {
+            "estimate": 0.07365925570935661,
+            "ci_lower": 0.0506418486010897,
+            "ci_upper": 0.09708736226243864,
+            "effect_per_1000_emails": 73.65925570935661,
+            "incremental_per_1000_eligible": 14.730986900926709,
+            "incremental_total_at_holdout_scale": 251.10440271319666
+          },
+          "spend": {
+            "estimate": 0.970611116504821,
+            "ci_lower": 0.03609828194275452,
+            "ci_upper": 1.9191553839437747,
+            "effect_per_1000_emails": 970.611116504821,
+            "incremental_per_1000_eligible": 194.11083516161767,
+            "incremental_total_at_holdout_scale": 3308.813296164935
+          },
+          "incremental_revenue_per_1000_eligible": 194.11083516161767,
+          "campaign_cost_per_1000_eligible": 9.999413352106068,
+          "incremental_profit_per_1000_eligible": {
+            "estimate": 184.1114218095116,
+            "ci_lower": -2.7801805031766893,
+            "ci_upper": 373.80914606736644
+          },
+          "roi": {
+            "estimate": 18.412222330096416,
+            "ci_lower": -0.2780343611449096,
+            "ci_upper": 37.38310767887549
+          }
+        },
+        "response_model": {
+          "targeted_customers": 3409,
+          "targeted_fraction": 0.19998826704212133,
+          "conversion": {
+            "estimate": 0.010672932913288231,
+            "ci_lower": 0.0035791457935237304,
+            "ci_upper": 0.01870612336242662,
+            "effect_per_1000_emails": 10.67293291328823,
+            "incremental_per_1000_eligible": 2.134461357585333,
+            "incremental_total_at_holdout_scale": 36.38402830139958
+          },
+          "visit": {
+            "estimate": 0.08863950145466437,
+            "ci_lower": 0.06122475856014048,
+            "ci_upper": 0.11471598753636658,
+            "effect_per_1000_emails": 88.63950145466437,
+            "incremental_per_1000_eligible": 17.72686028739592,
+            "incremental_total_at_holdout_scale": 302.17206045895085
+          },
+          "spend": {
+            "estimate": 0.8429853879391969,
+            "ci_lower": -0.23911038354938102,
+            "ci_upper": 2.0801433284270674,
+            "effect_per_1000_emails": 842.9853879391968,
+            "incremental_per_1000_eligible": 168.58718687579037,
+            "incremental_total_at_holdout_scale": 2873.737187484722
+          },
+          "incremental_revenue_per_1000_eligible": 168.58718687579037,
+          "campaign_cost_per_1000_eligible": 9.999413352106068,
+          "incremental_profit_per_1000_eligible": {
+            "estimate": 158.5877735236843,
+            "ci_lower": -57.818684589923734,
+            "ci_upper": 406.00484609925337
+          },
+          "roi": {
+            "estimate": 15.859707758783937,
+            "ci_lower": -5.78220767098762,
+            "ci_upper": 40.602866568541344
+          }
+        },
+        "pseudo_uplift": {
+          "targeted_customers": 3409,
+          "targeted_fraction": 0.19998826704212133,
+          "conversion": {
+            "estimate": 0.007973455549611808,
+            "ci_lower": 0.0009322244230148294,
+            "ci_upper": 0.014990289203425525,
+            "effect_per_1000_emails": 7.973455549611808,
+            "incremental_per_1000_eligible": 1.5945975577042506,
+            "incremental_total_at_holdout_scale": 27.181509968626653
+          },
+          "visit": {
+            "estimate": 0.08306465992934974,
+            "ci_lower": 0.057871046404595644,
+            "ci_upper": 0.10583442971359175,
+            "effect_per_1000_emails": 83.06465992934973,
+            "incremental_per_1000_eligible": 16.61195739171379,
+            "incremental_total_at_holdout_scale": 283.1674256991532
+          },
+          "spend": {
+            "estimate": 0.5777012158977546,
+            "ci_lower": -0.5647983118153647,
+            "ci_upper": 1.6686614148847463,
+            "effect_per_1000_emails": 577.7012158977545,
+            "incremental_per_1000_eligible": 115.53346503551833,
+            "incremental_total_at_holdout_scale": 1969.3834449954454
+          },
+          "incremental_revenue_per_1000_eligible": 115.53346503551833,
+          "campaign_cost_per_1000_eligible": 9.999413352106068,
+          "incremental_profit_per_1000_eligible": {
+            "estimate": 105.53405168341226,
+            "ci_lower": -122.95244896037653,
+            "ci_upper": 323.7132912907486
+          },
+          "roi": {
+            "estimate": 10.55402431795509,
+            "ci_lower": -12.295966236307292,
+            "ci_upper": 32.37322829769492
+          }
+        },
+        "psm_segments": {
+          "targeted_customers": 3409,
+          "targeted_fraction": 0.19998826704212133,
+          "conversion": {
+            "estimate": 0.009069603969462074,
+            "ci_lower": 0.0009311860537325926,
+            "ci_upper": 0.01724623215735197,
+            "effect_per_1000_emails": 9.069603969462074,
+            "incremental_per_1000_eligible": 1.8138143806110647,
+            "incremental_total_at_holdout_scale": 30.91827993189621
+          },
+          "visit": {
+            "estimate": 0.0852505595567333,
+            "ci_lower": 0.06018614426684126,
+            "ci_upper": 0.11131207361983463,
+            "effect_per_1000_emails": 85.25055955673331,
+            "incremental_per_1000_eligible": 17.049111670122247,
+            "incremental_total_at_holdout_scale": 290.6191575289038
+          },
+          "spend": {
+            "estimate": 1.3779744803575107,
+            "ci_lower": 0.2799178987758255,
+            "ci_upper": 2.4960742459151155,
+            "effect_per_1000_emails": 1377.9744803575106,
+            "incremental_per_1000_eligible": 275.57872835496624,
+            "incremental_total_at_holdout_scale": 4697.515003538754
+          },
+          "incremental_revenue_per_1000_eligible": 275.57872835496624,
+          "campaign_cost_per_1000_eligible": 9.999413352106068,
+          "incremental_profit_per_1000_eligible": {
+            "estimate": 265.5793150028602,
+            "ci_lower": 45.98088213814321,
+            "ci_upper": 489.1861494969277
+          },
+          "roi": {
+            "estimate": 26.559489607150216,
+            "ci_lower": 4.598357975516509,
+            "ci_upper": 48.92148491830231
+          }
+        },
+        "causal_forest_dml": {
+          "targeted_customers": 3409,
+          "targeted_fraction": 0.19998826704212133,
+          "conversion": {
+            "estimate": 0.008849091260967095,
+            "ci_lower": 0.0018048485595647812,
+            "ci_upper": 0.016415086672676944,
+            "effect_per_1000_emails": 8.849091260967095,
+            "incremental_per_1000_eligible": 1.7697144261783897,
+            "incremental_total_at_holdout_scale": 30.16655210863683
+          },
+          "visit": {
+            "estimate": 0.08008432756617448,
+            "ci_lower": 0.054668457812455856,
+            "ci_upper": 0.10485393162469685,
+            "effect_per_1000_emails": 80.08432756617448,
+            "incremental_per_1000_eligible": 16.015925887192818,
+            "incremental_total_at_holdout_scale": 273.0074726730888
+          },
+          "spend": {
+            "estimate": 0.49633663049250054,
+            "ci_lower": -0.4147658350936011,
+            "ci_upper": 1.4135955448405153,
+            "effect_per_1000_emails": 496.33663049250055,
+            "incremental_per_1000_eligible": 99.26150260172089,
+            "incremental_total_at_holdout_scale": 1692.0115733489342
+          },
+          "incremental_revenue_per_1000_eligible": 99.26150260172089,
+          "campaign_cost_per_1000_eligible": 9.999413352106068,
+          "incremental_profit_per_1000_eligible": {
+            "estimate": 89.26208924961483,
+            "ci_lower": -92.94771394075363,
+            "ci_upper": 272.7031099590119
+          },
+          "roi": {
+            "estimate": 8.92673260985001,
+            "ci_lower": -9.295316701872022,
+            "ci_upper": 27.2719108968103
+          }
+        },
+        "uplift_random_forest": {
+          "targeted_customers": 3409,
+          "targeted_fraction": 0.19998826704212133,
+          "conversion": {
+            "estimate": 0.007619431357963469,
+            "ci_lower": -0.00017006398600435247,
+            "ci_upper": 0.015101446056147891,
+            "effect_per_1000_emails": 7.619431357963469,
+            "incremental_per_1000_eligible": 1.5237968731255114,
+            "incremental_total_at_holdout_scale": 25.974641499297466
+          },
+          "visit": {
+            "estimate": 0.0840355263520401,
+            "ci_lower": 0.06017060638620272,
+            "ci_upper": 0.10853576053117335,
+            "effect_per_1000_emails": 84.03552635204011,
+            "incremental_per_1000_eligible": 16.80611928511702,
+            "incremental_total_at_holdout_scale": 286.47710933410474
+          },
+          "spend": {
+            "estimate": 0.5890475831335923,
+            "ci_lower": -0.43829182723434446,
+            "ci_upper": 1.5547798873701681,
+            "effect_per_1000_emails": 589.0475831335923,
+            "incremental_per_1000_eligible": 117.80260535623702,
+            "incremental_total_at_holdout_scale": 2008.0632109024161
+          },
+          "incremental_revenue_per_1000_eligible": 117.80260535623702,
+          "campaign_cost_per_1000_eligible": 9.999413352106068,
+          "incremental_profit_per_1000_eligible": {
+            "estimate": 107.80319200413095,
+            "ci_lower": -97.65263633942746,
+            "ci_upper": 300.93832195499846
+          },
+          "roi": {
+            "estimate": 10.780951662671844,
+            "ci_lower": -9.76583654468689,
+            "ci_upper": 30.09559774740336
+          }
+        }
+      },
+      "paired_profit_difference_vs_random": {
+        "response_model": {
+          "estimate": -25.523648285827335,
+          "ci_lower": -285.4807448329419,
+          "ci_upper": 239.90725184161553
+        },
+        "pseudo_uplift": {
+          "estimate": -78.57737012609937,
+          "ci_lower": -291.0998991032321,
+          "ci_upper": 134.4885979790707
+        },
+        "psm_segments": {
+          "estimate": 81.46789319334852,
+          "ci_lower": -147.53075563357228,
+          "ci_upper": 317.3001788531302
+        },
+        "causal_forest_dml": {
+          "estimate": -94.8493325598968,
+          "ci_lower": -342.48757932476576,
+          "ci_upper": 140.20071494436243
+        },
+        "uplift_random_forest": {
+          "estimate": -76.30822980538069,
+          "ci_lower": -332.6237213350955,
+          "ci_upper": 171.86566675058188
+        }
+      }
+    },
+    "weak": {
+      "training_rows": 12760,
+      "nuisance_candidate": "random_forest_logistic",
+      "preferred_matching_variant": "with_replacement",
+      "naive_association": 0.008535792088265251,
+      "linear_dml_ate": {
+        "estimate": 0.007392737999984911,
+        "ci_lower": 0.004291791132953527,
+        "ci_upper": 0.010493684867016293,
+        "absolute_error_vs_rct": 0.0003529632727761805
+      },
+      "causal_forest_ate": {
+        "estimate": 0.00719838781924306,
+        "ci_lower": -0.000273175422961275,
+        "ci_upper": 0.014669951061447396
+      },
+      "uplift_forest_mean_effect": 0.008047449546454616,
+      "psm_att": {
+        "estimate": 0.007023567972530045,
+        "ci_lower": 0.003901982206961136,
+        "ci_upper": 0.0103012330263774,
+        "gap_vs_overall_rct_ate": -1.6206754678685376e-05
+      },
+      "psm_segments": [
+        {
+          "segment": "inactive / high history",
+          "matched_pairs": 1120,
+          "conversion_att": 0.0125
+        },
+        {
+          "segment": "inactive / low history",
+          "matched_pairs": 1234,
+          "conversion_att": 0.004862236628849271
+        },
+        {
+          "segment": "recent / high history",
+          "matched_pairs": 2481,
+          "conversion_att": 0.009673518742442563
+        },
+        {
+          "segment": "recent / low history",
+          "matched_pairs": 1572,
+          "conversion_att": 0.0006361323155216285
+        }
+      ],
+      "fit_and_score_runtime_seconds": 32.492387482001504,
+      "ate_estimators": {
+        "naive": {
+          "estimand": "ATE on the RCT covariate distribution",
+          "estimate": 0.008535792088265251,
+          "absolute_error_vs_rct_ate": 0.0014960173610565211
+        },
+        "linear_dml": {
+          "estimand": "ATE on the RCT covariate distribution",
+          "estimate": 0.007392737999984911,
+          "absolute_error_vs_rct_ate": 0.0003529632727761805
+        },
+        "causal_forest_dml": {
+          "estimand": "ATE on the RCT covariate distribution",
+          "estimate": 0.00719838781924306,
+          "absolute_error_vs_rct_ate": 0.00015861309203432997
+        },
+        "uplift_random_forest": {
+          "estimand": "ATE on the RCT covariate distribution",
+          "estimate": 0.008047449546454616,
+          "absolute_error_vs_rct_ate": 0.0010076748192458856
+        },
+        "psm": {
+          "estimand": "ATT in matched observational treated customers",
+          "estimate": 0.007023567972530045,
+          "absolute_error_vs_rct_ate": null,
+          "reference_gap_vs_overall_rct_ate": -1.6206754678685376e-05
+        }
+      },
+      "policies": {
+        "random": {
+          "targeted_customers": 3409,
+          "targeted_fraction": 0.19998826704212133,
+          "conversion": {
+            "estimate": 0.00962019790554214,
+            "ci_lower": 0.002596554865390217,
+            "ci_upper": 0.016644297115834164,
+            "effect_per_1000_emails": 9.62019790554214,
+            "incremental_per_1000_eligible": 1.9239267077316178,
+            "incremental_total_at_holdout_scale": 32.795254659993155
+          },
+          "visit": {
+            "estimate": 0.07365925570935661,
+            "ci_lower": 0.0506418486010897,
+            "ci_upper": 0.09708736226243864,
+            "effect_per_1000_emails": 73.65925570935661,
+            "incremental_per_1000_eligible": 14.730986900926709,
+            "incremental_total_at_holdout_scale": 251.10440271319666
+          },
+          "spend": {
+            "estimate": 0.970611116504821,
+            "ci_lower": 0.03609828194275452,
+            "ci_upper": 1.9191553839437747,
+            "effect_per_1000_emails": 970.611116504821,
+            "incremental_per_1000_eligible": 194.11083516161767,
+            "incremental_total_at_holdout_scale": 3308.813296164935
+          },
+          "incremental_revenue_per_1000_eligible": 194.11083516161767,
+          "campaign_cost_per_1000_eligible": 9.999413352106068,
+          "incremental_profit_per_1000_eligible": {
+            "estimate": 184.1114218095116,
+            "ci_lower": -2.7801805031766893,
+            "ci_upper": 373.80914606736644
+          },
+          "roi": {
+            "estimate": 18.412222330096416,
+            "ci_lower": -0.2780343611449096,
+            "ci_upper": 37.38310767887549
+          }
+        },
+        "response_model": {
+          "targeted_customers": 3409,
+          "targeted_fraction": 0.19998826704212133,
+          "conversion": {
+            "estimate": 0.002436605897846408,
+            "ci_lower": -0.00577940746096507,
+            "ci_upper": 0.01020713904525813,
+            "effect_per_1000_emails": 2.436605897846408,
+            "incremental_per_1000_eligible": 0.4872925909749153,
+            "incremental_total_at_holdout_scale": 8.306389505758405
+          },
+          "visit": {
+            "estimate": 0.08496823839281104,
+            "ci_lower": 0.057395048976570454,
+            "ci_upper": 0.11039936132486357,
+            "effect_per_1000_emails": 84.96823839281103,
+            "incremental_per_1000_eligible": 16.99265074980012,
+            "incremental_total_at_holdout_scale": 289.65672468109284
+          },
+          "spend": {
+            "estimate": 0.2241509993286166,
+            "ci_lower": -0.8344687459760024,
+            "ci_upper": 1.3877443107989458,
+            "effect_per_1000_emails": 224.1509993286166,
+            "incremental_per_1000_eligible": 44.82756991148973,
+            "incremental_total_at_holdout_scale": 764.130756711254
+          },
+          "incremental_revenue_per_1000_eligible": 44.82756991148973,
+          "campaign_cost_per_1000_eligible": 9.999413352106068,
+          "incremental_profit_per_1000_eligible": {
+            "estimate": 34.828156559383665,
+            "ci_lower": -176.88337176065895,
+            "ci_upper": 267.5331664621381
+          },
+          "roi": {
+            "estimate": 3.483019986572331,
+            "ci_lower": -17.689374919520045,
+            "ci_upper": 26.754886215978914
+          }
+        },
+        "pseudo_uplift": {
+          "targeted_customers": 3409,
+          "targeted_fraction": 0.19998826704212133,
+          "conversion": {
+            "estimate": 0.00031291114769199657,
+            "ci_lower": -0.007321862678478114,
+            "ci_upper": 0.0079094747017017,
+            "effect_per_1000_emails": 0.31291114769199657,
+            "incremental_per_1000_eligible": 0.06257855816508368,
+            "incremental_total_at_holdout_scale": 1.0667141024820164
+          },
+          "visit": {
+            "estimate": 0.08473386029085245,
+            "ci_lower": 0.06120807971695485,
+            "ci_upper": 0.11000015318532533,
+            "effect_per_1000_emails": 84.73386029085245,
+            "incremental_per_1000_eligible": 16.9457778793568,
+            "incremental_total_at_holdout_scale": 288.857729731516
+          },
+          "spend": {
+            "estimate": 0.22399745540241645,
+            "ci_lower": -0.9790053044291558,
+            "ci_upper": 1.4084686032906275,
+            "effect_per_1000_emails": 223.99745540241645,
+            "incremental_per_1000_eligible": 44.79686292777412,
+            "incremental_total_at_holdout_scale": 763.6073254668377
+          },
+          "incremental_revenue_per_1000_eligible": 44.79686292777412,
+          "campaign_cost_per_1000_eligible": 9.999413352106068,
+          "incremental_profit_per_1000_eligible": {
+            "estimate": 34.797449575668054,
+            "ci_lower": -205.78898760993738,
+            "ci_upper": 271.67778180322364
+          },
+          "roi": {
+            "estimate": 3.4799491080483285,
+            "ci_lower": -20.580106088583115,
+            "ci_upper": 27.169372065812553
+          }
+        },
+        "psm_segments": {
+          "targeted_customers": 3409,
+          "targeted_fraction": 0.19998826704212133,
+          "conversion": {
+            "estimate": 0.011780194816370082,
+            "ci_lower": 0.005312704367879393,
+            "ci_upper": 0.0182507830516642,
+            "effect_per_1000_emails": 11.780194816370082,
+            "incremental_per_1000_eligible": 2.3559007467444335,
+            "incremental_total_at_holdout_scale": 40.15868412900561
+          },
+          "visit": {
+            "estimate": 0.07465666196262005,
+            "ci_lower": 0.05117325233194508,
+            "ci_upper": 0.09810870650191031,
+            "effect_per_1000_emails": 74.65666196262005,
+            "incremental_per_1000_eligible": 14.93045644905384,
+            "incremental_total_at_holdout_scale": 254.50456063057175
+          },
+          "spend": {
+            "estimate": 1.443507737583038,
+            "ci_lower": 0.4550059881939904,
+            "ci_upper": 2.4841806575052483,
+            "effect_per_1000_emails": 1443.507737583038,
+            "incremental_per_1000_eligible": 288.68461090112504,
+            "incremental_total_at_holdout_scale": 4920.917877420577
+          },
+          "incremental_revenue_per_1000_eligible": 288.68461090112504,
+          "campaign_cost_per_1000_eligible": 9.999413352106068,
+          "incremental_profit_per_1000_eligible": {
+            "estimate": 278.685197549019,
+            "ci_lower": 80.99644572059799,
+            "ci_upper": 486.80757136192614
+          },
+          "roi": {
+            "estimate": 27.870154751660763,
+            "ci_lower": 8.100119763879807,
+            "ci_upper": 48.68361315010497
+          }
+        },
+        "causal_forest_dml": {
+          "targeted_customers": 3409,
+          "targeted_fraction": 0.19998826704212133,
+          "conversion": {
+            "estimate": 0.005652004499573864,
+            "ci_lower": -0.0025363886513807827,
+            "ci_upper": 0.013857393248711604,
+            "effect_per_1000_emails": 5.652004499573864,
+            "incremental_per_1000_eligible": 1.1303345851840492,
+            "incremental_total_at_holdout_scale": 19.267683339047302
+          },
+          "visit": {
+            "estimate": 0.08459350315507147,
+            "ci_lower": 0.059048516710244234,
+            "ci_upper": 0.11273038286306725,
+            "effect_per_1000_emails": 84.59350315507147,
+            "incremental_per_1000_eligible": 16.91770809900497,
+            "incremental_total_at_holdout_scale": 288.3792522556386
+          },
+          "spend": {
+            "estimate": 1.185999237908772,
+            "ci_lower": -0.18671173615327755,
+            "ci_upper": 2.7580812409385493,
+            "effect_per_1000_emails": 1185.999237908772,
+            "incremental_per_1000_eligible": 237.18593230265188,
+            "incremental_total_at_holdout_scale": 4043.071402031004
+          },
+          "incremental_revenue_per_1000_eligible": 237.18593230265188,
+          "campaign_cost_per_1000_eligible": 9.999413352106068,
+          "incremental_profit_per_1000_eligible": {
+            "estimate": 227.1865189505458,
+            "ci_lower": -47.33956990182584,
+            "ci_upper": 541.5844743845779
+          },
+          "roi": {
+            "estimate": 22.719984758175436,
+            "ci_lower": -4.734234723065551,
+            "ci_upper": 54.16162481877098
+          }
+        },
+        "uplift_random_forest": {
+          "targeted_customers": 3409,
+          "targeted_fraction": 0.19998826704212133,
+          "conversion": {
+            "estimate": 0.006864376130198914,
+            "ci_lower": -0.0007224834237492459,
+            "ci_upper": 0.015122362869198306,
+            "effect_per_1000_emails": 6.864376130198914,
+            "incremental_per_1000_eligible": 1.372794686603784,
+            "incremental_total_at_holdout_scale": 23.400658227848098
+          },
+          "visit": {
+            "estimate": 0.08732730560578661,
+            "ci_lower": 0.05996142254370102,
+            "ci_upper": 0.1125812537673297,
+            "effect_per_1000_emails": 87.3273056057866,
+            "incremental_per_1000_eligible": 17.46443651355899,
+            "incremental_total_at_holdout_scale": 297.69878481012654
+          },
+          "spend": {
+            "estimate": 1.0587995418927065,
+            "ci_lower": -0.17610244122965651,
+            "ci_upper": 2.4112064388185646,
+            "effect_per_1000_emails": 1058.7995418927064,
+            "incremental_per_1000_eligible": 211.7474855281143,
+            "incremental_total_at_holdout_scale": 3609.4476383122364
+          },
+          "incremental_revenue_per_1000_eligible": 211.7474855281143,
+          "campaign_cost_per_1000_eligible": 9.999413352106068,
+          "incremental_profit_per_1000_eligible": {
+            "estimate": 201.74807217600824,
+            "ci_lower": -45.2178353955121,
+            "ci_upper": 472.21358382802345
+          },
+          "roi": {
+            "estimate": 20.175990837854126,
+            "ci_lower": -4.5220488245931305,
+            "ci_upper": 47.22412877637129
+          }
+        }
+      },
+      "paired_profit_difference_vs_random": {
+        "response_model": {
+          "estimate": -149.28326525012795,
+          "ci_lower": -393.03438710290084,
+          "ci_upper": 109.72802697570503
+        },
+        "pseudo_uplift": {
+          "estimate": -149.31397223384357,
+          "ci_lower": -421.9519852974108,
+          "ci_upper": 118.4642816349906
+        },
+        "psm_segments": {
+          "estimate": 94.57377573950731,
+          "ci_lower": -137.5409583885152,
+          "ci_upper": 341.74771899787766
+        },
+        "causal_forest_dml": {
+          "estimate": 43.07509714103418,
+          "ci_lower": -284.83288953984135,
+          "ci_upper": 374.0894712807601
+        },
+        "uplift_random_forest": {
+          "estimate": 17.63665036649661,
+          "ci_lower": -310.9950307659182,
+          "ci_upper": 315.5530167480995
+        }
+      }
+    },
+    "medium": {
+      "training_rows": 12781,
+      "nuisance_candidate": "random_forest_logistic",
+      "preferred_matching_variant": "with_replacement",
+      "naive_association": 0.009021473787521828,
+      "linear_dml_ate": {
+        "estimate": 0.005667554684102161,
+        "ci_lower": 0.0023078482069075618,
+        "ci_upper": 0.009027261161296759,
+        "absolute_error_vs_rct": 0.001372220043106569
+      },
+      "causal_forest_ate": {
+        "estimate": 0.005813349920119571,
+        "ci_lower": -0.0024253252577006628,
+        "ci_upper": 0.014052025097939801
+      },
+      "uplift_forest_mean_effect": 0.008324810280956843,
+      "psm_att": {
+        "estimate": 0.006547428936442032,
+        "ci_lower": 0.0028744809964867456,
+        "ci_upper": 0.010220376876397317,
+        "gap_vs_overall_rct_ate": -0.0004923457907666986
+      },
+      "psm_segments": [
+        {
+          "segment": "inactive / high history",
+          "matched_pairs": 1046,
+          "conversion_att": 0.0
+        },
+        {
+          "segment": "inactive / low history",
+          "matched_pairs": 993,
+          "conversion_att": 0.007049345417925478
+        },
+        {
+          "segment": "recent / high history",
+          "matched_pairs": 2765,
+          "conversion_att": 0.0108499095840868
+        },
+        {
+          "segment": "recent / low history",
+          "matched_pairs": 1458,
+          "conversion_att": 0.0027434842249657062
+        }
+      ],
+      "fit_and_score_runtime_seconds": 32.6675284970006,
+      "ate_estimators": {
+        "naive": {
+          "estimand": "ATE on the RCT covariate distribution",
+          "estimate": 0.009021473787521828,
+          "absolute_error_vs_rct_ate": 0.0019816990603130974
+        },
+        "linear_dml": {
+          "estimand": "ATE on the RCT covariate distribution",
+          "estimate": 0.005667554684102161,
+          "absolute_error_vs_rct_ate": 0.001372220043106569
+        },
+        "causal_forest_dml": {
+          "estimand": "ATE on the RCT covariate distribution",
+          "estimate": 0.005813349920119571,
+          "absolute_error_vs_rct_ate": 0.0012264248070891597
+        },
+        "uplift_random_forest": {
+          "estimand": "ATE on the RCT covariate distribution",
+          "estimate": 0.008324810280956843,
+          "absolute_error_vs_rct_ate": 0.0012850355537481128
+        },
+        "psm": {
+          "estimand": "ATT in matched observational treated customers",
+          "estimate": 0.006547428936442032,
+          "absolute_error_vs_rct_ate": null,
+          "reference_gap_vs_overall_rct_ate": -0.0004923457907666986
+        }
+      },
+      "policies": {
+        "random": {
+          "targeted_customers": 3409,
+          "targeted_fraction": 0.19998826704212133,
+          "conversion": {
+            "estimate": 0.00962019790554214,
+            "ci_lower": 0.002596554865390217,
+            "ci_upper": 0.016644297115834164,
+            "effect_per_1000_emails": 9.62019790554214,
+            "incremental_per_1000_eligible": 1.9239267077316178,
+            "incremental_total_at_holdout_scale": 32.795254659993155
+          },
+          "visit": {
+            "estimate": 0.07365925570935661,
+            "ci_lower": 0.0506418486010897,
+            "ci_upper": 0.09708736226243864,
+            "effect_per_1000_emails": 73.65925570935661,
+            "incremental_per_1000_eligible": 14.730986900926709,
+            "incremental_total_at_holdout_scale": 251.10440271319666
+          },
+          "spend": {
+            "estimate": 0.970611116504821,
+            "ci_lower": 0.03609828194275452,
+            "ci_upper": 1.9191553839437747,
+            "effect_per_1000_emails": 970.611116504821,
+            "incremental_per_1000_eligible": 194.11083516161767,
+            "incremental_total_at_holdout_scale": 3308.813296164935
+          },
+          "incremental_revenue_per_1000_eligible": 194.11083516161767,
+          "campaign_cost_per_1000_eligible": 9.999413352106068,
+          "incremental_profit_per_1000_eligible": {
+            "estimate": 184.1114218095116,
+            "ci_lower": -2.7801805031766893,
+            "ci_upper": 373.80914606736644
+          },
+          "roi": {
+            "estimate": 18.412222330096416,
+            "ci_lower": -0.2780343611449096,
+            "ci_upper": 37.38310767887549
+          }
+        },
+        "response_model": {
+          "targeted_customers": 3409,
+          "targeted_fraction": 0.19998826704212133,
+          "conversion": {
+            "estimate": 0.008718204660448144,
+            "ci_lower": 0.0005076928372285128,
+            "ci_upper": 0.01634977454996042,
+            "effect_per_1000_emails": 8.718204660448144,
+            "incremental_per_1000_eligible": 1.7435386417615704,
+            "incremental_total_at_holdout_scale": 29.720359687467724
+          },
+          "visit": {
+            "estimate": 0.09923450246101953,
+            "ci_lower": 0.07226814786769008,
+            "ci_upper": 0.12507030255051113,
+            "effect_per_1000_emails": 99.23450246101953,
+            "incremental_per_1000_eligible": 19.84573617796642,
+            "incremental_total_at_holdout_scale": 338.2904188896156
+          },
+          "spend": {
+            "estimate": 0.7749083227205453,
+            "ci_lower": -0.33060084182356375,
+            "ci_upper": 1.9692443429249986,
+            "effect_per_1000_emails": 774.9083227205454,
+            "incremental_per_1000_eligible": 154.97257257739875,
+            "incremental_total_at_holdout_scale": 2641.662472154339
+          },
+          "incremental_revenue_per_1000_eligible": 154.97257257739875,
+          "campaign_cost_per_1000_eligible": 9.999413352106068,
+          "incremental_profit_per_1000_eligible": {
+            "estimate": 144.97315922529268,
+            "ci_lower": -76.11570279106706,
+            "ci_upper": 383.8263501719654
+          },
+          "roi": {
+            "estimate": 14.498166454410903,
+            "ci_lower": -7.612016836471276,
+            "ci_upper": 38.384886858499975
+          }
+        },
+        "pseudo_uplift": {
+          "targeted_customers": 3409,
+          "targeted_fraction": 0.19998826704212133,
+          "conversion": {
+            "estimate": 0.005558806722341941,
+            "ci_lower": -0.00257694651180403,
+            "ci_upper": 0.012665098074314776,
+            "effect_per_1000_emails": 5.558806722341941,
+            "incremental_per_1000_eligible": 1.1116961232232592,
+            "incremental_total_at_holdout_scale": 18.949972116463677
+          },
+          "visit": {
+            "estimate": 0.08738597010609511,
+            "ci_lower": 0.062076049763506294,
+            "ci_upper": 0.11216921003531914,
+            "effect_per_1000_emails": 87.38597010609512,
+            "incremental_per_1000_eligible": 17.476168725312583,
+            "incremental_total_at_holdout_scale": 297.8987720916782
+          },
+          "spend": {
+            "estimate": 0.6222855687208688,
+            "ci_lower": -0.5802620321762239,
+            "ci_upper": 1.733109122649693,
+            "effect_per_1000_emails": 622.2855687208688,
+            "incremental_per_1000_eligible": 124.44981249380746,
+            "incremental_total_at_holdout_scale": 2121.371503769442
+          },
+          "incremental_revenue_per_1000_eligible": 124.44981249380746,
+          "campaign_cost_per_1000_eligible": 9.999413352106068,
+          "incremental_profit_per_1000_eligible": {
+            "estimate": 114.45039914170138,
+            "ci_lower": -126.04501159736873,
+            "ci_upper": 336.60207668149735
+          },
+          "roi": {
+            "estimate": 11.445711374417375,
+            "ci_lower": -12.605240643524477,
+            "ci_upper": 33.662182452993854
+          }
+        },
+        "psm_segments": {
+          "targeted_customers": 3409,
+          "targeted_fraction": 0.19998826704212133,
+          "conversion": {
+            "estimate": 0.009712985528797832,
+            "ci_lower": 0.002101224406901015,
+            "ci_upper": 0.017852520412518762,
+            "effect_per_1000_emails": 9.712985528797832,
+            "incremental_per_1000_eligible": 1.942483143709481,
+            "incremental_total_at_holdout_scale": 33.11156766767181
+          },
+          "visit": {
+            "estimate": 0.08589642970245226,
+            "ci_lower": 0.059680017417764755,
+            "ci_upper": 0.11166163238189654,
+            "effect_per_1000_emails": 85.89642970245225,
+            "incremental_per_1000_eligible": 17.178278121298824,
+            "incremental_total_at_holdout_scale": 292.82092885565976
+          },
+          "spend": {
+            "estimate": 1.427597425888444,
+            "ci_lower": 0.3977272068239085,
+            "ci_upper": 2.623852132299282,
+            "effect_per_1000_emails": 1427.5974258884441,
+            "incremental_per_1000_eligible": 285.5027352372232,
+            "incremental_total_at_holdout_scale": 4866.679624853706
+          },
+          "incremental_revenue_per_1000_eligible": 285.5027352372232,
+          "campaign_cost_per_1000_eligible": 9.999413352106068,
+          "incremental_profit_per_1000_eligible": {
+            "estimate": 275.50332188511715,
+            "ci_lower": 69.54136149611077,
+            "ci_upper": 514.7402275612021
+          },
+          "roi": {
+            "estimate": 27.55194851776888,
+            "ci_lower": 6.9545441364781695,
+            "ci_upper": 51.47704264598563
+          }
+        },
+        "causal_forest_dml": {
+          "targeted_customers": 3409,
+          "targeted_fraction": 0.19998826704212133,
+          "conversion": {
+            "estimate": 0.005338063568569449,
+            "ci_lower": -0.002518358966933173,
+            "ci_upper": 0.013097442156325311,
+            "effect_per_1000_emails": 5.338063568569449,
+            "incremental_per_1000_eligible": 1.067550082438886,
+            "incremental_total_at_holdout_scale": 18.19745870525325
+          },
+          "visit": {
+            "estimate": 0.09126940620377935,
+            "ci_lower": 0.06677820816482732,
+            "ci_upper": 0.11746250633513648,
+            "effect_per_1000_emails": 91.26940620377935,
+            "incremental_per_1000_eligible": 18.25281038065727,
+            "incremental_total_at_holdout_scale": 311.1374057486838
+          },
+          "spend": {
+            "estimate": 0.06564924547231699,
+            "ci_lower": -1.1321426280559497,
+            "ci_upper": 1.3105785428496564,
+            "effect_per_1000_emails": 65.64924547231699,
+            "incremental_per_1000_eligible": 13.129078834631503,
+            "incremental_total_at_holdout_scale": 223.7982778151286
+          },
+          "incremental_revenue_per_1000_eligible": 13.129078834631503,
+          "campaign_cost_per_1000_eligible": 9.999413352106068,
+          "incremental_profit_per_1000_eligible": {
+            "estimate": 3.1296654825254357,
+            "ci_lower": -236.41465558152836,
+            "ci_upper": 252.10091825498526
+          },
+          "roi": {
+            "estimate": 0.3129849094463395,
+            "ci_lower": -23.64285256111899,
+            "ci_upper": 25.211570856993124
+          }
+        },
+        "uplift_random_forest": {
+          "targeted_customers": 3409,
+          "targeted_fraction": 0.19998826704212133,
+          "conversion": {
+            "estimate": 0.010146445387328357,
+            "ci_lower": 0.0020443687933886113,
+            "ci_upper": 0.017748317819817366,
+            "effect_per_1000_emails": 10.146445387328358,
+            "incremental_per_1000_eligible": 2.0291700296493236,
+            "incremental_total_at_holdout_scale": 34.58923232540237
+          },
+          "visit": {
+            "estimate": 0.09092930987232509,
+            "ci_lower": 0.06597896448485902,
+            "ci_upper": 0.11888957344372511,
+            "effect_per_1000_emails": 90.92930987232509,
+            "incremental_per_1000_eligible": 18.18479510470235,
+            "incremental_total_at_holdout_scale": 309.9780173547562
+          },
+          "spend": {
+            "estimate": 1.105452976763466,
+            "ci_lower": 0.05479301540609913,
+            "ci_upper": 2.2266611458724954,
+            "effect_per_1000_emails": 1105.452976763466,
+            "incremental_per_1000_eligible": 221.07762511948,
+            "incremental_total_at_holdout_scale": 3768.4891977866555
+          },
+          "incremental_revenue_per_1000_eligible": 221.07762511948,
+          "campaign_cost_per_1000_eligible": 9.999413352106068,
+          "incremental_profit_per_1000_eligible": {
+            "estimate": 211.07821176737392,
+            "ci_lower": 0.9585468449719521,
+            "ci_upper": 435.3066905009585
+          },
+          "roi": {
+            "estimate": 21.109059535269317,
+            "ci_lower": 0.09586030812198236,
+            "ci_upper": 43.53322291744991
+          }
+        }
+      },
+      "paired_profit_difference_vs_random": {
+        "response_model": {
+          "estimate": -39.13826258421892,
+          "ci_lower": -326.4873063944016,
+          "ci_upper": 247.25461606946166
+        },
+        "pseudo_uplift": {
+          "estimate": -69.66102266781024,
+          "ci_lower": -355.53263484254825,
+          "ci_upper": 215.7345619490576
+        },
+        "psm_segments": {
+          "estimate": 91.39190007560546,
+          "ci_lower": -142.9185747456867,
+          "ci_upper": 332.2203400001087
+        },
+        "causal_forest_dml": {
+          "estimate": -180.9817563269862,
+          "ci_lower": -424.50842216302055,
+          "ci_upper": 32.89631609623764
+        },
+        "uplift_random_forest": {
+          "estimate": 26.96678995786229,
+          "ci_lower": -233.43321909060413,
+          "ci_upper": 309.9059820493145
+        }
+      }
+    },
+    "strong": {
+      "training_rows": 12680,
+      "nuisance_candidate": "random_forest_logistic",
+      "preferred_matching_variant": "with_replacement",
+      "naive_association": 0.010754500936395642,
+      "linear_dml_ate": {
+        "estimate": 0.006568755176145551,
+        "ci_lower": 0.0027266445258984674,
+        "ci_upper": 0.010410865826392633,
+        "absolute_error_vs_rct": 0.00047101955106317907
+      },
+      "causal_forest_ate": {
+        "estimate": 0.006664506876368778,
+        "ci_lower": -0.0030018808036883114,
+        "ci_upper": 0.016330894556425866
+      },
+      "uplift_forest_mean_effect": 0.01003889928211667,
+      "psm_att": {
+        "estimate": 0.009879253567508232,
+        "ci_lower": 0.006403219904866447,
+        "ci_upper": 0.013355287230150018,
+        "gap_vs_overall_rct_ate": 0.002839478840299502
+      },
+      "psm_segments": [
+        {
+          "segment": "inactive / high history",
+          "matched_pairs": 1261,
+          "conversion_att": 0.008723235527359239
+        },
+        {
+          "segment": "inactive / low history",
+          "matched_pairs": 685,
+          "conversion_att": 0.004379562043795621
+        },
+        {
+          "segment": "recent / high history",
+          "matched_pairs": 2311,
+          "conversion_att": 0.015577672003461706
+        },
+        {
+          "segment": "recent / low history",
+          "matched_pairs": 1209,
+          "conversion_att": 0.0033085194375516956
+        }
+      ],
+      "fit_and_score_runtime_seconds": 30.940532448999875,
+      "ate_estimators": {
+        "naive": {
+          "estimand": "ATE on the RCT covariate distribution",
+          "estimate": 0.010754500936395642,
+          "absolute_error_vs_rct_ate": 0.0037147262091869115
+        },
+        "linear_dml": {
+          "estimand": "ATE on the RCT covariate distribution",
+          "estimate": 0.006568755176145551,
+          "absolute_error_vs_rct_ate": 0.00047101955106317907
+        },
+        "causal_forest_dml": {
+          "estimand": "ATE on the RCT covariate distribution",
+          "estimate": 0.006664506876368778,
+          "absolute_error_vs_rct_ate": 0.0003752678508399526
+        },
+        "uplift_random_forest": {
+          "estimand": "ATE on the RCT covariate distribution",
+          "estimate": 0.01003889928211667,
+          "absolute_error_vs_rct_ate": 0.0029991245549079405
+        },
+        "psm": {
+          "estimand": "ATT in matched observational treated customers",
+          "estimate": 0.009879253567508232,
+          "absolute_error_vs_rct_ate": null,
+          "reference_gap_vs_overall_rct_ate": 0.002839478840299502
+        }
+      },
+      "policies": {
+        "random": {
+          "targeted_customers": 3409,
+          "targeted_fraction": 0.19998826704212133,
+          "conversion": {
+            "estimate": 0.00962019790554214,
+            "ci_lower": 0.002596554865390217,
+            "ci_upper": 0.016644297115834164,
+            "effect_per_1000_emails": 9.62019790554214,
+            "incremental_per_1000_eligible": 1.9239267077316178,
+            "incremental_total_at_holdout_scale": 32.795254659993155
+          },
+          "visit": {
+            "estimate": 0.07365925570935661,
+            "ci_lower": 0.0506418486010897,
+            "ci_upper": 0.09708736226243864,
+            "effect_per_1000_emails": 73.65925570935661,
+            "incremental_per_1000_eligible": 14.730986900926709,
+            "incremental_total_at_holdout_scale": 251.10440271319666
+          },
+          "spend": {
+            "estimate": 0.970611116504821,
+            "ci_lower": 0.03609828194275452,
+            "ci_upper": 1.9191553839437747,
+            "effect_per_1000_emails": 970.611116504821,
+            "incremental_per_1000_eligible": 194.11083516161767,
+            "incremental_total_at_holdout_scale": 3308.813296164935
+          },
+          "incremental_revenue_per_1000_eligible": 194.11083516161767,
+          "campaign_cost_per_1000_eligible": 9.999413352106068,
+          "incremental_profit_per_1000_eligible": {
+            "estimate": 184.1114218095116,
+            "ci_lower": -2.7801805031766893,
+            "ci_upper": 373.80914606736644
+          },
+          "roi": {
+            "estimate": 18.412222330096416,
+            "ci_lower": -0.2780343611449096,
+            "ci_upper": 37.38310767887549
+          }
+        },
+        "response_model": {
+          "targeted_customers": 3409,
+          "targeted_fraction": 0.19998826704212133,
+          "conversion": {
+            "estimate": 0.01019176727977673,
+            "ci_lower": 0.0014105283375809058,
+            "ci_upper": 0.018405891460380533,
+            "effect_per_1000_emails": 10.19176727977673,
+            "incremental_per_1000_eligible": 2.0382338763791434,
+            "incremental_total_at_holdout_scale": 34.743734656758875
+          },
+          "visit": {
+            "estimate": 0.08998075167596728,
+            "ci_lower": 0.0628886237310632,
+            "ci_upper": 0.11870823850298157,
+            "effect_per_1000_emails": 89.98075167596728,
+            "incremental_per_1000_eligible": 17.995094594824153,
+            "incremental_total_at_holdout_scale": 306.74438246337246
+          },
+          "spend": {
+            "estimate": 0.8631431046803164,
+            "ci_lower": -0.2454703333312682,
+            "ci_upper": 2.074383759071702,
+            "effect_per_1000_emails": 863.1431046803164,
+            "incremental_per_1000_eligible": 172.6184937143728,
+            "incremental_total_at_holdout_scale": 2942.4548438551988
+          },
+          "incremental_revenue_per_1000_eligible": 172.6184937143728,
+          "campaign_cost_per_1000_eligible": 9.999413352106068,
+          "incremental_profit_per_1000_eligible": {
+            "estimate": 162.61908036226671,
+            "ci_lower": -59.09059992527827,
+            "ci_upper": 404.85299980496495
+          },
+          "roi": {
+            "estimate": 16.262862093606323,
+            "ci_lower": -5.9094066666253635,
+            "ci_upper": 40.487675181434035
+          }
+        },
+        "pseudo_uplift": {
+          "targeted_customers": 3409,
+          "targeted_fraction": 0.19998826704212133,
+          "conversion": {
+            "estimate": 0.009252566390201456,
+            "ci_lower": 0.001616436875612684,
+            "ci_upper": 0.01683588629955171,
+            "effect_per_1000_emails": 9.252566390201457,
+            "incremental_per_1000_eligible": 1.8504047180685654,
+            "incremental_total_at_holdout_scale": 31.541998824196764
+          },
+          "visit": {
+            "estimate": 0.07627816971218979,
+            "ci_lower": 0.05287407477778145,
+            "ci_upper": 0.10153828519974886,
+            "effect_per_1000_emails": 76.27816971218978,
+            "incremental_per_1000_eligible": 15.254738973885662,
+            "incremental_total_at_holdout_scale": 260.032280548855
+          },
+          "spend": {
+            "estimate": 0.9382109788906143,
+            "ci_lower": -0.20445699213974178,
+            "ci_upper": 2.1994276261441357,
+            "effect_per_1000_emails": 938.2109788906143,
+            "incremental_per_1000_eligible": 187.63118778822624,
+            "incremental_total_at_holdout_scale": 3198.361227038104
+          },
+          "incremental_revenue_per_1000_eligible": 187.63118778822624,
+          "campaign_cost_per_1000_eligible": 9.999413352106068,
+          "incremental_profit_per_1000_eligible": {
+            "estimate": 177.63177443612017,
+            "ci_lower": -50.88841289477765,
+            "ci_upper": 429.86030608502637
+          },
+          "roi": {
+            "estimate": 17.764219577812284,
+            "ci_lower": -5.089139842794835,
+            "ci_upper": 42.98855252288271
+          }
+        },
+        "psm_segments": {
+          "targeted_customers": 3409,
+          "targeted_fraction": 0.19998826704212133,
+          "conversion": {
+            "estimate": 0.007685983305950611,
+            "ci_lower": 5.956258340483856e-06,
+            "ci_upper": 0.015345404454041785,
+            "effect_per_1000_emails": 7.685983305950611,
+            "incremental_per_1000_eligible": 1.5371064818717373,
+            "incremental_total_at_holdout_scale": 26.201517089985632
+          },
+          "visit": {
+            "estimate": 0.08176668819641744,
+            "ci_lower": 0.056421707222014894,
+            "ci_upper": 0.10859137761025275,
+            "effect_per_1000_emails": 81.76668819641745,
+            "incremental_per_1000_eligible": 16.352378274175003,
+            "incremental_total_at_holdout_scale": 278.74264006158705
+          },
+          "spend": {
+            "estimate": 1.035226547835296,
+            "ci_lower": 0.11677406354191487,
+            "ci_upper": 2.0709500193320176,
+            "effect_per_1000_emails": 1035.226547835296,
+            "incremental_per_1000_eligible": 207.03316329757857,
+            "incremental_total_at_holdout_scale": 3529.0873015705242
+          },
+          "incremental_revenue_per_1000_eligible": 207.03316329757857,
+          "campaign_cost_per_1000_eligible": 9.999413352106068,
+          "incremental_profit_per_1000_eligible": {
+            "estimate": 197.0337499454725,
+            "ci_lower": 13.354029251108049,
+            "ci_upper": 404.16629214495185
+          },
+          "roi": {
+            "estimate": 19.704530956705916,
+            "ci_lower": 1.3354812708382973,
+            "ci_upper": 40.419000386640356
+          }
+        },
+        "causal_forest_dml": {
+          "targeted_customers": 3409,
+          "targeted_fraction": 0.19998826704212133,
+          "conversion": {
+            "estimate": 0.007826468306176837,
+            "ci_lower": 0.001366258475862768,
+            "ci_upper": 0.014334870675322046,
+            "effect_per_1000_emails": 7.826468306176837,
+            "incremental_per_1000_eligible": 1.5652018336123923,
+            "incremental_total_at_holdout_scale": 26.680430455756838
+          },
+          "visit": {
+            "estimate": 0.09131281295029903,
+            "ci_lower": 0.06812226206138766,
+            "ci_upper": 0.11650305299733495,
+            "effect_per_1000_emails": 91.31281295029903,
+            "incremental_per_1000_eligible": 18.261491220671676,
+            "incremental_total_at_holdout_scale": 311.2853793475694
+          },
+          "spend": {
+            "estimate": 0.764418870270505,
+            "ci_lower": -0.1522158501645772,
+            "ci_upper": 1.7712254748169884,
+            "effect_per_1000_emails": 764.4188702705051,
+            "incremental_per_1000_eligible": 152.87480515969446,
+            "incremental_total_at_holdout_scale": 2605.903928752152
+          },
+          "incremental_revenue_per_1000_eligible": 152.87480515969446,
+          "campaign_cost_per_1000_eligible": 9.999413352106068,
+          "incremental_profit_per_1000_eligible": {
+            "estimate": 142.8753918075884,
+            "ci_lower": -40.44079744286306,
+            "ci_upper": 344.224899897402
+          },
+          "roi": {
+            "estimate": 14.288377405410099,
+            "ci_lower": -4.044317003291543,
+            "ci_upper": 34.424509496339766
+          }
+        },
+        "uplift_random_forest": {
+          "targeted_customers": 3409,
+          "targeted_fraction": 0.19998826704212133,
+          "conversion": {
+            "estimate": 0.007633238335191993,
+            "ci_lower": 0.0011635809480539162,
+            "ci_upper": 0.014675173474866797,
+            "effect_per_1000_emails": 7.633238335191993,
+            "incremental_per_1000_eligible": 1.5265581065745337,
+            "incremental_total_at_holdout_scale": 26.021709484669504
+          },
+          "visit": {
+            "estimate": 0.08868902564949815,
+            "ci_lower": 0.06519970261451406,
+            "ci_upper": 0.11391930148830422,
+            "effect_per_1000_emails": 88.68902564949815,
+            "incremental_per_1000_eligible": 17.736764545297387,
+            "incremental_total_at_holdout_scale": 302.34088843913923
+          },
+          "spend": {
+            "estimate": 0.7257607733399418,
+            "ci_lower": -0.12287655525036824,
+            "ci_upper": 1.758602105878182,
+            "effect_per_1000_emails": 725.7607733399418,
+            "incremental_per_1000_eligible": 145.1436393474048,
+            "incremental_total_at_holdout_scale": 2474.1184763158617
+          },
+          "incremental_revenue_per_1000_eligible": 145.1436393474048,
+          "campaign_cost_per_1000_eligible": 9.999413352106068,
+          "incremental_profit_per_1000_eligible": {
+            "estimate": 135.1442259952987,
+            "ci_lower": -34.57328269673269,
+            "ci_upper": 341.7003742190968
+          },
+          "roi": {
+            "estimate": 13.515215466798836,
+            "ci_lower": -3.457531105007365,
+            "ci_upper": 34.17204211756364
+          }
+        }
+      },
+      "paired_profit_difference_vs_random": {
+        "response_model": {
+          "estimate": -21.49234144724491,
+          "ci_lower": -279.59910211896295,
+          "ci_upper": 226.3318110412269
+        },
+        "pseudo_uplift": {
+          "estimate": -6.479647373391458,
+          "ci_lower": -274.1490125648576,
+          "ci_upper": 277.89831670684475
+        },
+        "psm_segments": {
+          "estimate": 12.922328135960868,
+          "ci_lower": -218.25583259681258,
+          "ci_upper": 232.49262352231088
+        },
+        "causal_forest_dml": {
+          "estimate": -41.23603000192324,
+          "ci_lower": -260.3602202356796,
+          "ci_upper": 189.9347743961416
+        },
+        "uplift_random_forest": {
+          "estimate": -48.967195814212914,
+          "ci_lower": -305.46469124374914,
+          "ci_upper": 202.2476978603239
+        }
+      }
+    }
+  },
+  "runtime_seconds": 145.21755680599745,
+  "figures": {
+    "ate_error": "experiments/figures/confounding_ate_ablation.svg",
+    "policy_value": "experiments/figures/confounding_policy_ablation.svg"
+  }
+}

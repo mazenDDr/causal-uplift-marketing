@@ -578,6 +578,122 @@ def plot_prediction_vs_uplift_decision(
     plt.close(figure)
 
 
+def plot_confounding_ate_ablation(samples: dict[str, dict[str, object]], output: Path) -> None:
+    """Plot like-for-like ATE errors and PSM's separately labeled ATT reference gap."""
+    strengths = list(samples)
+    positions = np.arange(len(strengths))
+    methods = {
+        "naive": ("Naive association", "#d95f0e", "o"),
+        "linear_dml": ("LinearDML", "#2c7fb8", "s"),
+        "causal_forest_dml": ("CausalForestDML", "#31a354", "^"),
+        "uplift_random_forest": ("Uplift random forest", "#756bb1", "D"),
+    }
+    figure, axis = plt.subplots(figsize=(11, 6))
+    for method, (label, color, marker) in methods.items():
+        axis.plot(
+            positions,
+            [
+                samples[strength]["ate_estimators"][method]["absolute_error_vs_rct_ate"]
+                for strength in strengths
+            ],
+            marker=marker,
+            color=color,
+            linewidth=2,
+            label=label,
+        )
+    axis.plot(
+        positions,
+        [
+            abs(samples[strength]["ate_estimators"]["psm"]["reference_gap_vs_overall_rct_ate"])
+            for strength in strengths
+        ],
+        marker="x",
+        color="#636363",
+        linestyle="--",
+        linewidth=1.5,
+        label="PSM ATT gap (different estimand)",
+    )
+    axis.set_xticks(positions, labels=[strength.capitalize() for strength in strengths])
+    axis.set_xlabel("Training-data confounding")
+    axis.set_ylabel("Absolute conversion-effect gap vs overall RCT ATE")
+    axis.set_title("Estimator error under controlled treatment-selection bias")
+    axis.grid(axis="y", alpha=0.2)
+    axis.legend(frameon=False, ncol=2)
+    figure.tight_layout()
+    _save_figure(figure, output)
+    plt.close(figure)
+
+
+def plot_confounding_policy_ablation(
+    samples: dict[str, dict[str, object]],
+    output: Path,
+    *,
+    budget: float,
+    email_cost: float,
+) -> None:
+    """Plot randomized policy value as training confounding increases."""
+    strengths = list(samples)
+    positions = np.arange(len(strengths))
+    methods = {
+        "random": ("Random", "#969696", "o"),
+        "response_model": ("Response model", "#252525", "s"),
+        "pseudo_uplift": ("Treatment-as-feature", "#756bb1", "^"),
+        "psm_segments": ("PSM segments", "#e7ba52", "D"),
+        "causal_forest_dml": ("CausalForestDML", "#31a354", "P"),
+        "uplift_random_forest": ("Uplift random forest", "#3182bd", "X"),
+    }
+    figure, axes = plt.subplots(1, 2, figsize=(16, 6))
+    for method, (label, color, marker) in methods.items():
+        policy = [samples[strength]["policies"][method] for strength in strengths]
+        profit = np.array(
+            [row["incremental_profit_per_1000_eligible"]["estimate"] for row in policy]
+        )
+        profit_lower = np.array(
+            [row["incremental_profit_per_1000_eligible"]["ci_lower"] for row in policy]
+        )
+        profit_upper = np.array(
+            [row["incremental_profit_per_1000_eligible"]["ci_upper"] for row in policy]
+        )
+        conversion = np.array([row["conversion"]["effect_per_1000_emails"] for row in policy])
+        conversion_lower = np.array([row["conversion"]["ci_lower"] * 1000 for row in policy])
+        conversion_upper = np.array([row["conversion"]["ci_upper"] * 1000 for row in policy])
+        axes[0].errorbar(
+            positions,
+            profit,
+            yerr=np.vstack([profit - profit_lower, profit_upper - profit]),
+            marker=marker,
+            color=color,
+            linewidth=1.5,
+            capsize=2,
+            label=label,
+        )
+        axes[1].errorbar(
+            positions,
+            conversion,
+            yerr=np.vstack([conversion - conversion_lower, conversion_upper - conversion]),
+            marker=marker,
+            color=color,
+            linewidth=1.5,
+            capsize=2,
+            label=label,
+        )
+    axes[0].axhline(0, color="#555555", linewidth=1)
+    axes[0].set_ylabel("Profit per 1,000 eligible customers ($)")
+    axes[0].set_title("Incremental profit")
+    axes[1].axhline(0, color="#555555", linewidth=1)
+    axes[1].set_ylabel("Incremental conversions per 1,000 emails")
+    axes[1].set_title("Incremental conversion effect")
+    for axis in axes:
+        axis.set_xticks(positions, labels=[strength.capitalize() for strength in strengths])
+        axis.set_xlabel("Training-data confounding")
+        axis.grid(axis="y", alpha=0.2)
+    axes[0].legend(frameon=False, fontsize=8, ncol=2)
+    figure.suptitle(f"RCT policy value at {budget:.0%} targeting and ${email_cost:.2f}/email")
+    figure.tight_layout()
+    _save_figure(figure, output)
+    plt.close(figure)
+
+
 def plot_uplift_tree_structure(
     root: object,
     feature_names: tuple[str, ...],
