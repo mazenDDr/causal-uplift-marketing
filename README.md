@@ -542,3 +542,8 @@ extrapolating results that were never measured.
   targeting value should be interpreted with the randomized intervals, not as a byte-stable point
   estimate.
 - Hillstrom is one retailer and one historical campaign. External validity requires new experiments.
+
+## License
+
+The project code and original documentation are available under the [MIT License](LICENSE).
+The Hillstrom source dataset is not included in this repository.
