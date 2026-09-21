@@ -88,6 +88,15 @@ uplift_metrics:
   bootstrap_samples: 1000
   reference_model: response_model
 
+business_policy:
+  budgets: [0.05, 0.10, 0.20, 0.30, 0.40, 0.50, 0.75, 1.00]
+  email_costs: [0.01, 0.05, 0.10, 0.25, 0.50]
+  primary_budget: 0.20
+  decision_failure_budget: 0.05
+  primary_email_cost: 0.05
+  conversion_value: 50.0
+  bootstrap_samples: 1000
+
 evaluation:
   bootstrap_samples: 2000
   policy_budgets: [0.05, 0.10, 0.20, 0.30, 0.40, 0.50, 0.75, 1.00]

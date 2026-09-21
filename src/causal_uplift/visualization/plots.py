@@ -390,6 +390,194 @@ def plot_uplift_metric_intervals(models: dict[str, dict[str, object]], output: P
     plt.close(figure)
 
 
+def plot_policy_profit_curves(
+    top_k: dict[str, dict[str, object]],
+    output: Path,
+    *,
+    primary_cost: float,
+    primary_budget: float,
+) -> None:
+    """Plot profit across targeting budgets and email costs."""
+    labels = {
+        "random": "Random",
+        "response_model": "Response model",
+        "pseudo_uplift": "Treatment-as-feature",
+        "psm_segments": "PSM segments",
+        "linear_dml": "LinearDML (constant)",
+        "causal_forest_dml": "CausalForestDML",
+        "uplift_tree": "Uplift tree",
+        "uplift_random_forest": "Uplift random forest",
+    }
+    colors = [
+        "#969696",
+        "#252525",
+        "#756bb1",
+        "#e7ba52",
+        "#8c6d31",
+        "#31a354",
+        "#e6550d",
+        "#3182bd",
+    ]
+    figure, axes = plt.subplots(1, 2, figsize=(16, 6))
+    for color, (name, budgets) in zip(colors, top_k.items(), strict=True):
+        ordered = sorted(budgets.values(), key=lambda row: row["targeted_fraction"])
+        axes[0].plot(
+            [row["targeted_fraction"] * 100 for row in ordered],
+            [row["profit_by_email_cost"][f"{primary_cost:.2f}"]["estimate"] for row in ordered],
+            marker="o",
+            markersize=3,
+            linewidth=1.7,
+            color=color,
+            label=labels[name],
+        )
+        primary = min(ordered, key=lambda row: abs(row["targeted_fraction"] - primary_budget))
+        costs = sorted(float(value) for value in primary["profit_by_email_cost"])
+        axes[1].plot(
+            costs,
+            [primary["profit_by_email_cost"][f"{cost:.2f}"]["estimate"] for cost in costs],
+            marker="o",
+            markersize=3,
+            linewidth=1.7,
+            color=color,
+            label=labels[name],
+        )
+    axes[0].axhline(0, color="#555555", linewidth=1)
+    axes[0].set_xlabel("Customers emailed (%)")
+    axes[0].set_ylabel("Incremental profit per 1,000 eligible customers ($)")
+    axes[0].set_title(f"Campaign-size curve at ${primary_cost:.2f} per email")
+    axes[1].axhline(0, color="#555555", linewidth=1)
+    axes[1].set_xlabel("Cost per email ($)")
+    axes[1].set_ylabel("Incremental profit per 1,000 eligible customers ($)")
+    axes[1].set_title(f"Cost sensitivity at {primary_budget:.0%} targeting")
+    for axis in axes:
+        axis.grid(alpha=0.2)
+    axes[0].legend(frameon=False, fontsize=7.5, ncol=2)
+    figure.suptitle("Business policies evaluated on randomized conversion spend")
+    figure.tight_layout()
+    _save_figure(figure, output)
+    plt.close(figure)
+
+
+def plot_primary_policy_intervals(
+    headline: dict[str, dict[str, object]],
+    output: Path,
+    *,
+    budget: float,
+    email_cost: float,
+) -> None:
+    """Plot primary-budget randomized profit intervals for every policy."""
+    labels = [row["display_name"] for row in headline.values()]
+    estimates = np.array(
+        [row["incremental_profit_per_1000_eligible"]["estimate"] for row in headline.values()]
+    )
+    lower = np.array(
+        [row["incremental_profit_per_1000_eligible"]["ci_lower"] for row in headline.values()]
+    )
+    upper = np.array(
+        [row["incremental_profit_per_1000_eligible"]["ci_upper"] for row in headline.values()]
+    )
+    positions = np.arange(len(labels))
+    figure, axis = plt.subplots(figsize=(11, 7))
+    axis.errorbar(
+        estimates,
+        positions,
+        xerr=np.vstack([estimates - lower, upper - estimates]),
+        fmt="o",
+        color="#2c7fb8",
+        capsize=4,
+    )
+    axis.axvline(0, color="#555555", linewidth=1)
+    axis.set_yticks(positions, labels=labels)
+    axis.invert_yaxis()
+    axis.set_xlabel("Incremental profit per 1,000 eligible customers ($), 95% CI")
+    axis.set_title(f"Randomized policy value at {budget:.0%} targeting and ${email_cost:.2f}/email")
+    axis.grid(axis="x", alpha=0.2)
+    figure.tight_layout()
+    _save_figure(figure, output)
+    plt.close(figure)
+
+
+def plot_prediction_vs_uplift_decision(
+    response_score: np.ndarray,
+    uplift_score: np.ndarray,
+    response_selected: np.ndarray,
+    uplift_selected: np.ndarray,
+    response_result: dict[str, object],
+    uplift_result: dict[str, object],
+    paired_profit: dict[str, float],
+    output: Path,
+    *,
+    budget: float,
+) -> None:
+    """Show where predictive and causal targeting disagree and the randomized consequence."""
+    response_selected = np.asarray(response_selected, dtype=bool)
+    uplift_selected = np.asarray(uplift_selected, dtype=bool)
+    figure, axes = plt.subplots(1, 2, figsize=(15, 6))
+    scatter_axis = axes[0]
+    categories = [
+        ("Neither", ~response_selected & ~uplift_selected, "#bdbdbd", 0.12, 5),
+        ("Both", response_selected & uplift_selected, "#41ab5d", 0.55, 11),
+        ("Response only", response_selected & ~uplift_selected, "#d7301f", 0.65, 11),
+        ("Uplift only", uplift_selected & ~response_selected, "#2c7fb8", 0.65, 11),
+    ]
+    for label, selected, color, alpha, size in categories:
+        scatter_axis.scatter(
+            uplift_score[selected],
+            response_score[selected],
+            color=color,
+            alpha=alpha,
+            s=size,
+            linewidths=0,
+            label=f"{label} ({selected.sum():,})",
+            rasterized=True,
+        )
+    scatter_axis.set_xlabel("Uplift-tree predicted conversion effect")
+    scatter_axis.set_ylabel("Response-model predicted conversion probability")
+    scatter_axis.set_title("Purchase likelihood and persuadability select different customers")
+    scatter_axis.grid(alpha=0.15)
+    scatter_axis.legend(frameon=False, fontsize=8)
+
+    interval_axis = axes[1]
+    results = [response_result, uplift_result]
+    labels = ["Response model", "Uplift tree"]
+    estimates = np.array(
+        [row["incremental_profit_per_1000_eligible"]["estimate"] for row in results]
+    )
+    lower = np.array([row["incremental_profit_per_1000_eligible"]["ci_lower"] for row in results])
+    upper = np.array([row["incremental_profit_per_1000_eligible"]["ci_upper"] for row in results])
+    positions = np.arange(2)
+    interval_axis.errorbar(
+        estimates,
+        positions,
+        xerr=np.vstack([estimates - lower, upper - estimates]),
+        fmt="o",
+        color="#2c7fb8",
+        capsize=4,
+    )
+    interval_axis.axvline(0, color="#555555", linewidth=1)
+    interval_axis.set_yticks(positions, labels=labels)
+    interval_axis.invert_yaxis()
+    interval_axis.set_xlabel("Incremental profit per 1,000 eligible customers ($), 95% CI")
+    interval_axis.set_title("Randomized business value")
+    interval_axis.grid(axis="x", alpha=0.2)
+    interval_axis.text(
+        0.04,
+        0.04,
+        (
+            f"Paired uplift-tree minus response:\n"
+            f"${paired_profit['estimate']:.1f} "
+            f"[${paired_profit['ci_lower']:.1f}, ${paired_profit['ci_upper']:.1f}]"
+        ),
+        transform=interval_axis.transAxes,
+        fontsize=9,
+        va="bottom",
+    )
+    figure.suptitle(f"Where predictive targeting makes the wrong decision at a {budget:.0%} budget")
+    figure.tight_layout()
+    _save_figure(figure, output)
+    plt.close(figure)
+
+
 def plot_uplift_tree_structure(
     root: object,
     feature_names: tuple[str, ...],
