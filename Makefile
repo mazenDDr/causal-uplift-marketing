@@ -1,4 +1,4 @@
-.PHONY: check test foundation naive-baselines propensity-diagnostics matching linear-dml causal-forest uplift-models uplift-metrics business-policies confounding-ablation overlap-stress robustness failure-analysis womens-replication dag
+.PHONY: check test experiments experiment-plan foundation naive-baselines propensity-diagnostics matching linear-dml causal-forest uplift-models uplift-metrics business-policies confounding-ablation overlap-stress robustness failure-analysis womens-replication dag
 
 check:
 	python -m ruff check .
@@ -7,6 +7,12 @@ check:
 
 test:
 	PYTHONPATH=src python -m pytest
+
+experiments:
+	PYTHONPATH=src python scripts/run_experiments.py --config configs/base.yaml
+
+experiment-plan:
+	PYTHONPATH=src python scripts/run_experiments.py --config configs/base.yaml --dry-run
 
 foundation:
 	PYTHONPATH=src python scripts/run_foundation.py --config configs/base.yaml

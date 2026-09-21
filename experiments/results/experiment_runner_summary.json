@@ -1,0 +1,702 @@
+{
+  "schema_version": 1,
+  "purpose": "Resumable, fingerprinted execution audit for the complete experiment DAG.",
+  "code_fingerprint": "f890a16e67cd040fa01871a27cf79258df3e928b834c38874238c45ceb90467e",
+  "input_fingerprint": "786400d50789ec2f4294913dfc0277e452d1812b4aea120037b1c844697634c2",
+  "environment": {
+    "python": "3.11.14",
+    "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+    "packages": {
+      "causalml": "0.16.0",
+      "econml": "0.16.0",
+      "numpy": "2.3.5",
+      "pandas": "2.3.3",
+      "scikit-learn": "1.6.1"
+    }
+  },
+  "latest_invocation": {
+    "started_at_utc": "2026-09-21T21:15:06.320255+00:00",
+    "requested_steps": [
+      "foundation",
+      "naive_baselines",
+      "propensity_diagnostics",
+      "matching",
+      "linear_dml",
+      "causal_forest",
+      "uplift_models",
+      "uplift_metrics",
+      "business_policies",
+      "confounding_ablation",
+      "overlap_stress",
+      "robustness",
+      "failure_analysis",
+      "womens_replication"
+    ],
+    "resolved_steps": [
+      "foundation",
+      "naive_baselines",
+      "propensity_diagnostics",
+      "matching",
+      "linear_dml",
+      "causal_forest",
+      "uplift_models",
+      "uplift_metrics",
+      "business_policies",
+      "confounding_ablation",
+      "overlap_stress",
+      "robustness",
+      "failure_analysis",
+      "womens_replication"
+    ],
+    "force": false,
+    "actions": [
+      {
+        "step": "foundation",
+        "action": "skipped"
+      },
+      {
+        "step": "naive_baselines",
+        "action": "skipped"
+      },
+      {
+        "step": "propensity_diagnostics",
+        "action": "skipped"
+      },
+      {
+        "step": "matching",
+        "action": "skipped"
+      },
+      {
+        "step": "linear_dml",
+        "action": "skipped"
+      },
+      {
+        "step": "causal_forest",
+        "action": "skipped"
+      },
+      {
+        "step": "uplift_models",
+        "action": "skipped"
+      },
+      {
+        "step": "uplift_metrics",
+        "action": "skipped"
+      },
+      {
+        "step": "business_policies",
+        "action": "skipped"
+      },
+      {
+        "step": "confounding_ablation",
+        "action": "skipped"
+      },
+      {
+        "step": "overlap_stress",
+        "action": "skipped"
+      },
+      {
+        "step": "robustness",
+        "action": "skipped"
+      },
+      {
+        "step": "failure_analysis",
+        "action": "skipped"
+      },
+      {
+        "step": "womens_replication",
+        "action": "skipped"
+      }
+    ],
+    "finished_at_utc": "2026-09-21T21:15:06.343326+00:00",
+    "runtime_seconds": 0.02306979499553563,
+    "ran_steps": 0,
+    "skipped_steps": 14
+  },
+  "recent_invocations": [
+    {
+      "started_at_utc": "2026-09-21T21:08:02.041045+00:00",
+      "requested_steps": [
+        "foundation",
+        "naive_baselines",
+        "propensity_diagnostics",
+        "matching",
+        "linear_dml",
+        "causal_forest",
+        "uplift_models",
+        "uplift_metrics",
+        "business_policies",
+        "confounding_ablation",
+        "overlap_stress",
+        "robustness",
+        "failure_analysis",
+        "womens_replication"
+      ],
+      "resolved_steps": [
+        "foundation",
+        "naive_baselines",
+        "propensity_diagnostics",
+        "matching",
+        "linear_dml",
+        "causal_forest",
+        "uplift_models",
+        "uplift_metrics",
+        "business_policies",
+        "confounding_ablation",
+        "overlap_stress",
+        "robustness",
+        "failure_analysis",
+        "womens_replication"
+      ],
+      "force": false,
+      "actions": [
+        {
+          "step": "foundation",
+          "action": "ran",
+          "runtime_seconds": 2.022499455997604
+        },
+        {
+          "step": "naive_baselines",
+          "action": "ran",
+          "runtime_seconds": 5.045436808999511
+        },
+        {
+          "step": "propensity_diagnostics",
+          "action": "ran",
+          "runtime_seconds": 1.8859486319997814
+        },
+        {
+          "step": "matching",
+          "action": "ran",
+          "runtime_seconds": 5.063465712999459
+        },
+        {
+          "step": "linear_dml",
+          "action": "ran",
+          "runtime_seconds": 22.073418627995125
+        },
+        {
+          "step": "causal_forest",
+          "action": "ran",
+          "runtime_seconds": 7.794862563998322
+        },
+        {
+          "step": "uplift_models",
+          "action": "ran",
+          "runtime_seconds": 34.25046854500397
+        },
+        {
+          "step": "uplift_metrics",
+          "action": "ran",
+          "runtime_seconds": 7.512384636000206
+        },
+        {
+          "step": "business_policies",
+          "action": "ran",
+          "runtime_seconds": 21.416253272000176
+        },
+        {
+          "step": "confounding_ablation",
+          "action": "ran",
+          "runtime_seconds": 150.71992946400132
+        },
+        {
+          "step": "overlap_stress",
+          "action": "ran",
+          "runtime_seconds": 46.68390332999843
+        },
+        {
+          "step": "robustness",
+          "action": "ran",
+          "runtime_seconds": 70.16590632800217
+        },
+        {
+          "step": "failure_analysis",
+          "action": "ran",
+          "runtime_seconds": 0.9544083460059483
+        },
+        {
+          "step": "womens_replication",
+          "action": "ran",
+          "runtime_seconds": 53.514352420999785
+        }
+      ],
+      "finished_at_utc": "2026-09-21T21:14:38.578675+00:00",
+      "runtime_seconds": 429.1447162980039,
+      "ran_steps": 14,
+      "skipped_steps": 0
+    },
+    {
+      "started_at_utc": "2026-09-21T21:15:06.320255+00:00",
+      "requested_steps": [
+        "foundation",
+        "naive_baselines",
+        "propensity_diagnostics",
+        "matching",
+        "linear_dml",
+        "causal_forest",
+        "uplift_models",
+        "uplift_metrics",
+        "business_policies",
+        "confounding_ablation",
+        "overlap_stress",
+        "robustness",
+        "failure_analysis",
+        "womens_replication"
+      ],
+      "resolved_steps": [
+        "foundation",
+        "naive_baselines",
+        "propensity_diagnostics",
+        "matching",
+        "linear_dml",
+        "causal_forest",
+        "uplift_models",
+        "uplift_metrics",
+        "business_policies",
+        "confounding_ablation",
+        "overlap_stress",
+        "robustness",
+        "failure_analysis",
+        "womens_replication"
+      ],
+      "force": false,
+      "actions": [
+        {
+          "step": "foundation",
+          "action": "skipped"
+        },
+        {
+          "step": "naive_baselines",
+          "action": "skipped"
+        },
+        {
+          "step": "propensity_diagnostics",
+          "action": "skipped"
+        },
+        {
+          "step": "matching",
+          "action": "skipped"
+        },
+        {
+          "step": "linear_dml",
+          "action": "skipped"
+        },
+        {
+          "step": "causal_forest",
+          "action": "skipped"
+        },
+        {
+          "step": "uplift_models",
+          "action": "skipped"
+        },
+        {
+          "step": "uplift_metrics",
+          "action": "skipped"
+        },
+        {
+          "step": "business_policies",
+          "action": "skipped"
+        },
+        {
+          "step": "confounding_ablation",
+          "action": "skipped"
+        },
+        {
+          "step": "overlap_stress",
+          "action": "skipped"
+        },
+        {
+          "step": "robustness",
+          "action": "skipped"
+        },
+        {
+          "step": "failure_analysis",
+          "action": "skipped"
+        },
+        {
+          "step": "womens_replication",
+          "action": "skipped"
+        }
+      ],
+      "finished_at_utc": "2026-09-21T21:15:06.343326+00:00",
+      "runtime_seconds": 0.02306979499553563,
+      "ran_steps": 0,
+      "skipped_steps": 14
+    }
+  ],
+  "successful_step_runtime_total_seconds": 429.1032381440018,
+  "steps": {
+    "foundation": {
+      "status": "succeeded",
+      "fingerprint": "52fb8d7695a71840fdab03544e6805c30827ad0e2cf970f275fe0a71ed6544d8",
+      "command": [
+        "/home/mazen/miniconda3/envs/main/bin/python",
+        "scripts/run_foundation.py",
+        "--config",
+        "configs/base.yaml"
+      ],
+      "dependencies": [],
+      "outputs": [
+        "experiments/results/foundation_summary.json",
+        "data/processed/randomized_training_pool.csv",
+        "data/processed/rct_evaluation.csv",
+        "data/observational/randomized.csv",
+        "data/observational/weak.csv",
+        "data/observational/medium.csv",
+        "data/observational/strong.csv"
+      ],
+      "log": "outputs/experiment_runner/logs/foundation.log",
+      "started_at_utc": "2026-09-21T21:08:02.041152+00:00",
+      "returncode": 0,
+      "runtime_seconds": 2.022499455997604,
+      "finished_at_utc": "2026-09-21T21:08:04.063654+00:00",
+      "output_fingerprint": "26ce709650a1d42b96d8d7f35221515b199fdc3ef896316a305c2c568679aaad",
+      "missing_outputs": []
+    },
+    "naive_baselines": {
+      "status": "succeeded",
+      "fingerprint": "9a6f9d46845a2c0680005de1f4e5937b262f2ba6291c4d35ac44bf3a76e49fe8",
+      "command": [
+        "/home/mazen/miniconda3/envs/main/bin/python",
+        "scripts/run_naive_baselines.py",
+        "--config",
+        "configs/base.yaml"
+      ],
+      "dependencies": [
+        "foundation"
+      ],
+      "outputs": [
+        "experiments/results/naive_baselines_summary.json",
+        "outputs/naive_baselines/rct_policy_scores.csv"
+      ],
+      "log": "outputs/experiment_runner/logs/naive_baselines.log",
+      "started_at_utc": "2026-09-21T21:08:04.070560+00:00",
+      "returncode": 0,
+      "runtime_seconds": 5.045436808999511,
+      "finished_at_utc": "2026-09-21T21:08:09.115999+00:00",
+      "output_fingerprint": "bc417ca420d60b2fa4a0d8400d2f99bc29eeb4e1735f3507dcf0bccd4901b42f",
+      "missing_outputs": []
+    },
+    "propensity_diagnostics": {
+      "status": "succeeded",
+      "fingerprint": "3c387fc85341700241be4b31237b3dcbd370901591e5385bc35844538133f59c",
+      "command": [
+        "/home/mazen/miniconda3/envs/main/bin/python",
+        "scripts/run_propensity_diagnostics.py",
+        "--config",
+        "configs/base.yaml"
+      ],
+      "dependencies": [
+        "foundation"
+      ],
+      "outputs": [
+        "experiments/results/propensity_diagnostics_summary.json",
+        "experiments/figures/propensity_overlap.svg",
+        "experiments/figures/pre_matching_love_plot.svg",
+        "outputs/propensity/randomized_scores.csv",
+        "outputs/propensity/weak_scores.csv",
+        "outputs/propensity/medium_scores.csv",
+        "outputs/propensity/strong_scores.csv"
+      ],
+      "log": "outputs/experiment_runner/logs/propensity_diagnostics.log",
+      "started_at_utc": "2026-09-21T21:08:09.118312+00:00",
+      "returncode": 0,
+      "runtime_seconds": 1.8859486319997814,
+      "finished_at_utc": "2026-09-21T21:08:11.004262+00:00",
+      "output_fingerprint": "9173a805a14c41001fea0bfdaca6248fd6736d6e98505d456cdb4d7d8e9a1467",
+      "missing_outputs": []
+    },
+    "matching": {
+      "status": "succeeded",
+      "fingerprint": "f8eae9168795e4b1977b99697876d9dcb27ca26228c00bbb7b023b70ef039f57",
+      "command": [
+        "/home/mazen/miniconda3/envs/main/bin/python",
+        "scripts/run_matching.py",
+        "--config",
+        "configs/base.yaml"
+      ],
+      "dependencies": [
+        "foundation"
+      ],
+      "outputs": [
+        "experiments/results/matching_summary.json",
+        "experiments/figures/matching_balance.svg",
+        "outputs/matching/randomized_with_replacement_pairs.csv",
+        "outputs/matching/randomized_without_replacement_pairs.csv",
+        "outputs/matching/weak_with_replacement_pairs.csv",
+        "outputs/matching/weak_without_replacement_pairs.csv",
+        "outputs/matching/medium_with_replacement_pairs.csv",
+        "outputs/matching/medium_without_replacement_pairs.csv",
+        "outputs/matching/strong_with_replacement_pairs.csv",
+        "outputs/matching/strong_without_replacement_pairs.csv"
+      ],
+      "log": "outputs/experiment_runner/logs/matching.log",
+      "started_at_utc": "2026-09-21T21:08:11.007549+00:00",
+      "returncode": 0,
+      "runtime_seconds": 5.063465712999459,
+      "finished_at_utc": "2026-09-21T21:08:16.071017+00:00",
+      "output_fingerprint": "933214bd20c5d68d5459ae7fa0c2f3e0896e5d8ca7a0763d3eae507e286b014b",
+      "missing_outputs": []
+    },
+    "linear_dml": {
+      "status": "succeeded",
+      "fingerprint": "8dc0594ccce765858dcfe3464b126fc24b1903d1435e490e4b69df0ab4f0c6fe",
+      "command": [
+        "/home/mazen/miniconda3/envs/main/bin/python",
+        "scripts/run_linear_dml.py",
+        "--config",
+        "configs/base.yaml"
+      ],
+      "dependencies": [
+        "foundation"
+      ],
+      "outputs": [
+        "experiments/results/linear_dml_summary.json",
+        "experiments/figures/dml_ate_error.svg"
+      ],
+      "log": "outputs/experiment_runner/logs/linear_dml.log",
+      "started_at_utc": "2026-09-21T21:08:16.075399+00:00",
+      "returncode": 0,
+      "runtime_seconds": 22.073418627995125,
+      "finished_at_utc": "2026-09-21T21:08:35.813604+00:00",
+      "output_fingerprint": "303b33c2b6a2422efe0b70700b9be5b0ae955a2318eba73f4dca2c4340d37f86",
+      "missing_outputs": []
+    },
+    "causal_forest": {
+      "status": "succeeded",
+      "fingerprint": "93df5fa2b07e4a5827c9263725e2f40d48420fd98dfe17cdb6f0b79a0ab305ae",
+      "command": [
+        "/home/mazen/miniconda3/envs/main/bin/python",
+        "scripts/run_causal_forest.py",
+        "--config",
+        "configs/base.yaml"
+      ],
+      "dependencies": [
+        "linear_dml"
+      ],
+      "outputs": [
+        "experiments/results/causal_forest_summary.json",
+        "experiments/figures/causal_forest_validation.svg",
+        "outputs/causal_forest/rct_cate_scores.csv"
+      ],
+      "log": "outputs/experiment_runner/logs/causal_forest.log",
+      "started_at_utc": "2026-09-21T21:08:35.814966+00:00",
+      "returncode": 0,
+      "runtime_seconds": 7.794862563998322,
+      "finished_at_utc": "2026-09-21T21:08:43.609831+00:00",
+      "output_fingerprint": "b3780e2af6056710bce52fb2359c86432fdb319cac58757acca6ddcfda46db9b",
+      "missing_outputs": []
+    },
+    "uplift_models": {
+      "status": "succeeded",
+      "fingerprint": "f84492c2474fd7d8cdc91f66f83b657fb7e62307bf59e60dbaefd98a040e06a1",
+      "command": [
+        "/home/mazen/miniconda3/envs/main/bin/python",
+        "scripts/run_uplift_models.py",
+        "--config",
+        "configs/base.yaml"
+      ],
+      "dependencies": [
+        "foundation"
+      ],
+      "outputs": [
+        "experiments/results/uplift_models_summary.json",
+        "experiments/figures/uplift_tree.svg",
+        "experiments/figures/uplift_model_validation.svg",
+        "outputs/uplift_models/rct_uplift_scores.csv"
+      ],
+      "log": "outputs/experiment_runner/logs/uplift_models.log",
+      "started_at_utc": "2026-09-21T21:08:43.612997+00:00",
+      "returncode": 0,
+      "runtime_seconds": 34.25046854500397,
+      "finished_at_utc": "2026-09-21T21:09:15.463874+00:00",
+      "output_fingerprint": "474358e080e492ac4e86e37f86ce44ccc22e75bc61bcbb36110d0ca8bf029767",
+      "missing_outputs": []
+    },
+    "uplift_metrics": {
+      "status": "succeeded",
+      "fingerprint": "654ac833c8d5054f39cf23b0b8f161d8c2be9808aceba966cc15f4749f1e18dd",
+      "command": [
+        "/home/mazen/miniconda3/envs/main/bin/python",
+        "scripts/run_uplift_metrics.py",
+        "--config",
+        "configs/base.yaml"
+      ],
+      "dependencies": [
+        "naive_baselines",
+        "causal_forest",
+        "uplift_models"
+      ],
+      "outputs": [
+        "experiments/results/uplift_metrics_summary.json",
+        "experiments/figures/uplift_qini_curves.svg",
+        "experiments/figures/uplift_metric_intervals.svg"
+      ],
+      "log": "outputs/experiment_runner/logs/uplift_metrics.log",
+      "started_at_utc": "2026-09-21T21:09:15.466275+00:00",
+      "returncode": 0,
+      "runtime_seconds": 7.512384636000206,
+      "finished_at_utc": "2026-09-21T21:09:19.707666+00:00",
+      "output_fingerprint": "bc66f1e6bf9a148d70617fe48257ca47e69726d30e626f725b5346903d1c1eaf",
+      "missing_outputs": []
+    },
+    "business_policies": {
+      "status": "succeeded",
+      "fingerprint": "748428e96391eaaca6f578b7211ab98feb94953ce591b07d0ec857387234f910",
+      "command": [
+        "/home/mazen/miniconda3/envs/main/bin/python",
+        "scripts/run_business_policies.py",
+        "--config",
+        "configs/base.yaml"
+      ],
+      "dependencies": [
+        "matching",
+        "linear_dml",
+        "uplift_metrics"
+      ],
+      "outputs": [
+        "experiments/results/business_policy_summary.json",
+        "experiments/figures/policy_profit_curves.svg",
+        "experiments/figures/policy_20pct_profit.svg",
+        "experiments/figures/prediction_vs_uplift_policy.svg"
+      ],
+      "log": "outputs/experiment_runner/logs/business_policies.log",
+      "started_at_utc": "2026-09-21T21:09:19.709283+00:00",
+      "returncode": 0,
+      "runtime_seconds": 21.416253272000176,
+      "finished_at_utc": "2026-09-21T21:09:41.125537+00:00",
+      "output_fingerprint": "17fcc8ce04d4c20f9d1bb7446c383900fd1ba92bfd347a35799dfd6bb539f265",
+      "missing_outputs": []
+    },
+    "confounding_ablation": {
+      "status": "succeeded",
+      "fingerprint": "d271c7df33babe92147a5f70e31091d7fc12e5a0318d512b03be4b187a4cbe17",
+      "command": [
+        "/home/mazen/miniconda3/envs/main/bin/python",
+        "scripts/run_confounding_ablation.py",
+        "--config",
+        "configs/base.yaml"
+      ],
+      "dependencies": [
+        "matching",
+        "linear_dml"
+      ],
+      "outputs": [
+        "experiments/results/confounding_ablation_summary.json",
+        "experiments/figures/confounding_ate_ablation.svg",
+        "experiments/figures/confounding_policy_ablation.svg",
+        "outputs/confounding_ablation/rct_scores.csv"
+      ],
+      "log": "outputs/experiment_runner/logs/confounding_ablation.log",
+      "started_at_utc": "2026-09-21T21:09:41.127237+00:00",
+      "returncode": 0,
+      "runtime_seconds": 150.71992946400132,
+      "finished_at_utc": "2026-09-21T21:11:59.764816+00:00",
+      "output_fingerprint": "178c023640d201888760986a8d44ef71079dc9a25fa2b668eea517bd277dcf68",
+      "missing_outputs": []
+    },
+    "overlap_stress": {
+      "status": "succeeded",
+      "fingerprint": "a8154eba334937fc3bc19accf934dc8b665458ec62f7d808f344bf02787d7cd2",
+      "command": [
+        "/home/mazen/miniconda3/envs/main/bin/python",
+        "scripts/run_overlap_stress.py",
+        "--config",
+        "configs/base.yaml"
+      ],
+      "dependencies": [
+        "foundation"
+      ],
+      "outputs": [
+        "experiments/results/overlap_stress_summary.json",
+        "experiments/figures/overlap_stress_diagnostics.svg",
+        "experiments/figures/overlap_estimate_stability.svg"
+      ],
+      "log": "outputs/experiment_runner/logs/overlap_stress.log",
+      "started_at_utc": "2026-09-21T21:11:59.771078+00:00",
+      "returncode": 0,
+      "runtime_seconds": 46.68390332999843,
+      "finished_at_utc": "2026-09-21T21:12:43.947161+00:00",
+      "output_fingerprint": "c5f5da76bb1608669737044ccfce92b2d9e57d634677c6382924816ac4685f03",
+      "missing_outputs": []
+    },
+    "robustness": {
+      "status": "succeeded",
+      "fingerprint": "0d4c18360b467fc172c0fd59d8f290d07c94a13bb36db6993815eb68213d352a",
+      "command": [
+        "/home/mazen/miniconda3/envs/main/bin/python",
+        "scripts/run_robustness.py",
+        "--config",
+        "configs/base.yaml"
+      ],
+      "dependencies": [
+        "foundation"
+      ],
+      "outputs": [
+        "experiments/results/robustness_summary.json",
+        "experiments/figures/robustness_dml.svg",
+        "experiments/figures/robustness_matching.svg"
+      ],
+      "log": "outputs/experiment_runner/logs/robustness.log",
+      "started_at_utc": "2026-09-21T21:12:43.948742+00:00",
+      "returncode": 0,
+      "runtime_seconds": 70.16590632800217,
+      "finished_at_utc": "2026-09-21T21:13:49.113331+00:00",
+      "output_fingerprint": "c9c4756320c8565943276629d63e6529a8d5d322b17b0c02792913a42634f5d3",
+      "missing_outputs": []
+    },
+    "failure_analysis": {
+      "status": "succeeded",
+      "fingerprint": "3e3f8d399242157b584710934efd03cdaf285e3b01a7185ea0a4309218933ead",
+      "command": [
+        "/home/mazen/miniconda3/envs/main/bin/python",
+        "scripts/build_failure_analysis.py"
+      ],
+      "dependencies": [
+        "confounding_ablation",
+        "overlap_stress",
+        "uplift_models",
+        "uplift_metrics"
+      ],
+      "outputs": [
+        "experiments/results/failure_analysis_summary.json",
+        "experiments/figures/failure_taxonomy.svg"
+      ],
+      "log": "outputs/experiment_runner/logs/failure_analysis.log",
+      "started_at_utc": "2026-09-21T21:13:49.114696+00:00",
+      "returncode": 0,
+      "runtime_seconds": 0.9544083460059483,
+      "finished_at_utc": "2026-09-21T21:13:50.069108+00:00",
+      "output_fingerprint": "d35ca002fe39339a71c08a21df54e6a439e3245eedc0367140afa65f26a59f96",
+      "missing_outputs": []
+    },
+    "womens_replication": {
+      "status": "succeeded",
+      "fingerprint": "fc0576d34d15d4a2d4b0abde98c56dd8c15dc9df4b32ef70bc61fa216648d508",
+      "command": [
+        "/home/mazen/miniconda3/envs/main/bin/python",
+        "scripts/run_womens_replication.py",
+        "--config",
+        "configs/base.yaml"
+      ],
+      "dependencies": [
+        "linear_dml",
+        "confounding_ablation",
+        "uplift_metrics"
+      ],
+      "outputs": [
+        "experiments/results/womens_replication_summary.json",
+        "experiments/figures/womens_replication.svg",
+        "outputs/womens_replication/rct_scores.csv"
+      ],
+      "log": "outputs/experiment_runner/logs/womens_replication.log",
+      "started_at_utc": "2026-09-21T21:13:50.070344+00:00",
+      "returncode": 0,
+      "runtime_seconds": 53.514352420999785,
+      "finished_at_utc": "2026-09-21T21:14:38.574924+00:00",
+      "output_fingerprint": "8b78e38e1d221acf71c678c39f623c3cb18783f28ff36f118eb7c2db1a0ea0a7",
+      "missing_outputs": []
+    }
+  },
+  "resume_rule": "Skip only after prior success with the same code/config/upstream fingerprint and matching byte hashes for every declared output."
+}
