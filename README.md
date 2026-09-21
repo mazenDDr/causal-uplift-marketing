@@ -428,6 +428,42 @@ Data and heavy runs live on `gpu-box`:
 The equivalent flow is `rsync` to `gpu-box`, then an SSH command inside the conda environment
 `main`. The helper keeps `data/` and `outputs/` remote and excluded from source control.
 
+## Run the complete experiment DAG
+
+After downloading Hillstrom once, the complete measured pipeline runs with one command:
+
+```bash
+./gpu run make experiments
+```
+
+`scripts/run_experiments.py` resolves 14 stages in dependency order, writes each stage's stdout to
+`outputs/experiment_runner/logs/`, and atomically checkpoints
+`outputs/experiment_runner/manifest.json` after every stage. Repeating the command resumes only a
+stage whose previous status succeeded, whose code/config/upstream fingerprint is unchanged, and
+whose declared outputs still exist with the exact recorded byte hashes. A stale input, missing or
+altered output, or failed run invalidates that stage; changed regenerated results also invalidate
+its downstream dependents.
+
+The verified full run completed all 14 stages in 429.14 seconds on `gpu-box`; an immediate repeat
+resumed all 14 stages in 0.02 seconds without recomputing them.
+
+Useful local equivalents inside the configured Python environment are:
+
+```bash
+# Inspect the resolved order without running anything.
+make experiment-plan
+
+# Run one terminal stage and all of its dependencies.
+PYTHONPATH=src python scripts/run_experiments.py --steps business_policies
+
+# Deliberately rebuild the complete grid.
+PYTHONPATH=src python scripts/run_experiments.py --force
+```
+
+The latest machine, package versions, commands, fingerprints, required outputs, per-stage runtimes,
+and resume actions are recorded in
+[`experiments/results/experiment_runner_summary.json`](experiments/results/experiment_runner_summary.json).
+
 ## Repository map
 
 - `src/causal_uplift/data`: schema validation, randomized split, and confounding injection
