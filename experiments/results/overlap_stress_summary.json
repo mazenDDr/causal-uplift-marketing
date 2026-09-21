@@ -1,0 +1,2406 @@
+{
+  "seed": 42,
+  "stress_levels": {
+    "healthy": {
+      "strength": 1.0,
+      "clip_min": 0.1,
+      "clip_max": 0.9
+    },
+    "limited": {
+      "strength": 2.0,
+      "clip_min": 0.05,
+      "clip_max": 0.95
+    },
+    "poor": {
+      "strength": 4.0,
+      "clip_min": 0.01,
+      "clip_max": 0.99
+    },
+    "severe": {
+      "strength": 8.0,
+      "clip_min": 0.001,
+      "clip_max": 0.999
+    }
+  },
+  "replicate_seeds": [
+    42,
+    43,
+    44,
+    45,
+    46
+  ],
+  "nuisance_candidate_frozen_before_rct": "random_forest_logistic",
+  "overlap_thresholds": {
+    "minimum": 0.05,
+    "maximum": 0.95
+  },
+  "rct_outcomes_loaded_after_all_observational_fits": true,
+  "rct_effect": {
+    "estimate": 0.00703977472720873,
+    "ci_lower": 0.004106535257538425,
+    "ci_upper": 0.009973014196879033
+  },
+  "ipw_note": "IPW weights are diagnostics only; no IPW effect estimate is reported.",
+  "psm_estimand_warning": "Matched estimates are ATT in retained treated customers. Their RCT ATE gap is a reference only, not a like-for-like ATE error.",
+  "samples": {
+    "healthy": [
+      {
+        "seed": 42,
+        "rows": 12762,
+        "treated_rows": 6306,
+        "treated_share": 0.49412317818523743,
+        "desired_propensity": {
+          "roc_auc": 0.719036675501509,
+          "brier_score": 0.21345351905859622,
+          "log_loss": 0.6154992380349041,
+          "minimum": 0.1363507462821581,
+          "maximum": 0.9,
+          "outside_overlap_threshold_fraction": 0.0,
+          "common_support_lower": 0.1363507462821581,
+          "common_support_upper": 0.9,
+          "outside_empirical_common_support_fraction": 0.0,
+          "treated_quantiles": {
+            "0.01": 0.18830181433740734,
+            "0.05": 0.2557668841414461,
+            "0.5": 0.5636340669643579,
+            "0.95": 0.8819825667666698,
+            "0.99": 0.9
+          },
+          "control_quantiles": {
+            "0.01": 0.15217389965618586,
+            "0.05": 0.18830181433740734,
+            "0.5": 0.3943713138076558,
+            "0.95": 0.7281439727326113,
+            "0.99": 0.8540934442114616
+          },
+          "correlation_with_desired_propensity": 1.0,
+          "rmse_vs_desired_propensity": 0.0
+        },
+        "fitted_propensity": {
+          "roc_auc": 0.7192349239783044,
+          "brier_score": 0.2134131521899931,
+          "log_loss": 0.6157269757640502,
+          "minimum": 0.1379298928377255,
+          "maximum": 0.9913489546081115,
+          "outside_overlap_threshold_fraction": 0.0018022253565271901,
+          "common_support_lower": 0.1379298928377255,
+          "common_support_upper": 0.9909064837548985,
+          "outside_empirical_common_support_fraction": 7.835762419683435e-05,
+          "treated_quantiles": {
+            "0.01": 0.19175661288060408,
+            "0.05": 0.260463591630387,
+            "0.5": 0.565556959146966,
+            "0.95": 0.8695600721588943,
+            "0.99": 0.9292537205001669
+          },
+          "control_quantiles": {
+            "0.01": 0.15538843872589753,
+            "0.05": 0.19358983233066387,
+            "0.5": 0.39880311987148054,
+            "0.95": 0.7313775040286392,
+            "0.99": 0.8434087629719752
+          },
+          "correlation_with_desired_propensity": 0.9972230083580892,
+          "rmse_vs_desired_propensity": 0.014457036298260267
+        },
+        "desired_weights": {
+          "numerically_clipped_fraction": 0.0,
+          "outside_overlap_fraction": 0.0,
+          "weight_p99": 5.900646103099997,
+          "weight_max": 10.000000000000002,
+          "effective_sample_size": 10269.858478251137,
+          "effective_sample_fraction": 0.8047217111934757,
+          "treated_effective_sample_size": 5269.111388606866,
+          "treated_effective_sample_fraction": 0.835571105075621,
+          "control_effective_sample_size": 5005.501280565786,
+          "control_effective_sample_fraction": 0.7753254771632259
+        },
+        "fitted_weights": {
+          "numerically_clipped_fraction": 0.0,
+          "outside_overlap_fraction": 0.0018022253565271901,
+          "weight_p99": 5.71634354099603,
+          "weight_max": 109.96846247882216,
+          "effective_sample_size": 8542.427474643326,
+          "effective_sample_fraction": 0.6693643217868144,
+          "treated_effective_sample_size": 5287.215933656468,
+          "treated_effective_sample_fraction": 0.8384421080964903,
+          "control_effective_sample_size": 3597.136507699564,
+          "control_effective_sample_fraction": 0.5571772781442943
+        },
+        "balance_before_max_absolute_smd": 0.5497345668034957,
+        "matching": {
+          "matched_pairs": 6286,
+          "matched_treated_fraction": 0.9968284173802727,
+          "eligible_treated": 6286,
+          "eligible_controls": 6453,
+          "discarded_rows_outside_overlap": 23,
+          "max_absolute_smd": 0.030157153911509103,
+          "balance_passes_0_10": true,
+          "att": {
+            "estimate": 0.007954183900731784,
+            "ci_lower": 0.004613426662424435,
+            "ci_upper": 0.01145402481705377,
+            "reference_gap_vs_overall_rct_ate": 0.0009144091735230541
+          }
+        },
+        "naive_association": 0.008847123822594165,
+        "linear_dml": {
+          "estimate": 0.005125771169239694,
+          "ci_lower": 0.0017193470287324162,
+          "ci_upper": 0.00853219530974697,
+          "absolute_error_vs_rct_ate": 0.0019140035579690365,
+          "covers_rct_ate": true
+        },
+        "runtime_seconds": 2.1684033479978098,
+        "naive_absolute_error_vs_rct_ate": 0.0018073490953854346
+      },
+      {
+        "seed": 43,
+        "rows": 12706,
+        "treated_rows": 6296,
+        "treated_share": 0.4955139304265701,
+        "desired_propensity": {
+          "roc_auc": 0.7222387936178184,
+          "brier_score": 0.2123894170661861,
+          "log_loss": 0.6128050992161561,
+          "minimum": 0.1363507462821581,
+          "maximum": 0.9,
+          "outside_overlap_threshold_fraction": 0.0,
+          "common_support_lower": 0.1363507462821581,
+          "common_support_upper": 0.9,
+          "outside_empirical_common_support_fraction": 0.0,
+          "treated_quantiles": {
+            "0.01": 0.18830181433740734,
+            "0.05": 0.2580944789752865,
+            "0.5": 0.5629385315652952,
+            "0.95": 0.8794527753296327,
+            "0.99": 0.9
+          },
+          "control_quantiles": {
+            "0.01": 0.15217389965618586,
+            "0.05": 0.18830181433740734,
+            "0.5": 0.3929792569280838,
+            "0.95": 0.7224748382314019,
+            "0.99": 0.8563342775482742
+          },
+          "correlation_with_desired_propensity": 0.9999999999999999,
+          "rmse_vs_desired_propensity": 0.0
+        },
+        "fitted_propensity": {
+          "roc_auc": 0.7228564133035462,
+          "brier_score": 0.21221927453009518,
+          "log_loss": 0.6127252041241915,
+          "minimum": 0.13240173410650538,
+          "maximum": 0.9973239219546086,
+          "outside_overlap_threshold_fraction": 0.0030694160239257045,
+          "common_support_lower": 0.1324473562002548,
+          "common_support_upper": 0.9803394926827321,
+          "outside_empirical_common_support_fraction": 0.0008657327246969935,
+          "treated_quantiles": {
+            "0.01": 0.18541371834345952,
+            "0.05": 0.2609198601901911,
+            "0.5": 0.5736869654753716,
+            "0.95": 0.8684128560303603,
+            "0.99": 0.934013840313419
+          },
+          "control_quantiles": {
+            "0.01": 0.15043319532940053,
+            "0.05": 0.18576461259311908,
+            "0.5": 0.3989932276721324,
+            "0.95": 0.7330636522903968,
+            "0.99": 0.842720869396482
+          },
+          "correlation_with_desired_propensity": 0.9962245895808559,
+          "rmse_vs_desired_propensity": 0.01737304107091143
+        },
+        "desired_weights": {
+          "numerically_clipped_fraction": 0.0,
+          "outside_overlap_fraction": 0.0,
+          "weight_p99": 5.802206449351377,
+          "weight_max": 10.000000000000002,
+          "effective_sample_size": 10305.053912310676,
+          "effective_sample_fraction": 0.8110384001503759,
+          "treated_effective_sample_size": 5282.453953652937,
+          "treated_effective_sample_fraction": 0.8390174640490689,
+          "control_effective_sample_size": 5025.307268129294,
+          "control_effective_sample_fraction": 0.7839792929998899
+        },
+        "fitted_weights": {
+          "numerically_clipped_fraction": 0.0,
+          "outside_overlap_fraction": 0.0030694160239257045,
+          "weight_p99": 5.779525101156065,
+          "weight_max": 50.86338739192643,
+          "effective_sample_size": 9364.300313453181,
+          "effective_sample_fraction": 0.7369982932042485,
+          "treated_effective_sample_size": 5253.418232133366,
+          "treated_effective_sample_fraction": 0.8344056912537112,
+          "control_effective_sample_size": 4231.9673617124545,
+          "control_effective_sample_fraction": 0.6602133169598213
+        },
+        "balance_before_max_absolute_smd": 0.5518733269988826,
+        "matching": {
+          "matched_pairs": 6250,
+          "matched_treated_fraction": 0.9926937738246506,
+          "eligible_treated": 6263,
+          "eligible_controls": 6404,
+          "discarded_rows_outside_overlap": 39,
+          "max_absolute_smd": 0.02119863354031957,
+          "balance_passes_0_10": true,
+          "att": {
+            "estimate": 0.00816,
+            "ci_lower": 0.004636,
+            "ci_upper": 0.01168,
+            "reference_gap_vs_overall_rct_ate": 0.0011202252727912703
+          }
+        },
+        "naive_association": 0.010542166286397326,
+        "linear_dml": {
+          "estimate": 0.00828047679235469,
+          "ci_lower": 0.00507627700341776,
+          "ci_upper": 0.011484676581291622,
+          "absolute_error_vs_rct_ate": 0.0012407020651459605,
+          "covers_rct_ate": true
+        },
+        "runtime_seconds": 2.178930460999254,
+        "naive_absolute_error_vs_rct_ate": 0.003502391559188596
+      },
+      {
+        "seed": 44,
+        "rows": 12783,
+        "treated_rows": 6348,
+        "treated_share": 0.4965970429476649,
+        "desired_propensity": {
+          "roc_auc": 0.715470687682408,
+          "brier_score": 0.21451885440873653,
+          "log_loss": 0.617853669604612,
+          "minimum": 0.1363507462821581,
+          "maximum": 0.9,
+          "outside_overlap_threshold_fraction": 0.0,
+          "common_support_lower": 0.1363507462821581,
+          "common_support_upper": 0.9,
+          "outside_empirical_common_support_fraction": 0.0,
+          "treated_quantiles": {
+            "0.01": 0.18347510371228198,
+            "0.05": 0.24766913077525812,
+            "0.5": 0.5619835723061866,
+            "0.95": 0.8791577929515983,
+            "0.99": 0.9
+          },
+          "control_quantiles": {
+            "0.01": 0.15217389965618586,
+            "0.05": 0.18830181433740734,
+            "0.5": 0.3950272017701354,
+            "0.95": 0.7272536877928211,
+            "0.99": 0.8489763147438683
+          },
+          "correlation_with_desired_propensity": 1.0,
+          "rmse_vs_desired_propensity": 0.0
+        },
+        "fitted_propensity": {
+          "roc_auc": 0.7158978545084405,
+          "brier_score": 0.2143217767593846,
+          "log_loss": 0.617638249428967,
+          "minimum": 0.15433945532532795,
+          "maximum": 0.9981626533641348,
+          "outside_overlap_threshold_fraction": 0.0047719627630446685,
+          "common_support_lower": 0.15433945532532795,
+          "common_support_upper": 0.9854473921374864,
+          "outside_empirical_common_support_fraction": 0.0006258311820386451,
+          "treated_quantiles": {
+            "0.01": 0.20206626555935578,
+            "0.05": 0.26378727374431643,
+            "0.5": 0.5602367435579534,
+            "0.95": 0.882280539113733,
+            "0.99": 0.9452376217007036
+          },
+          "control_quantiles": {
+            "0.01": 0.1739586059246778,
+            "0.05": 0.20772564335249744,
+            "0.5": 0.40404934255148484,
+            "0.95": 0.7263471663997813,
+            "0.99": 0.853095565780267
+          },
+          "correlation_with_desired_propensity": 0.9962311126819551,
+          "rmse_vs_desired_propensity": 0.018069612645387128
+        },
+        "desired_weights": {
+          "numerically_clipped_fraction": 0.0,
+          "outside_overlap_fraction": 0.0,
+          "weight_p99": 5.890622080558917,
+          "weight_max": 10.000000000000002,
+          "effective_sample_size": 10308.845533474112,
+          "effective_sample_fraction": 0.8064496232084888,
+          "treated_effective_sample_size": 5259.767453174594,
+          "treated_effective_sample_fraction": 0.8285708023274408,
+          "control_effective_sample_size": 5049.288225156033,
+          "control_effective_sample_fraction": 0.7846601748494224
+        },
+        "fitted_weights": {
+          "numerically_clipped_fraction": 0.0,
+          "outside_overlap_fraction": 0.0047719627630446685,
+          "weight_p99": 5.563854517836314,
+          "weight_max": 68.7162060193985,
+          "effective_sample_size": 8828.342977833874,
+          "effective_sample_fraction": 0.6906315401575431,
+          "treated_effective_sample_size": 5406.0037385671785,
+          "treated_effective_sample_fraction": 0.8516073942292341,
+          "control_effective_sample_size": 3747.8744129345414,
+          "control_effective_sample_fraction": 0.582420266190294
+        },
+        "balance_before_max_absolute_smd": 0.5738911553524628,
+        "matching": {
+          "matched_pairs": 6294,
+          "matched_treated_fraction": 0.9914933837429112,
+          "eligible_treated": 6294,
+          "eligible_controls": 6428,
+          "discarded_rows_outside_overlap": 61,
+          "max_absolute_smd": 0.03494478391878646,
+          "balance_passes_0_10": true,
+          "att": {
+            "estimate": 0.008738481093104544,
+            "ci_lower": 0.005878614553543057,
+            "ci_upper": 0.012233873530346362,
+            "reference_gap_vs_overall_rct_ate": 0.001698706365895814
+          }
+        },
+        "naive_association": 0.009043099307749592,
+        "linear_dml": {
+          "estimate": 0.0057552605397288075,
+          "ci_lower": 0.002404900697160648,
+          "ci_upper": 0.009105620382296967,
+          "absolute_error_vs_rct_ate": 0.0012845141874799227,
+          "covers_rct_ate": true
+        },
+        "runtime_seconds": 2.2001513650029665,
+        "naive_absolute_error_vs_rct_ate": 0.002003324580540862
+      },
+      {
+        "seed": 45,
+        "rows": 12614,
+        "treated_rows": 6257,
+        "treated_share": 0.4960361503091803,
+        "desired_propensity": {
+          "roc_auc": 0.717076892756941,
+          "brier_score": 0.21401445723887466,
+          "log_loss": 0.616414033951669,
+          "minimum": 0.1363507462821581,
+          "maximum": 0.9,
+          "outside_overlap_threshold_fraction": 0.0,
+          "common_support_lower": 0.1363507462821581,
+          "common_support_upper": 0.9,
+          "outside_empirical_common_support_fraction": 0.0,
+          "treated_quantiles": {
+            "0.01": 0.18548915242076064,
+            "0.05": 0.25781316632641704,
+            "0.5": 0.5648550229342283,
+            "0.95": 0.8836462791709652,
+            "0.99": 0.9
+          },
+          "control_quantiles": {
+            "0.01": 0.15217389965618586,
+            "0.05": 0.18830181433740734,
+            "0.5": 0.3950272017701354,
+            "0.95": 0.7355968383946301,
+            "0.99": 0.8473792661914726
+          },
+          "correlation_with_desired_propensity": 1.0,
+          "rmse_vs_desired_propensity": 0.0
+        },
+        "fitted_propensity": {
+          "roc_auc": 0.7177220345995244,
+          "brier_score": 0.21382543696406228,
+          "log_loss": 0.6162927186556783,
+          "minimum": 0.14895207407025388,
+          "maximum": 0.9970441387799893,
+          "outside_overlap_threshold_fraction": 0.005787220548596797,
+          "common_support_lower": 0.14898820215953873,
+          "common_support_upper": 0.9967104236446318,
+          "outside_empirical_common_support_fraction": 0.00023783098144918344,
+          "treated_quantiles": {
+            "0.01": 0.19783221311144236,
+            "0.05": 0.26837550218401834,
+            "0.5": 0.561747109555765,
+            "0.95": 0.8835661580192901,
+            "0.99": 0.9504275140559063
+          },
+          "control_quantiles": {
+            "0.01": 0.16680160226675633,
+            "0.05": 0.20169505243388766,
+            "0.5": 0.40044785301055597,
+            "0.95": 0.7324835957731698,
+            "0.99": 0.8402835843056264
+          },
+          "correlation_with_desired_propensity": 0.9959162714556319,
+          "rmse_vs_desired_propensity": 0.017768750864347156
+        },
+        "desired_weights": {
+          "numerically_clipped_fraction": 0.0,
+          "outside_overlap_fraction": 0.0,
+          "weight_p99": 5.822593017667883,
+          "weight_max": 10.000000000000002,
+          "effective_sample_size": 10218.579104492337,
+          "effective_sample_fraction": 0.8100982324791769,
+          "treated_effective_sample_size": 5216.808373394466,
+          "treated_effective_sample_fraction": 0.8337555335455435,
+          "control_effective_sample_size": 5003.391522437523,
+          "control_effective_sample_fraction": 0.7870680387663243
+        },
+        "fitted_weights": {
+          "numerically_clipped_fraction": 0.0,
+          "outside_overlap_fraction": 0.005787220548596797,
+          "weight_p99": 5.472620115750606,
+          "weight_max": 338.31087644784174,
+          "effective_sample_size": 3565.4408441256373,
+          "effective_sample_fraction": 0.2826574317524685,
+          "treated_effective_sample_size": 5318.051871997698,
+          "treated_effective_sample_fraction": 0.8499363707843532,
+          "control_effective_sample_size": 1103.0761372129984,
+          "control_effective_sample_fraction": 0.17352149397719024
+        },
+        "balance_before_max_absolute_smd": 0.5734844756404492,
+        "matching": {
+          "matched_pairs": 6154,
+          "matched_treated_fraction": 0.9835384369506153,
+          "eligible_treated": 6191,
+          "eligible_controls": 6350,
+          "discarded_rows_outside_overlap": 73,
+          "max_absolute_smd": 0.046544989726435136,
+          "balance_passes_0_10": true,
+          "att": {
+            "estimate": 0.008774780630484237,
+            "ci_lower": 0.00519580760480988,
+            "ci_upper": 0.012187195320116997,
+            "reference_gap_vs_overall_rct_ate": 0.0017350059032755069
+          }
+        },
+        "naive_association": 0.00934755496370414,
+        "linear_dml": {
+          "estimate": 0.005320645669238873,
+          "ci_lower": 0.0019061135963100314,
+          "ci_upper": 0.008735177742167715,
+          "absolute_error_vs_rct_ate": 0.001719129057969857,
+          "covers_rct_ate": true
+        },
+        "runtime_seconds": 2.319594780998159,
+        "naive_absolute_error_vs_rct_ate": 0.00230778023649541
+      },
+      {
+        "seed": 46,
+        "rows": 12714,
+        "treated_rows": 6368,
+        "treated_share": 0.5008651879817524,
+        "desired_propensity": {
+          "roc_auc": 0.7166901691525702,
+          "brier_score": 0.21424897869473272,
+          "log_loss": 0.6168947467620238,
+          "minimum": 0.1363507462821581,
+          "maximum": 0.9,
+          "outside_overlap_threshold_fraction": 0.0,
+          "common_support_lower": 0.1363507462821581,
+          "common_support_upper": 0.9,
+          "outside_empirical_common_support_fraction": 0.0,
+          "treated_quantiles": {
+            "0.01": 0.18830181433740734,
+            "0.05": 0.2600183471950149,
+            "0.5": 0.5625573613217284,
+            "0.95": 0.88141651777875,
+            "0.99": 0.9
+          },
+          "control_quantiles": {
+            "0.01": 0.1522598824729114,
+            "0.05": 0.1883090911168892,
+            "0.5": 0.39806816550842816,
+            "0.95": 0.7289854885997993,
+            "0.99": 0.8489223062934882
+          },
+          "correlation_with_desired_propensity": 1.0,
+          "rmse_vs_desired_propensity": 0.0
+        },
+        "fitted_propensity": {
+          "roc_auc": 0.7172365877211458,
+          "brier_score": 0.21403389960952054,
+          "log_loss": 0.6166136308262045,
+          "minimum": 0.13901835907730625,
+          "maximum": 0.9986939990101028,
+          "outside_overlap_threshold_fraction": 0.006370929683813119,
+          "common_support_lower": 0.14277545912611894,
+          "common_support_upper": 0.9841885925551962,
+          "outside_empirical_common_support_fraction": 0.0008651879817523989,
+          "treated_quantiles": {
+            "0.01": 0.19591194594250894,
+            "0.05": 0.2734489171510189,
+            "0.5": 0.5693446060533367,
+            "0.95": 0.8825209981695618,
+            "0.99": 0.9533052199807357
+          },
+          "control_quantiles": {
+            "0.01": 0.1620227902265405,
+            "0.05": 0.19837550669833143,
+            "0.5": 0.40999877577979377,
+            "0.95": 0.7289815835312994,
+            "0.99": 0.8459993396356275
+          },
+          "correlation_with_desired_propensity": 0.9966253943251203,
+          "rmse_vs_desired_propensity": 0.0171537807293986
+        },
+        "desired_weights": {
+          "numerically_clipped_fraction": 0.0,
+          "outside_overlap_fraction": 0.0,
+          "weight_p99": 5.829939549402638,
+          "weight_max": 10.000000000000002,
+          "effective_sample_size": 10319.13874909188,
+          "effective_sample_fraction": 0.8116358934317981,
+          "treated_effective_sample_size": 5338.017084884267,
+          "treated_effective_sample_fraction": 0.8382564517720269,
+          "control_effective_sample_size": 4984.775573165006,
+          "control_effective_sample_fraction": 0.7854988296824781
+        },
+        "fitted_weights": {
+          "numerically_clipped_fraction": 0.0,
+          "outside_overlap_fraction": 0.006370929683813119,
+          "weight_p99": 5.578430157289342,
+          "weight_max": 63.24547662761267,
+          "effective_sample_size": 9129.406968456016,
+          "effective_sample_fraction": 0.7180593808758862,
+          "treated_effective_sample_size": 5411.359537328092,
+          "treated_effective_sample_fraction": 0.8497737966909693,
+          "control_effective_sample_size": 3963.4401550002967,
+          "control_effective_sample_fraction": 0.6245572258115816
+        },
+        "balance_before_max_absolute_smd": 0.5622135678730038,
+        "matching": {
+          "matched_pairs": 6294,
+          "matched_treated_fraction": 0.9883793969849246,
+          "eligible_treated": 6294,
+          "eligible_controls": 6339,
+          "discarded_rows_outside_overlap": 81,
+          "max_absolute_smd": 0.03627392773309089,
+          "balance_passes_0_10": true,
+          "att": {
+            "estimate": 0.005084207181442644,
+            "ci_lower": 0.0017476962186209089,
+            "ci_upper": 0.008579599618684462,
+            "reference_gap_vs_overall_rct_ate": -0.001955567545766086
+          }
+        },
+        "naive_association": 0.008150041493315933,
+        "linear_dml": {
+          "estimate": 0.004202821528255515,
+          "ci_lower": 0.0010298440767174712,
+          "ci_upper": 0.007375798979793557,
+          "absolute_error_vs_rct_ate": 0.0028369531989532156,
+          "covers_rct_ate": true
+        },
+        "runtime_seconds": 2.1816207980009494,
+        "naive_absolute_error_vs_rct_ate": 0.0011102667661072032
+      }
+    ],
+    "limited": [
+      {
+        "seed": 42,
+        "rows": 12729,
+        "treated_rows": 6119,
+        "treated_share": 0.480713331762118,
+        "desired_propensity": {
+          "roc_auc": 0.8376844994843817,
+          "brier_score": 0.16369936894746948,
+          "log_loss": 0.4965448075739962,
+          "minimum": 0.05,
+          "maximum": 0.95,
+          "outside_overlap_threshold_fraction": 0.0,
+          "common_support_lower": 0.05,
+          "common_support_upper": 0.95,
+          "outside_empirical_common_support_fraction": 0.0,
+          "treated_quantiles": {
+            "0.01": 0.07740503961559583,
+            "0.05": 0.19227372858623676,
+            "0.5": 0.7144297132510194,
+            "0.95": 0.95,
+            "0.99": 0.95
+          },
+          "control_quantiles": {
+            "0.01": 0.05,
+            "0.05": 0.05049725177731175,
+            "0.5": 0.25106721683817607,
+            "0.95": 0.7648216755889367,
+            "0.99": 0.9280530144757575
+          },
+          "correlation_with_desired_propensity": 1.0,
+          "rmse_vs_desired_propensity": 0.0
+        },
+        "fitted_propensity": {
+          "roc_auc": 0.8378252653684772,
+          "brier_score": 0.1636638586614245,
+          "log_loss": 0.4975127824767174,
+          "minimum": 0.027008424126283334,
+          "maximum": 0.9999527893994721,
+          "outside_overlap_threshold_fraction": 0.07447560688192317,
+          "common_support_lower": 0.027204798934464543,
+          "common_support_upper": 0.9971860079713879,
+          "outside_empirical_common_support_fraction": 0.0010998507345431692,
+          "treated_quantiles": {
+            "0.01": 0.08579811316519885,
+            "0.05": 0.19881463951387698,
+            "0.5": 0.7088004433929995,
+            "0.95": 0.973842463589277,
+            "0.99": 0.9891785793123584
+          },
+          "control_quantiles": {
+            "0.01": 0.035029213527344144,
+            "0.05": 0.05532867799607321,
+            "0.5": 0.25952769417540045,
+            "0.95": 0.7578795696139962,
+            "0.99": 0.919110213871063
+          },
+          "correlation_with_desired_propensity": 0.9986502439850421,
+          "rmse_vs_desired_propensity": 0.015601243405064481
+        },
+        "desired_weights": {
+          "numerically_clipped_fraction": 0.0,
+          "outside_overlap_fraction": 0.0,
+          "weight_p99": 13.387208191825634,
+          "weight_max": 20.0,
+          "effective_sample_size": 5986.107015706266,
+          "effective_sample_fraction": 0.47027315701989675,
+          "treated_effective_sample_size": 3008.528270178909,
+          "treated_effective_sample_fraction": 0.491669924853556,
+          "control_effective_sample_size": 2977.5913762404416,
+          "control_effective_sample_fraction": 0.45046768173077784
+        },
+        "fitted_weights": {
+          "numerically_clipped_fraction": 0.0,
+          "outside_overlap_fraction": 0.07447560688192317,
+          "weight_p99": 11.974355300001953,
+          "weight_max": 355.3670336774955,
+          "effective_sample_size": 2125.0546385617527,
+          "effective_sample_fraction": 0.16694592179760803,
+          "treated_effective_sample_size": 2845.1592930214824,
+          "treated_effective_sample_fraction": 0.4649712850174019,
+          "control_effective_sample_size": 691.3205353659426,
+          "control_effective_sample_fraction": 0.10458707040331962
+        },
+        "balance_before_max_absolute_smd": 0.8567076040683909,
+        "matching": {
+          "matched_pairs": 5453,
+          "matched_treated_fraction": 0.8911586860598137,
+          "eligible_treated": 5453,
+          "eligible_controls": 6328,
+          "discarded_rows_outside_overlap": 948,
+          "max_absolute_smd": 0.07153969525621538,
+          "balance_passes_0_10": true,
+          "att": {
+            "estimate": 0.008619108747478453,
+            "ci_lower": 0.004951402897487621,
+            "ci_upper": 0.012653585182468365,
+            "reference_gap_vs_overall_rct_ate": 0.0015793340202697225
+          }
+        },
+        "naive_association": 0.009854996428623527,
+        "linear_dml": {
+          "estimate": 0.004875484402447673,
+          "ci_lower": 0.0008978459947079744,
+          "ci_upper": 0.00885312281018737,
+          "absolute_error_vs_rct_ate": 0.0021642903247610576,
+          "covers_rct_ate": true
+        },
+        "runtime_seconds": 2.168599576001725,
+        "naive_absolute_error_vs_rct_ate": 0.0028152217014147966
+      },
+      {
+        "seed": 43,
+        "rows": 12700,
+        "treated_rows": 6152,
+        "treated_share": 0.48440944881889764,
+        "desired_propensity": {
+          "roc_auc": 0.8383650384516699,
+          "brier_score": 0.16370127278920482,
+          "log_loss": 0.4958964962551273,
+          "minimum": 0.05,
+          "maximum": 0.95,
+          "outside_overlap_threshold_fraction": 0.0,
+          "common_support_lower": 0.05,
+          "common_support_upper": 0.95,
+          "outside_empirical_common_support_fraction": 0.0,
+          "treated_quantiles": {
+            "0.01": 0.08400182641506175,
+            "0.05": 0.19504335931357517,
+            "0.5": 0.7089401186377555,
+            "0.95": 0.95,
+            "0.99": 0.95
+          },
+          "control_quantiles": {
+            "0.01": 0.05,
+            "0.05": 0.05021361860765147,
+            "0.5": 0.2480523623101238,
+            "0.95": 0.7671498705956032,
+            "0.99": 0.9290378772197238
+          },
+          "correlation_with_desired_propensity": 0.9999999999999998,
+          "rmse_vs_desired_propensity": 0.0
+        },
+        "fitted_propensity": {
+          "roc_auc": 0.8385592008161398,
+          "brier_score": 0.16362253306835223,
+          "log_loss": 0.49722109210283777,
+          "minimum": 0.026691368272853653,
+          "maximum": 0.9999551714009257,
+          "outside_overlap_threshold_fraction": 0.07188976377952756,
+          "common_support_lower": 0.027862688089287865,
+          "common_support_upper": 0.9980370318188527,
+          "outside_empirical_common_support_fraction": 0.0014173228346456694,
+          "treated_quantiles": {
+            "0.01": 0.09663425559595194,
+            "0.05": 0.2051649737581546,
+            "0.5": 0.7129390373923351,
+            "0.95": 0.9699253712623264,
+            "0.99": 0.9879236137552195
+          },
+          "control_quantiles": {
+            "0.01": 0.035191360419287554,
+            "0.05": 0.05479391880151703,
+            "0.5": 0.26169852210524336,
+            "0.95": 0.7675596596152711,
+            "0.99": 0.9161362039907394
+          },
+          "correlation_with_desired_propensity": 0.9974275807710187,
+          "rmse_vs_desired_propensity": 0.02193709763354998
+        },
+        "desired_weights": {
+          "numerically_clipped_fraction": 0.0,
+          "outside_overlap_fraction": 0.0,
+          "weight_p99": 12.567269037671654,
+          "weight_max": 20.0,
+          "effective_sample_size": 6140.283973658473,
+          "effective_sample_fraction": 0.4834869270597223,
+          "treated_effective_sample_size": 3207.498201175412,
+          "treated_effective_sample_fraction": 0.5213748701520501,
+          "control_effective_sample_size": 2940.545639664801,
+          "control_effective_sample_fraction": 0.4490753878535127
+        },
+        "fitted_weights": {
+          "numerically_clipped_fraction": 0.0,
+          "outside_overlap_fraction": 0.07188976377952756,
+          "weight_p99": 11.420024218330282,
+          "weight_max": 509.43260802910294,
+          "effective_sample_size": 1056.6869669356815,
+          "effective_sample_fraction": 0.08320369818391193,
+          "treated_effective_sample_size": 3126.4513350588045,
+          "treated_effective_sample_fraction": 0.508200802187712,
+          "control_effective_sample_size": 327.41668995676355,
+          "control_effective_sample_fraction": 0.050002548863280934
+        },
+        "balance_before_max_absolute_smd": 0.8661118498589631,
+        "matching": {
+          "matched_pairs": 5532,
+          "matched_treated_fraction": 0.8992197659297789,
+          "eligible_treated": 5532,
+          "eligible_controls": 6255,
+          "discarded_rows_outside_overlap": 913,
+          "max_absolute_smd": 0.09991075231362063,
+          "balance_passes_0_10": true,
+          "att": {
+            "estimate": 0.005242227042660882,
+            "ci_lower": 0.0012653651482284888,
+            "ci_upper": 0.009038322487346349,
+            "reference_gap_vs_overall_rct_ate": -0.0017975476845478481
+          }
+        },
+        "naive_association": 0.011757230590068897,
+        "linear_dml": {
+          "estimate": 0.007031902434769901,
+          "ci_lower": 0.003294164260323822,
+          "ci_upper": 0.01076964060921598,
+          "absolute_error_vs_rct_ate": 7.872292438829143e-06,
+          "covers_rct_ate": true
+        },
+        "runtime_seconds": 2.174419373001001,
+        "naive_absolute_error_vs_rct_ate": 0.004717455862860167
+      },
+      {
+        "seed": 44,
+        "rows": 12775,
+        "treated_rows": 6164,
+        "treated_share": 0.48250489236790606,
+        "desired_propensity": {
+          "roc_auc": 0.8370274661692492,
+          "brier_score": 0.16395420075025255,
+          "log_loss": 0.49694597996848894,
+          "minimum": 0.05,
+          "maximum": 0.95,
+          "outside_overlap_threshold_fraction": 0.0,
+          "common_support_lower": 0.05,
+          "common_support_upper": 0.95,
+          "outside_empirical_common_support_fraction": 0.0,
+          "treated_quantiles": {
+            "0.01": 0.07820743677597793,
+            "0.05": 0.18043343480789886,
+            "0.5": 0.7157725091098353,
+            "0.95": 0.95,
+            "0.99": 0.95
+          },
+          "control_quantiles": {
+            "0.01": 0.05,
+            "0.05": 0.05,
+            "0.5": 0.24907741231709382,
+            "0.95": 0.7643635786004297,
+            "0.99": 0.9163589564610133
+          },
+          "correlation_with_desired_propensity": 1.0,
+          "rmse_vs_desired_propensity": 0.0
+        },
+        "fitted_propensity": {
+          "roc_auc": 0.8370449875539273,
+          "brier_score": 0.16395417191212325,
+          "log_loss": 0.4981523783371004,
+          "minimum": 0.029919736036153652,
+          "maximum": 0.999960736586062,
+          "outside_overlap_threshold_fraction": 0.07522504892367907,
+          "common_support_lower": 0.030567721289623002,
+          "common_support_upper": 0.9986826685132567,
+          "outside_empirical_common_support_fraction": 0.0007827788649706458,
+          "treated_quantiles": {
+            "0.01": 0.08855980879793904,
+            "0.05": 0.19300374393350833,
+            "0.5": 0.7089500434881555,
+            "0.95": 0.9768538746229711,
+            "0.99": 0.9911696128432936
+          },
+          "control_quantiles": {
+            "0.01": 0.03875032627270811,
+            "0.05": 0.058158227505953536,
+            "0.5": 0.2648328643967173,
+            "0.95": 0.7568726091708243,
+            "0.99": 0.9095179816834879
+          },
+          "correlation_with_desired_propensity": 0.9983128357813635,
+          "rmse_vs_desired_propensity": 0.017896267558698612
+        },
+        "desired_weights": {
+          "numerically_clipped_fraction": 0.0,
+          "outside_overlap_fraction": 0.0,
+          "weight_p99": 12.66490623888491,
+          "weight_max": 20.0,
+          "effective_sample_size": 6164.1801309861385,
+          "effective_sample_fraction": 0.4825189926407936,
+          "treated_effective_sample_size": 3062.597667934465,
+          "treated_effective_sample_fraction": 0.4968523147200624,
+          "control_effective_sample_size": 3105.9232507062134,
+          "control_effective_sample_fraction": 0.4698114129036777
+        },
+        "fitted_weights": {
+          "numerically_clipped_fraction": 0.0,
+          "outside_overlap_fraction": 0.07522504892367907,
+          "weight_p99": 11.167925714338336,
+          "weight_max": 759.1103758342578,
+          "effective_sample_size": 727.7734249124209,
+          "effective_sample_fraction": 0.056968565550874435,
+          "treated_effective_sample_size": 3114.0476813726277,
+          "treated_effective_sample_fraction": 0.5051991695932232,
+          "control_effective_sample_size": 220.3172458186425,
+          "control_effective_sample_fraction": 0.03332585778530366
+        },
+        "balance_before_max_absolute_smd": 0.8470713543176093,
+        "matching": {
+          "matched_pairs": 5440,
+          "matched_treated_fraction": 0.8825438027255029,
+          "eligible_treated": 5440,
+          "eligible_controls": 6374,
+          "discarded_rows_outside_overlap": 961,
+          "max_absolute_smd": 0.05435905988422209,
+          "balance_passes_0_10": true,
+          "att": {
+            "estimate": 0.006066176470588235,
+            "ci_lower": 0.0023851102941176475,
+            "ci_upper": 0.009931066176470583,
+            "reference_gap_vs_overall_rct_ate": -0.0009735982566204948
+          }
+        },
+        "naive_association": 0.010538744787633456,
+        "linear_dml": {
+          "estimate": 0.0044702916945420605,
+          "ci_lower": 0.0005512150480816783,
+          "ci_upper": 0.008389368341002443,
+          "absolute_error_vs_rct_ate": 0.0025694830326666697,
+          "covers_rct_ate": true
+        },
+        "runtime_seconds": 2.1922302189996117,
+        "naive_absolute_error_vs_rct_ate": 0.0034989700604247257
+      },
+      {
+        "seed": 45,
+        "rows": 12680,
+        "treated_rows": 6116,
+        "treated_share": 0.48233438485804414,
+        "desired_propensity": {
+          "roc_auc": 0.8361341008629029,
+          "brier_score": 0.16455974766160167,
+          "log_loss": 0.49886752609547363,
+          "minimum": 0.05,
+          "maximum": 0.95,
+          "outside_overlap_threshold_fraction": 0.0,
+          "common_support_lower": 0.05,
+          "common_support_upper": 0.95,
+          "outside_empirical_common_support_fraction": 0.0,
+          "treated_quantiles": {
+            "0.01": 0.08248694059127144,
+            "0.05": 0.18427734774432586,
+            "0.5": 0.7161890358892555,
+            "0.95": 0.95,
+            "0.99": 0.95
+          },
+          "control_quantiles": {
+            "0.01": 0.05,
+            "0.05": 0.05,
+            "0.5": 0.25133780134171313,
+            "0.95": 0.7723178959106146,
+            "0.99": 0.9266696947917926
+          },
+          "correlation_with_desired_propensity": 0.9999999999999998,
+          "rmse_vs_desired_propensity": 0.0
+        },
+        "fitted_propensity": {
+          "roc_auc": 0.8367464496078059,
+          "brier_score": 0.16431987916650034,
+          "log_loss": 0.4993926618660403,
+          "minimum": 0.02934533532368812,
+          "maximum": 0.9999832489842119,
+          "outside_overlap_threshold_fraction": 0.07152996845425867,
+          "common_support_lower": 0.03114617508676673,
+          "common_support_upper": 0.9999761118653572,
+          "outside_empirical_common_support_fraction": 0.0013406940063091482,
+          "treated_quantiles": {
+            "0.01": 0.09429240635365874,
+            "0.05": 0.19569161865455537,
+            "0.5": 0.7076333300767801,
+            "0.95": 0.9724212585528753,
+            "0.99": 0.9918372268026358
+          },
+          "control_quantiles": {
+            "0.01": 0.03802169404724582,
+            "0.05": 0.058133027243050604,
+            "0.5": 0.262659438437823,
+            "0.95": 0.7615427172429425,
+            "0.99": 0.9196864994856764
+          },
+          "correlation_with_desired_propensity": 0.9974197818980011,
+          "rmse_vs_desired_propensity": 0.021759268464377642
+        },
+        "desired_weights": {
+          "numerically_clipped_fraction": 0.0,
+          "outside_overlap_fraction": 0.0,
+          "weight_p99": 12.796469595270432,
+          "weight_max": 20.0,
+          "effective_sample_size": 5974.342137564699,
+          "effective_sample_fraction": 0.471162629145481,
+          "treated_effective_sample_size": 3050.7251248961434,
+          "treated_effective_sample_fraction": 0.4988105174781137,
+          "control_effective_sample_size": 2925.105391650311,
+          "control_effective_sample_fraction": 0.4456284874543435
+        },
+        "fitted_weights": {
+          "numerically_clipped_fraction": 0.0,
+          "outside_overlap_fraction": 0.07152996845425867,
+          "weight_p99": 11.597400855536451,
+          "weight_max": 59697.87221552307,
+          "effective_sample_size": 2.066477092619116,
+          "effective_sample_fraction": 0.0001629713795440943,
+          "treated_effective_sample_size": 3120.563566366046,
+          "treated_effective_sample_fraction": 0.5102294909035392,
+          "control_effective_sample_size": 1.5034912633911586,
+          "control_effective_sample_fraction": 0.00022905107608031056
+        },
+        "balance_before_max_absolute_smd": 0.8366550599749724,
+        "matching": {
+          "matched_pairs": 5466,
+          "matched_treated_fraction": 0.893721386527142,
+          "eligible_treated": 5466,
+          "eligible_controls": 6307,
+          "discarded_rows_outside_overlap": 907,
+          "max_absolute_smd": 0.0620431108645437,
+          "balance_passes_0_10": true,
+          "att": {
+            "estimate": 0.009879253567508232,
+            "ci_lower": 0.006586169045005488,
+            "ci_upper": 0.01353823637028906,
+            "reference_gap_vs_overall_rct_ate": 0.002839478840299502
+          }
+        },
+        "naive_association": 0.010754500936395642,
+        "linear_dml": {
+          "estimate": 0.00642610202754172,
+          "ci_lower": 0.0025784595086982207,
+          "ci_upper": 0.01027374454638522,
+          "absolute_error_vs_rct_ate": 0.0006136726996670101,
+          "covers_rct_ate": true
+        },
+        "runtime_seconds": 2.1826396709984692,
+        "naive_absolute_error_vs_rct_ate": 0.0037147262091869115
+      },
+      {
+        "seed": 46,
+        "rows": 12788,
+        "treated_rows": 6178,
+        "treated_share": 0.4831091648420394,
+        "desired_propensity": {
+          "roc_auc": 0.8358944358220007,
+          "brier_score": 0.1648051928014927,
+          "log_loss": 0.4993188859375448,
+          "minimum": 0.05,
+          "maximum": 0.95,
+          "outside_overlap_threshold_fraction": 0.0,
+          "common_support_lower": 0.05,
+          "common_support_upper": 0.95,
+          "outside_empirical_common_support_fraction": 0.0,
+          "treated_quantiles": {
+            "0.01": 0.07736251005234357,
+            "0.05": 0.1896236063232139,
+            "0.5": 0.7127862281913635,
+            "0.95": 0.95,
+            "0.99": 0.95
+          },
+          "control_quantiles": {
+            "0.01": 0.05,
+            "0.05": 0.05003046542439862,
+            "0.5": 0.25162195736013854,
+            "0.95": 0.7748523572023526,
+            "0.99": 0.9238708465518441
+          },
+          "correlation_with_desired_propensity": 1.0,
+          "rmse_vs_desired_propensity": 0.0
+        },
+        "fitted_propensity": {
+          "roc_auc": 0.8362367759494062,
+          "brier_score": 0.16466953208248733,
+          "log_loss": 0.4996797618480072,
+          "minimum": 0.026904345117681253,
+          "maximum": 0.9999957689004885,
+          "outside_overlap_threshold_fraction": 0.07499218016890835,
+          "common_support_lower": 0.02866211436853335,
+          "common_support_upper": 0.996335129205962,
+          "outside_empirical_common_support_fraction": 0.003988113856740695,
+          "treated_quantiles": {
+            "0.01": 0.08381705050758802,
+            "0.05": 0.2031601362278873,
+            "0.5": 0.7068131660575997,
+            "0.95": 0.9751522521498701,
+            "0.99": 0.9943420854623876
+          },
+          "control_quantiles": {
+            "0.01": 0.03652930987741002,
+            "0.05": 0.057309272644351025,
+            "0.5": 0.26422965191153014,
+            "0.95": 0.7619956884319585,
+            "0.99": 0.9162103105911452
+          },
+          "correlation_with_desired_propensity": 0.998460041359136,
+          "rmse_vs_desired_propensity": 0.01704264732420913
+        },
+        "desired_weights": {
+          "numerically_clipped_fraction": 0.0,
+          "outside_overlap_fraction": 0.0,
+          "weight_p99": 12.926157635311972,
+          "weight_max": 20.0,
+          "effective_sample_size": 6065.91795161092,
+          "effective_sample_fraction": 0.4743445379739537,
+          "treated_effective_sample_size": 3031.2535196448275,
+          "treated_effective_sample_fraction": 0.4906528843711278,
+          "control_effective_sample_size": 3035.3140504773305,
+          "control_effective_sample_fraction": 0.4592003102083707
+        },
+        "fitted_weights": {
+          "numerically_clipped_fraction": 0.0,
+          "outside_overlap_fraction": 0.07499218016890835,
+          "weight_p99": 11.945139536534322,
+          "weight_max": 272.860915486243,
+          "effective_sample_size": 2600.972576862209,
+          "effective_sample_fraction": 0.2033916622507201,
+          "treated_effective_sample_size": 3045.4173942927364,
+          "treated_effective_sample_fraction": 0.4929455154245284,
+          "control_effective_sample_size": 870.0479545905631,
+          "control_effective_sample_fraction": 0.13162601431022133
+        },
+        "balance_before_max_absolute_smd": 0.8626928139722353,
+        "matching": {
+          "matched_pairs": 5476,
+          "matched_treated_fraction": 0.8863709938491421,
+          "eligible_treated": 5476,
+          "eligible_controls": 6353,
+          "discarded_rows_outside_overlap": 959,
+          "max_absolute_smd": 0.06457512942832379,
+          "balance_passes_0_10": true,
+          "att": {
+            "estimate": 0.006391526661796932,
+            "ci_lower": 0.002556610664718773,
+            "ci_upper": 0.010231008035062085,
+            "reference_gap_vs_overall_rct_ate": -0.0006482480654117981
+          }
+        },
+        "naive_association": 0.010310657748518607,
+        "linear_dml": {
+          "estimate": 0.004558086503217773,
+          "ci_lower": 0.0009324002409201431,
+          "ci_upper": 0.008183772765515403,
+          "absolute_error_vs_rct_ate": 0.002481688223990957,
+          "covers_rct_ate": true
+        },
+        "runtime_seconds": 2.184847451000678,
+        "naive_absolute_error_vs_rct_ate": 0.003270883021309877
+      }
+    ],
+    "poor": [
+      {
+        "seed": 42,
+        "rows": 12718,
+        "treated_rows": 5936,
+        "treated_share": 0.46674005346752634,
+        "desired_propensity": {
+          "roc_auc": 0.934692132376729,
+          "brier_score": 0.1015893758690029,
+          "log_loss": 0.3238868855135415,
+          "minimum": 0.01,
+          "maximum": 0.99,
+          "outside_overlap_threshold_fraction": 0.41185721025318445,
+          "common_support_lower": 0.01,
+          "common_support_upper": 0.99,
+          "outside_empirical_common_support_fraction": 0.0,
+          "treated_quantiles": {
+            "0.01": 0.05921716342671603,
+            "0.05": 0.19932081696419138,
+            "0.5": 0.9090428418300567,
+            "0.95": 0.99,
+            "0.99": 0.99
+          },
+          "control_quantiles": {
+            "0.01": 0.01,
+            "0.05": 0.01,
+            "0.5": 0.08647398655906852,
+            "0.95": 0.7267367392009328,
+            "0.99": 0.9227192221138741
+          },
+          "correlation_with_desired_propensity": 1.0,
+          "rmse_vs_desired_propensity": 0.0
+        },
+        "fitted_propensity": {
+          "roc_auc": 0.9347427683355576,
+          "brier_score": 0.10146935393401414,
+          "log_loss": 0.3266301661005378,
+          "minimum": 0.0008262703397069365,
+          "maximum": 0.9999999972481126,
+          "outside_overlap_threshold_fraction": 0.3898411699952823,
+          "common_support_lower": 0.0009208507124333119,
+          "common_support_upper": 0.9999435464921269,
+          "outside_empirical_common_support_fraction": 0.00424595062116685,
+          "treated_quantiles": {
+            "0.01": 0.06635727620228289,
+            "0.05": 0.20255433569345194,
+            "0.5": 0.898461423758333,
+            "0.95": 0.9990222310527945,
+            "0.99": 0.9998409033488014
+          },
+          "control_quantiles": {
+            "0.01": 0.0014153807675050104,
+            "0.05": 0.0035812946799791343,
+            "0.5": 0.09463015218743083,
+            "0.95": 0.7150953919652434,
+            "0.99": 0.9145632421880516
+          },
+          "correlation_with_desired_propensity": 0.9990411775942883,
+          "rmse_vs_desired_propensity": 0.017324810513381483
+        },
+        "desired_weights": {
+          "numerically_clipped_fraction": 0.0,
+          "outside_overlap_fraction": 0.41185721025318445,
+          "weight_p99": 14.766867298353825,
+          "weight_max": 100.0,
+          "effective_sample_size": 1338.7683230093367,
+          "effective_sample_fraction": 0.1052656331977777,
+          "treated_effective_sample_size": 668.8067329461059,
+          "treated_effective_sample_fraction": 0.11266959786827929,
+          "control_effective_sample_size": 669.9760989185818,
+          "control_effective_sample_fraction": 0.09878739293992654
+        },
+        "fitted_weights": {
+          "numerically_clipped_fraction": 0.0003931435760339676,
+          "outside_overlap_fraction": 0.3898411699952823,
+          "weight_p99": 13.27809771482896,
+          "weight_max": 17713.691100437303,
+          "effective_sample_size": 10.440076778954397,
+          "effective_sample_fraction": 0.0008208898237894635,
+          "treated_effective_sample_size": 91.40413849491482,
+          "treated_effective_sample_fraction": 0.015398271309790231,
+          "control_effective_sample_size": 6.216939148564198,
+          "control_effective_sample_fraction": 0.0009166822690304038
+        },
+        "balance_before_max_absolute_smd": 1.1628452025037836,
+        "matching": {
+          "matched_pairs": 3623,
+          "matched_treated_fraction": 0.6103436657681941,
+          "eligible_treated": 3623,
+          "eligible_controls": 4137,
+          "discarded_rows_outside_overlap": 4958,
+          "max_absolute_smd": 0.0766163004425528,
+          "balance_passes_0_10": true,
+          "att": {
+            "estimate": 0.00690035881865857,
+            "ci_lower": 0.0024841291747170853,
+            "ci_upper": 0.01076455975710737,
+            "reference_gap_vs_overall_rct_ate": -0.00013941590855015996
+          }
+        },
+        "naive_association": 0.01139109113151111,
+        "linear_dml": {
+          "estimate": 0.004416659980447944,
+          "ci_lower": -0.0010060939257518602,
+          "ci_upper": 0.009839413886647747,
+          "absolute_error_vs_rct_ate": 0.002623114746760786,
+          "covers_rct_ate": true
+        },
+        "runtime_seconds": 2.141572331001953,
+        "naive_absolute_error_vs_rct_ate": 0.00435131640430238
+      },
+      {
+        "seed": 43,
+        "rows": 12724,
+        "treated_rows": 5997,
+        "treated_share": 0.4713140521848475,
+        "desired_propensity": {
+          "roc_auc": 0.935092651622873,
+          "brier_score": 0.1010504413141104,
+          "log_loss": 0.3233464563405033,
+          "minimum": 0.01,
+          "maximum": 0.99,
+          "outside_overlap_threshold_fraction": 0.4127632819867966,
+          "common_support_lower": 0.01,
+          "common_support_upper": 0.99,
+          "outside_empirical_common_support_fraction": 0.0,
+          "treated_quantiles": {
+            "0.01": 0.05188322795420687,
+            "0.05": 0.18501022478863235,
+            "0.5": 0.9069513466921413,
+            "0.95": 0.99,
+            "0.99": 0.99
+          },
+          "control_quantiles": {
+            "0.01": 0.01,
+            "0.05": 0.01,
+            "0.5": 0.08380187261878544,
+            "0.95": 0.7178396820679538,
+            "0.99": 0.9085885802111925
+          },
+          "correlation_with_desired_propensity": 0.9999999999999999,
+          "rmse_vs_desired_propensity": 0.0
+        },
+        "fitted_propensity": {
+          "roc_auc": 0.9351794102293702,
+          "brier_score": 0.10083181523681412,
+          "log_loss": 0.32583744834822903,
+          "minimum": 0.0009136807573144129,
+          "maximum": 0.9999999984596559,
+          "outside_overlap_threshold_fraction": 0.38942156554542595,
+          "common_support_lower": 0.0011729545906444538,
+          "common_support_upper": 0.9999967533904257,
+          "outside_empirical_common_support_fraction": 0.0030650738761395786,
+          "treated_quantiles": {
+            "0.01": 0.06041795602091206,
+            "0.05": 0.20123038467590026,
+            "0.5": 0.9007526161281476,
+            "0.95": 0.99912386693648,
+            "0.99": 0.999866922618969
+          },
+          "control_quantiles": {
+            "0.01": 0.0015750382668617412,
+            "0.05": 0.003731058694316329,
+            "0.5": 0.09474461827045363,
+            "0.95": 0.7174959911408884,
+            "0.99": 0.9050598200029217
+          },
+          "correlation_with_desired_propensity": 0.9984414912774556,
+          "rmse_vs_desired_propensity": 0.022419016416902054
+        },
+        "desired_weights": {
+          "numerically_clipped_fraction": 0.0,
+          "outside_overlap_fraction": 0.4127632819867966,
+          "weight_p99": 16.332306451436754,
+          "weight_max": 100.0,
+          "effective_sample_size": 1529.8508479235172,
+          "effective_sample_fraction": 0.1202334838041117,
+          "treated_effective_sample_size": 779.1266708587615,
+          "treated_effective_sample_fraction": 0.1299194048455497,
+          "control_effective_sample_size": 751.2510895734154,
+          "control_effective_sample_fraction": 0.1116769867063201
+        },
+        "fitted_weights": {
+          "numerically_clipped_fraction": 0.00047154982709839675,
+          "outside_overlap_fraction": 0.38942156554542595,
+          "weight_p99": 13.589419565648686,
+          "weight_max": 308013.62994748174,
+          "effective_sample_size": 2.3329832370006076,
+          "effective_sample_fraction": 0.00018335297367184908,
+          "treated_effective_sample_size": 163.2415687956277,
+          "treated_effective_sample_fraction": 0.02722053840180552,
+          "control_effective_sample_size": 2.231260744918011,
+          "control_effective_sample_fraction": 0.0003316873412989462
+        },
+        "balance_before_max_absolute_smd": 1.177801822072472,
+        "matching": {
+          "matched_pairs": 3623,
+          "matched_treated_fraction": 0.6041354010338502,
+          "eligible_treated": 3623,
+          "eligible_controls": 4146,
+          "discarded_rows_outside_overlap": 4955,
+          "max_absolute_smd": 0.07785907697348161,
+          "balance_passes_0_10": true,
+          "att": {
+            "estimate": 0.0049682583494341705,
+            "ci_lower": 0.0005520287054926856,
+            "ci_upper": 0.009384487993375655,
+            "reference_gap_vs_overall_rct_ate": -0.0020715163777745597
+          }
+        },
+        "naive_association": 0.012422196430954192,
+        "linear_dml": {
+          "estimate": 0.005132080496980993,
+          "ci_lower": 0.00022038482326189584,
+          "ci_upper": 0.010043776170700089,
+          "absolute_error_vs_rct_ate": 0.0019076942302277376,
+          "covers_rct_ate": true
+        },
+        "runtime_seconds": 2.126819149001676,
+        "naive_absolute_error_vs_rct_ate": 0.005382421703745462
+      },
+      {
+        "seed": 44,
+        "rows": 12728,
+        "treated_rows": 5957,
+        "treated_share": 0.4680232558139535,
+        "desired_propensity": {
+          "roc_auc": 0.9336513784222362,
+          "brier_score": 0.10176396835366042,
+          "log_loss": 0.3264997305224316,
+          "minimum": 0.01,
+          "maximum": 0.99,
+          "outside_overlap_threshold_fraction": 0.41216216216216217,
+          "common_support_lower": 0.01,
+          "common_support_upper": 0.99,
+          "outside_empirical_common_support_fraction": 0.0,
+          "treated_quantiles": {
+            "0.01": 0.04662250281463222,
+            "0.05": 0.16643460912408306,
+            "0.5": 0.9083651224115181,
+            "0.95": 0.99,
+            "0.99": 0.99
+          },
+          "control_quantiles": {
+            "0.01": 0.01,
+            "0.05": 0.01,
+            "0.5": 0.08526270924151094,
+            "0.95": 0.7261618546073938,
+            "0.99": 0.9163958162611342
+          },
+          "correlation_with_desired_propensity": 1.0,
+          "rmse_vs_desired_propensity": 0.0
+        },
+        "fitted_propensity": {
+          "roc_auc": 0.9336013472420014,
+          "brier_score": 0.10171872760438234,
+          "log_loss": 0.32930837588028217,
+          "minimum": 0.00105699712318319,
+          "maximum": 0.9999999969930222,
+          "outside_overlap_threshold_fraction": 0.3771213073538655,
+          "common_support_lower": 0.00105699712318319,
+          "common_support_upper": 0.9999936218970175,
+          "outside_empirical_common_support_fraction": 0.0006285355122564425,
+          "treated_quantiles": {
+            "0.01": 0.05623242275933555,
+            "0.05": 0.18845357256527953,
+            "0.5": 0.8976448695773661,
+            "0.95": 0.9990957992850256,
+            "0.99": 0.9998500279927611
+          },
+          "control_quantiles": {
+            "0.01": 0.0017917031085853629,
+            "0.05": 0.004111174072176982,
+            "0.5": 0.09766181575497623,
+            "0.95": 0.711778641049378,
+            "0.99": 0.9119502593472538
+          },
+          "correlation_with_desired_propensity": 0.998838212694533,
+          "rmse_vs_desired_propensity": 0.01950821546104217
+        },
+        "desired_weights": {
+          "numerically_clipped_fraction": 0.0,
+          "outside_overlap_fraction": 0.41216216216216217,
+          "weight_p99": 16.10803548838112,
+          "weight_max": 100.0,
+          "effective_sample_size": 1357.9553466104046,
+          "effective_sample_fraction": 0.1066903949253932,
+          "treated_effective_sample_size": 631.2112479639779,
+          "treated_effective_sample_fraction": 0.10596126371730366,
+          "control_effective_sample_size": 749.6354251726834,
+          "control_effective_sample_fraction": 0.1107126606369345
+        },
+        "fitted_weights": {
+          "numerically_clipped_fraction": 0.00039283469516027656,
+          "outside_overlap_fraction": 0.3771213073538655,
+          "weight_p99": 13.71939714745401,
+          "weight_max": 156786.43050095212,
+          "effective_sample_size": 1.7903025635323428,
+          "effective_sample_fraction": 0.0001406585923579779,
+          "treated_effective_sample_size": 118.45453154748462,
+          "treated_effective_sample_fraction": 0.0198849305938366,
+          "control_effective_sample_size": 1.539638729611858,
+          "control_effective_sample_fraction": 0.00022738719976544945
+        },
+        "balance_before_max_absolute_smd": 1.164725437730457,
+        "matching": {
+          "matched_pairs": 3648,
+          "matched_treated_fraction": 0.6123887863018298,
+          "eligible_treated": 3648,
+          "eligible_controls": 4280,
+          "discarded_rows_outside_overlap": 4800,
+          "max_absolute_smd": 0.07149801978282114,
+          "balance_passes_0_10": true,
+          "att": {
+            "estimate": 0.006030701754385965,
+            "ci_lower": 0.001644736842105263,
+            "ci_upper": 0.010416666666666666,
+            "reference_gap_vs_overall_rct_ate": -0.0010090729728227657
+          }
+        },
+        "naive_association": 0.01162429102557399,
+        "linear_dml": {
+          "estimate": 0.002387248752621753,
+          "ci_lower": -0.0023894011812511167,
+          "ci_upper": 0.007163898686494622,
+          "absolute_error_vs_rct_ate": 0.004652525974586977,
+          "covers_rct_ate": true
+        },
+        "runtime_seconds": 2.2283296440000413,
+        "naive_absolute_error_vs_rct_ate": 0.004584516298365259
+      },
+      {
+        "seed": 45,
+        "rows": 12723,
+        "treated_rows": 5920,
+        "treated_share": 0.46529906468600174,
+        "desired_propensity": {
+          "roc_auc": 0.9347737956426219,
+          "brier_score": 0.10109643452241733,
+          "log_loss": 0.32419011184940477,
+          "minimum": 0.01,
+          "maximum": 0.99,
+          "outside_overlap_threshold_fraction": 0.4124813330189421,
+          "common_support_lower": 0.01,
+          "common_support_upper": 0.99,
+          "outside_empirical_common_support_fraction": 0.0,
+          "treated_quantiles": {
+            "0.01": 0.0565474907006234,
+            "0.05": 0.19036270012719367,
+            "0.5": 0.910740616283815,
+            "0.95": 0.99,
+            "0.99": 0.99
+          },
+          "control_quantiles": {
+            "0.01": 0.01,
+            "0.05": 0.01,
+            "0.5": 0.08609676786190645,
+            "0.95": 0.729100905262933,
+            "0.99": 0.934846362104242
+          },
+          "correlation_with_desired_propensity": 0.9999999999999999,
+          "rmse_vs_desired_propensity": 0.0
+        },
+        "fitted_propensity": {
+          "roc_auc": 0.9350321152035468,
+          "brier_score": 0.10091114284382602,
+          "log_loss": 0.32554891973099825,
+          "minimum": 0.000926742762033412,
+          "maximum": 0.9999999998930906,
+          "outside_overlap_threshold_fraction": 0.388901988524719,
+          "common_support_lower": 0.0009574596722685011,
+          "common_support_upper": 0.9996667641672312,
+          "outside_empirical_common_support_fraction": 0.014540595771437554,
+          "treated_quantiles": {
+            "0.01": 0.06516946672802461,
+            "0.05": 0.19672363529444287,
+            "0.5": 0.8966435730839211,
+            "0.95": 0.9992602326653403,
+            "0.99": 0.999961749524669
+          },
+          "control_quantiles": {
+            "0.01": 0.0015421963262827923,
+            "0.05": 0.0037588260977642492,
+            "0.5": 0.09513788791637537,
+            "0.95": 0.7115139862212813,
+            "0.99": 0.9229682943886784
+          },
+          "correlation_with_desired_propensity": 0.998803503437327,
+          "rmse_vs_desired_propensity": 0.019313972426645027
+        },
+        "desired_weights": {
+          "numerically_clipped_fraction": 0.0,
+          "outside_overlap_fraction": 0.4124813330189421,
+          "weight_p99": 16.546509571374788,
+          "weight_max": 100.0,
+          "effective_sample_size": 1377.9363013051914,
+          "effective_sample_fraction": 0.1083027824652355,
+          "treated_effective_sample_size": 727.1854181999016,
+          "treated_effective_sample_fraction": 0.12283537469592933,
+          "control_effective_sample_size": 658.5074584777362,
+          "control_effective_sample_fraction": 0.09679662773449012
+        },
+        "fitted_weights": {
+          "numerically_clipped_fraction": 0.0007859781498074353,
+          "outside_overlap_fraction": 0.388901988524719,
+          "weight_p99": 14.45158247364855,
+          "weight_max": 3000.8777618277504,
+          "effective_sample_size": 77.07907565636575,
+          "effective_sample_fraction": 0.006058246927325768,
+          "treated_effective_sample_size": 116.78904191096366,
+          "treated_effective_sample_fraction": 0.019727878701176295,
+          "control_effective_sample_size": 30.808721012965638,
+          "control_effective_sample_fraction": 0.004528696312357142
+        },
+        "balance_before_max_absolute_smd": 1.1366042177216589,
+        "matching": {
+          "matched_pairs": 3594,
+          "matched_treated_fraction": 0.6070945945945946,
+          "eligible_treated": 3594,
+          "eligible_controls": 4181,
+          "discarded_rows_outside_overlap": 4948,
+          "max_absolute_smd": 0.08075273086529804,
+          "balance_passes_0_10": true,
+          "att": {
+            "estimate": 0.005843071786310518,
+            "ci_lower": 0.0013912075681691708,
+            "ci_upper": 0.010573177518085699,
+            "reference_gap_vs_overall_rct_ate": -0.0011967029408982126
+          }
+        },
+        "naive_association": 0.01205653507395386,
+        "linear_dml": {
+          "estimate": 0.006278542364088954,
+          "ci_lower": 0.0014293162082114012,
+          "ci_upper": 0.011127768519966507,
+          "absolute_error_vs_rct_ate": 0.0007612323631197761,
+          "covers_rct_ate": true
+        },
+        "runtime_seconds": 2.0992153200022585,
+        "naive_absolute_error_vs_rct_ate": 0.00501676034674513
+      },
+      {
+        "seed": 46,
+        "rows": 12795,
+        "treated_rows": 6012,
+        "treated_share": 0.46987104337631885,
+        "desired_propensity": {
+          "roc_auc": 0.9316923551295365,
+          "brier_score": 0.10395325830292484,
+          "log_loss": 0.33178494357382093,
+          "minimum": 0.01,
+          "maximum": 0.99,
+          "outside_overlap_threshold_fraction": 0.41101992966002343,
+          "common_support_lower": 0.01,
+          "common_support_upper": 0.99,
+          "outside_empirical_common_support_fraction": 0.0,
+          "treated_quantiles": {
+            "0.01": 0.05191110804738182,
+            "0.05": 0.1857326033277187,
+            "0.5": 0.9077935293754468,
+            "0.95": 0.99,
+            "0.99": 0.99
+          },
+          "control_quantiles": {
+            "0.01": 0.01,
+            "0.05": 0.01,
+            "0.5": 0.08647398655906852,
+            "0.95": 0.7289745958165238,
+            "0.99": 0.929378154604449
+          },
+          "correlation_with_desired_propensity": 1.0,
+          "rmse_vs_desired_propensity": 0.0
+        },
+        "fitted_propensity": {
+          "roc_auc": 0.9319864865090204,
+          "brier_score": 0.1037305048912506,
+          "log_loss": 0.33198556860402445,
+          "minimum": 0.000933923561754182,
+          "maximum": 0.999999999989883,
+          "outside_overlap_threshold_fraction": 0.38139898397811645,
+          "common_support_lower": 0.00165900791005387,
+          "common_support_upper": 0.999792753423061,
+          "outside_empirical_common_support_fraction": 0.021414615084017194,
+          "treated_quantiles": {
+            "0.01": 0.06369991801022473,
+            "0.05": 0.20244279604495502,
+            "0.5": 0.894954323648659,
+            "0.95": 0.9994802837363438,
+            "0.99": 0.9999907448991101
+          },
+          "control_quantiles": {
+            "0.01": 0.0016512718281053496,
+            "0.05": 0.004073470322019443,
+            "0.5": 0.09762760497475001,
+            "0.95": 0.7142963848340571,
+            "0.99": 0.9187173869995293
+          },
+          "correlation_with_desired_propensity": 0.9990095328666386,
+          "rmse_vs_desired_propensity": 0.018106501082342283
+        },
+        "desired_weights": {
+          "numerically_clipped_fraction": 0.0,
+          "outside_overlap_fraction": 0.41101992966002343,
+          "weight_p99": 17.923831602322473,
+          "weight_max": 100.0,
+          "effective_sample_size": 1420.3326166110705,
+          "effective_sample_fraction": 0.11100684772263154,
+          "treated_effective_sample_size": 726.1667647875767,
+          "treated_effective_sample_fraction": 0.120786221687887,
+          "control_effective_sample_size": 694.6202273445928,
+          "control_effective_sample_fraction": 0.10240604855441439
+        },
+        "fitted_weights": {
+          "numerically_clipped_fraction": 0.0018757327080890973,
+          "outside_overlap_fraction": 0.38139898397811645,
+          "weight_p99": 14.568596711935012,
+          "weight_max": 4825.170165749525,
+          "effective_sample_size": 44.43204453591741,
+          "effective_sample_fraction": 0.0034726099676371564,
+          "treated_effective_sample_size": 214.759188616173,
+          "treated_effective_sample_fraction": 0.03572175459350848,
+          "control_effective_sample_size": 15.984471425324788,
+          "control_effective_sample_fraction": 0.0023565489348849754
+        },
+        "balance_before_max_absolute_smd": 1.1724048242388605,
+        "matching": {
+          "matched_pairs": 3692,
+          "matched_treated_fraction": 0.614105123087159,
+          "eligible_treated": 3692,
+          "eligible_controls": 4223,
+          "discarded_rows_outside_overlap": 4880,
+          "max_absolute_smd": 0.06533602225829478,
+          "balance_passes_0_10": true,
+          "att": {
+            "estimate": 0.003791982665222102,
+            "ci_lower": -0.00027085590465872155,
+            "ci_upper": 0.007854821235102925,
+            "reference_gap_vs_overall_rct_ate": -0.0032477920619866283
+          }
+        },
+        "naive_association": 0.011617043077342293,
+        "linear_dml": {
+          "estimate": 0.0016633506661863768,
+          "ci_lower": -0.0025032422522767986,
+          "ci_upper": 0.005829943584649552,
+          "absolute_error_vs_rct_ate": 0.005376424061022353,
+          "covers_rct_ate": false
+        },
+        "runtime_seconds": 2.1429519490011444,
+        "naive_absolute_error_vs_rct_ate": 0.0045772683501335626
+      }
+    ],
+    "severe": [
+      {
+        "seed": 42,
+        "rows": 12714,
+        "treated_rows": 5804,
+        "treated_share": 0.4565046405537203,
+        "desired_propensity": {
+          "roc_auc": 0.9794864762163126,
+          "brier_score": 0.05558324112429018,
+          "log_loss": 0.18233509404061451,
+          "minimum": 0.001,
+          "maximum": 0.999,
+          "outside_overlap_threshold_fraction": 0.6893188610980022,
+          "common_support_lower": 0.001,
+          "common_support_upper": 0.999,
+          "outside_empirical_common_support_fraction": 0.0,
+          "treated_quantiles": {
+            "0.01": 0.06817803123512362,
+            "0.05": 0.3366075407033984,
+            "0.5": 0.9926081818745864,
+            "0.95": 0.999,
+            "0.99": 0.999
+          },
+          "control_quantiles": {
+            "0.01": 0.001,
+            "0.05": 0.001,
+            "0.5": 0.00846536478413424,
+            "0.95": 0.6129224178611333,
+            "0.99": 0.9043958882669338
+          },
+          "correlation_with_desired_propensity": 0.9999999999999999,
+          "rmse_vs_desired_propensity": 0.0
+        },
+        "fitted_propensity": {
+          "roc_auc": 0.9795400971035495,
+          "brier_score": 0.055397588451704144,
+          "log_loss": 0.18429401177065652,
+          "minimum": 1.2139886952896098e-06,
+          "maximum": 1.0,
+          "outside_overlap_threshold_fraction": 0.6622620733050181,
+          "common_support_lower": 3.49079168679783e-06,
+          "common_support_upper": 0.9999995611332674,
+          "outside_empirical_common_support_fraction": 0.026584867075664622,
+          "treated_quantiles": {
+            "0.01": 0.08487487991896943,
+            "0.05": 0.34400153099600383,
+            "0.5": 0.9878066539866037,
+            "0.95": 0.9999992552938138,
+            "0.99": 0.9999999990667626
+          },
+          "control_quantiles": {
+            "0.01": 3.3365439320743295e-06,
+            "0.05": 1.922277075419107e-05,
+            "0.5": 0.01232115506825514,
+            "0.95": 0.5810193820702761,
+            "0.99": 0.8712010985341958
+          },
+          "correlation_with_desired_propensity": 0.9991740207891041,
+          "rmse_vs_desired_propensity": 0.018876020052507228
+        },
+        "desired_weights": {
+          "numerically_clipped_fraction": 0.0,
+          "outside_overlap_fraction": 0.6893188610980022,
+          "weight_p99": 12.442309406283178,
+          "weight_max": 1000.0,
+          "effective_sample_size": 92.58385729744427,
+          "effective_sample_fraction": 0.007282040058002538,
+          "treated_effective_sample_size": 46.468377969683786,
+          "treated_effective_sample_fraction": 0.008006267741158474,
+          "control_effective_sample_size": 46.356255332436525,
+          "control_effective_sample_fraction": 0.0067085753013656334
+        },
+        "fitted_weights": {
+          "numerically_clipped_fraction": 0.02524775837659273,
+          "outside_overlap_fraction": 0.6622620733050181,
+          "weight_p99": 9.887248862418549,
+          "weight_max": 999999.9999712444,
+          "effective_sample_size": 2.170475788711948,
+          "effective_sample_fraction": 0.00017071541518892149,
+          "treated_effective_sample_size": 2.1615697599572177,
+          "treated_effective_sample_fraction": 0.0003724275947548618,
+          "control_effective_sample_size": 1.1751455068541259,
+          "control_effective_sample_fraction": 0.00017006447277194298
+        },
+        "balance_before_max_absolute_smd": 1.3198302189068267,
+        "matching": {
+          "matched_pairs": 2057,
+          "matched_treated_fraction": 0.3544107512060648,
+          "eligible_treated": 2057,
+          "eligible_controls": 2237,
+          "discarded_rows_outside_overlap": 8420,
+          "max_absolute_smd": 0.1277716562917827,
+          "balance_passes_0_10": false,
+          "att": {
+            "estimate": 0.003889158969372873,
+            "ci_lower": -0.0009722897423432182,
+            "ci_upper": 0.008276616431696636,
+            "reference_gap_vs_overall_rct_ate": -0.0031506157578358573
+          }
+        },
+        "naive_association": 0.011943756538980551,
+        "linear_dml": {
+          "estimate": -0.0002237167275343181,
+          "ci_lower": -0.00687126213445381,
+          "ci_upper": 0.006423828679385172,
+          "absolute_error_vs_rct_ate": 0.007263491454743048,
+          "covers_rct_ate": false
+        },
+        "runtime_seconds": 2.0588667299998633,
+        "naive_absolute_error_vs_rct_ate": 0.004903981811771821
+      },
+      {
+        "seed": 43,
+        "rows": 12717,
+        "treated_rows": 5883,
+        "treated_share": 0.46260910592120785,
+        "desired_propensity": {
+          "roc_auc": 0.9811702056057416,
+          "brier_score": 0.05348111743590708,
+          "log_loss": 0.17472596617990457,
+          "minimum": 0.001,
+          "maximum": 0.999,
+          "outside_overlap_threshold_fraction": 0.6884485334591491,
+          "common_support_lower": 0.001,
+          "common_support_upper": 0.999,
+          "outside_empirical_common_support_fraction": 0.0,
+          "treated_quantiles": {
+            "0.01": 0.0765293283410485,
+            "0.05": 0.3366075407033984,
+            "0.5": 0.9921054981275431,
+            "0.95": 0.999,
+            "0.99": 0.999
+          },
+          "control_quantiles": {
+            "0.01": 0.001,
+            "0.05": 0.001,
+            "0.5": 0.008122748831383902,
+            "0.95": 0.5720285317275995,
+            "0.99": 0.8708398309448204
+          },
+          "correlation_with_desired_propensity": 1.0,
+          "rmse_vs_desired_propensity": 0.0
+        },
+        "fitted_propensity": {
+          "roc_auc": 0.9812799199053278,
+          "brier_score": 0.053322694622578146,
+          "log_loss": 0.17516380014562502,
+          "minimum": 6.809743351688939e-07,
+          "maximum": 1.0,
+          "outside_overlap_threshold_fraction": 0.678776440984509,
+          "common_support_lower": 7.138501295679595e-05,
+          "common_support_upper": 0.9999993804218661,
+          "outside_empirical_common_support_fraction": 0.10002359046945034,
+          "treated_quantiles": {
+            "0.01": 0.08634118706347371,
+            "0.05": 0.35532370512366956,
+            "0.5": 0.9909332113608641,
+            "0.95": 0.9999998487358166,
+            "0.99": 0.9999999999591244
+          },
+          "control_quantiles": {
+            "0.01": 1.880281190128353e-06,
+            "0.05": 1.1671869632528412e-05,
+            "0.5": 0.009881550417947617,
+            "0.95": 0.5807003811880669,
+            "0.99": 0.8589496218264552
+          },
+          "correlation_with_desired_propensity": 0.9994278734863438,
+          "rmse_vs_desired_propensity": 0.015152735188444857
+        },
+        "desired_weights": {
+          "numerically_clipped_fraction": 0.0,
+          "outside_overlap_fraction": 0.6884485334591491,
+          "weight_p99": 9.73315818465583,
+          "weight_max": 1000.0,
+          "effective_sample_size": 113.08009427963508,
+          "effective_sample_fraction": 0.008892041698485105,
+          "treated_effective_sample_size": 52.90886425659326,
+          "treated_effective_sample_fraction": 0.00899351763668082,
+          "control_effective_sample_size": 64.90540457552417,
+          "control_effective_sample_fraction": 0.009497425311021974
+        },
+        "fitted_weights": {
+          "numerically_clipped_fraction": 0.03971062357474247,
+          "outside_overlap_fraction": 0.678776440984509,
+          "weight_p99": 9.140871057881304,
+          "weight_max": 999999.9999712444,
+          "effective_sample_size": 1.0847742542901366,
+          "effective_sample_fraction": 8.530111302116353e-05,
+          "treated_effective_sample_size": 4.165533835969053,
+          "treated_effective_sample_fraction": 0.000708062865199567,
+          "control_effective_sample_size": 1.0215914734864144,
+          "control_effective_sample_fraction": 0.00014948660718267697
+        },
+        "balance_before_max_absolute_smd": 1.3314911466815067,
+        "matching": {
+          "matched_pairs": 1975,
+          "matched_treated_fraction": 0.33571307156212815,
+          "eligible_treated": 1975,
+          "eligible_controls": 2110,
+          "discarded_rows_outside_overlap": 8632,
+          "max_absolute_smd": 0.1582757276536397,
+          "balance_passes_0_10": false,
+          "att": {
+            "estimate": -0.0005063291139240507,
+            "ci_lower": -0.006582278481012658,
+            "ci_upper": 0.005569620253164557,
+            "reference_gap_vs_overall_rct_ate": -0.007546103841132781
+          }
+        },
+        "naive_association": 0.013245334058029736,
+        "linear_dml": {
+          "estimate": 0.007151340565662613,
+          "ci_lower": 0.00033099401862505574,
+          "ci_upper": 0.013971687112700169,
+          "absolute_error_vs_rct_ate": 0.00011156583845388281,
+          "covers_rct_ate": true
+        },
+        "runtime_seconds": 2.043704212999728,
+        "naive_absolute_error_vs_rct_ate": 0.006205559330821006
+      },
+      {
+        "seed": 44,
+        "rows": 12657,
+        "treated_rows": 5826,
+        "treated_share": 0.46029864896895,
+        "desired_propensity": {
+          "roc_auc": 0.9809257794339661,
+          "brier_score": 0.053235966311637815,
+          "log_loss": 0.17576737084482177,
+          "minimum": 0.001,
+          "maximum": 0.999,
+          "outside_overlap_threshold_fraction": 0.6917911037370625,
+          "common_support_lower": 0.001,
+          "common_support_upper": 0.999,
+          "outside_empirical_common_support_fraction": 0.0,
+          "treated_quantiles": {
+            "0.01": 0.06408107885824359,
+            "0.05": 0.3366075407033984,
+            "0.5": 0.9925462903717028,
+            "0.95": 0.999,
+            "0.99": 0.999
+          },
+          "control_quantiles": {
+            "0.01": 0.001,
+            "0.05": 0.001,
+            "0.5": 0.008168963392919249,
+            "0.95": 0.5909157465252401,
+            "0.99": 0.883549711561579
+          },
+          "correlation_with_desired_propensity": 1.0,
+          "rmse_vs_desired_propensity": 0.0
+        },
+        "fitted_propensity": {
+          "roc_auc": 0.9810781134830748,
+          "brier_score": 0.053088676822157496,
+          "log_loss": 0.1764702984545771,
+          "minimum": 9.412762075764877e-07,
+          "maximum": 1.0,
+          "outside_overlap_threshold_fraction": 0.6752785020146954,
+          "common_support_lower": 0.00010857884645995328,
+          "common_support_upper": 0.9999986637065323,
+          "outside_empirical_common_support_fraction": 0.1193015722525085,
+          "treated_quantiles": {
+            "0.01": 0.07052854517709913,
+            "0.05": 0.3505240698527213,
+            "0.5": 0.9903006144361794,
+            "0.95": 0.9999998811934546,
+            "0.99": 0.9999999999397817
+          },
+          "control_quantiles": {
+            "0.01": 2.657364617810498e-06,
+            "0.05": 1.4852010627878263e-05,
+            "0.5": 0.010391539998656765,
+            "0.95": 0.5788835257784759,
+            "0.99": 0.8667519536161301
+          },
+          "correlation_with_desired_propensity": 0.9993040542825335,
+          "rmse_vs_desired_propensity": 0.016719598862210066
+        },
+        "desired_weights": {
+          "numerically_clipped_fraction": 0.0,
+          "outside_overlap_fraction": 0.6917911037370625,
+          "weight_p99": 11.558696148631274,
+          "weight_max": 1000.0,
+          "effective_sample_size": 109.4019924731471,
+          "effective_sample_fraction": 0.008643595834174535,
+          "treated_effective_sample_size": 100.69456145846794,
+          "treated_effective_sample_fraction": 0.017283652842167516,
+          "control_effective_sample_size": 42.94444581590761,
+          "control_effective_sample_fraction": 0.006286699724184983
+        },
+        "fitted_weights": {
+          "numerically_clipped_fraction": 0.039503831871691555,
+          "outside_overlap_fraction": 0.6752785020146954,
+          "weight_p99": 10.004869038855656,
+          "weight_max": 748338.6128894083,
+          "effective_sample_size": 1.324100574152057,
+          "effective_sample_fraction": 0.00010461409292502623,
+          "treated_effective_sample_size": 4.358402922499988,
+          "treated_effective_sample_fraction": 0.0007480952493134205,
+          "control_effective_sample_size": 1.265959405060647,
+          "control_effective_sample_fraction": 0.00018532563388385992
+        },
+        "balance_before_max_absolute_smd": 1.3318670852266221,
+        "matching": {
+          "matched_pairs": 1973,
+          "matched_treated_fraction": 0.3386543082732578,
+          "eligible_treated": 1973,
+          "eligible_controls": 2137,
+          "discarded_rows_outside_overlap": 8547,
+          "max_absolute_smd": 0.11264377895140454,
+          "balance_passes_0_10": false,
+          "att": {
+            "estimate": 0.0010136847440446021,
+            "ci_lower": -0.00456158134820071,
+            "ci_upper": 0.007095793208312215,
+            "reference_gap_vs_overall_rct_ate": -0.006026089983164128
+          }
+        },
+        "naive_association": 0.01250003580635381,
+        "linear_dml": {
+          "estimate": 0.0026367338744490844,
+          "ci_lower": -0.0057211834264078235,
+          "ci_upper": 0.010994651175305991,
+          "absolute_error_vs_rct_ate": 0.004403040852759646,
+          "covers_rct_ate": true
+        },
+        "runtime_seconds": 2.042391699000291,
+        "naive_absolute_error_vs_rct_ate": 0.0054602610791450795
+      },
+      {
+        "seed": 45,
+        "rows": 12673,
+        "treated_rows": 5812,
+        "treated_share": 0.458612798863726,
+        "desired_propensity": {
+          "roc_auc": 0.981358560554469,
+          "brier_score": 0.053269119778422996,
+          "log_loss": 0.174332689217385,
+          "minimum": 0.001,
+          "maximum": 0.999,
+          "outside_overlap_threshold_fraction": 0.6919435019332439,
+          "common_support_lower": 0.0013864083506721471,
+          "common_support_upper": 0.999,
+          "outside_empirical_common_support_fraction": 0.1842499802730214,
+          "treated_quantiles": {
+            "0.01": 0.06920954756100331,
+            "0.05": 0.3575644583135696,
+            "0.5": 0.992701612139913,
+            "0.95": 0.999,
+            "0.99": 0.999
+          },
+          "control_quantiles": {
+            "0.01": 0.001,
+            "0.05": 0.001,
+            "0.5": 0.008296795084769456,
+            "0.95": 0.6026323608548114,
+            "0.99": 0.8847575171001366
+          },
+          "correlation_with_desired_propensity": 0.9999999999999999,
+          "rmse_vs_desired_propensity": 0.0
+        },
+        "fitted_propensity": {
+          "roc_auc": 0.9814288783074547,
+          "brier_score": 0.05314556877353295,
+          "log_loss": 0.17450878482634888,
+          "minimum": 7.51501977339018e-07,
+          "maximum": 1.0,
+          "outside_overlap_threshold_fraction": 0.6793971435334965,
+          "common_support_lower": 0.0018083694863897568,
+          "common_support_upper": 0.9999860326728066,
+          "outside_empirical_common_support_fraction": 0.25163733922512427,
+          "treated_quantiles": {
+            "0.01": 0.07969807800883201,
+            "0.05": 0.3538483991359948,
+            "0.5": 0.9905316268287216,
+            "0.95": 0.9999998405312926,
+            "0.99": 0.9999999999163304
+          },
+          "control_quantiles": {
+            "0.01": 2.102494202519509e-06,
+            "0.05": 1.2856864119357952e-05,
+            "0.5": 0.009917934953162165,
+            "0.95": 0.5862029227954465,
+            "0.99": 0.867998115731226
+          },
+          "correlation_with_desired_propensity": 0.9996092400805259,
+          "rmse_vs_desired_propensity": 0.012778559953582303
+        },
+        "desired_weights": {
+          "numerically_clipped_fraction": 0.0,
+          "outside_overlap_fraction": 0.6919435019332439,
+          "weight_p99": 10.207610258464358,
+          "weight_max": 999.9999999999991,
+          "effective_sample_size": 182.57725210669685,
+          "effective_sample_fraction": 0.014406790192274666,
+          "treated_effective_sample_size": 150.09610822557838,
+          "treated_effective_sample_fraction": 0.02582520788464872,
+          "control_effective_sample_size": 71.25599137281492,
+          "control_effective_sample_fraction": 0.010385656809913267
+        },
+        "fitted_weights": {
+          "numerically_clipped_fraction": 0.040400852205476206,
+          "outside_overlap_fraction": 0.6793971435334965,
+          "weight_p99": 9.764921877121196,
+          "weight_max": 71595.65936662914,
+          "effective_sample_size": 2.639348368067128,
+          "effective_sample_fraction": 0.00020826547526766573,
+          "treated_effective_sample_size": 214.3474014158509,
+          "treated_effective_sample_fraction": 0.036880144772169804,
+          "control_effective_sample_size": 2.299101095943399,
+          "control_effective_sample_fraction": 0.00033509708438178093
+        },
+        "balance_before_max_absolute_smd": 1.3192026531455177,
+        "matching": {
+          "matched_pairs": 1950,
+          "matched_treated_fraction": 0.3355127322780454,
+          "eligible_treated": 1950,
+          "eligible_controls": 2113,
+          "discarded_rows_outside_overlap": 8610,
+          "max_absolute_smd": 0.07378172366994094,
+          "balance_passes_0_10": true,
+          "att": {
+            "estimate": 0.0056410256410256415,
+            "ci_lower": 0.0,
+            "ci_upper": 0.010256410256410256,
+            "reference_gap_vs_overall_rct_ate": -0.0013987490861830888
+          }
+        },
+        "naive_association": 0.012701708380341403,
+        "linear_dml": {
+          "estimate": 0.005114741899320949,
+          "ci_lower": -0.0021378729192278135,
+          "ci_upper": 0.012367356717869711,
+          "absolute_error_vs_rct_ate": 0.001925032827887781,
+          "covers_rct_ate": true
+        },
+        "runtime_seconds": 2.041776750000281,
+        "naive_absolute_error_vs_rct_ate": 0.005661933653132673
+      },
+      {
+        "seed": 46,
+        "rows": 12728,
+        "treated_rows": 5870,
+        "treated_share": 0.46118793211816467,
+        "desired_propensity": {
+          "roc_auc": 0.9812860966910654,
+          "brier_score": 0.053282759341724766,
+          "log_loss": 0.1746344166076166,
+          "minimum": 0.001,
+          "maximum": 0.999,
+          "outside_overlap_threshold_fraction": 0.6882463859208046,
+          "common_support_lower": 0.001,
+          "common_support_upper": 0.999,
+          "outside_empirical_common_support_fraction": 0.0,
+          "treated_quantiles": {
+            "0.01": 0.06793739206605845,
+            "0.05": 0.3452941741613652,
+            "0.5": 0.9922469477488516,
+            "0.95": 0.999,
+            "0.99": 0.999
+          },
+          "control_quantiles": {
+            "0.01": 0.001,
+            "0.05": 0.001,
+            "0.5": 0.008296795084769456,
+            "0.95": 0.6016674222476895,
+            "0.99": 0.8737094899802659
+          },
+          "correlation_with_desired_propensity": 1.0,
+          "rmse_vs_desired_propensity": 0.0
+        },
+        "fitted_propensity": {
+          "roc_auc": 0.9813622335396606,
+          "brier_score": 0.05318292843219511,
+          "log_loss": 0.17478133509993615,
+          "minimum": 6.233859215947456e-07,
+          "maximum": 1.0,
+          "outside_overlap_threshold_fraction": 0.6783469516027656,
+          "common_support_lower": 1.8826165918824424e-06,
+          "common_support_upper": 0.9997576592234486,
+          "outside_empirical_common_support_fraction": 0.129242614707731,
+          "treated_quantiles": {
+            "0.01": 0.07512223651569248,
+            "0.05": 0.3622438208060634,
+            "0.5": 0.9908494075244771,
+            "0.95": 0.9999998988861737,
+            "0.99": 0.9999999999632463
+          },
+          "control_quantiles": {
+            "0.01": 1.8826165918824424e-06,
+            "0.05": 1.1249134382160983e-05,
+            "0.5": 0.009524523260336698,
+            "0.95": 0.5944860207993612,
+            "0.99": 0.8688154506969403
+          },
+          "correlation_with_desired_propensity": 0.9995195000863262,
+          "rmse_vs_desired_propensity": 0.013785809357855587
+        },
+        "desired_weights": {
+          "numerically_clipped_fraction": 0.0,
+          "outside_overlap_fraction": 0.6882463859208046,
+          "weight_p99": 11.12508618279916,
+          "weight_max": 1000.0,
+          "effective_sample_size": 152.90906679083915,
+          "effective_sample_fraction": 0.012013597328004333,
+          "treated_effective_sample_size": 64.55419919893922,
+          "treated_effective_sample_fraction": 0.010997308211062899,
+          "control_effective_sample_size": 95.12541572606952,
+          "control_effective_sample_fraction": 0.01387072261972434
+        },
+        "fitted_weights": {
+          "numerically_clipped_fraction": 0.04250471401634192,
+          "outside_overlap_fraction": 0.6783469516027656,
+          "weight_p99": 10.119974557736239,
+          "weight_max": 531175.6011881806,
+          "effective_sample_size": 1.1072567500962924,
+          "effective_sample_fraction": 8.699377357764712e-05,
+          "treated_effective_sample_size": 1.049519895937663,
+          "treated_effective_sample_fraction": 0.0001787938493931283,
+          "control_effective_sample_size": 12.57567146323059,
+          "control_effective_sample_fraction": 0.0018337228730286657
+        },
+        "balance_before_max_absolute_smd": 1.348216366404852,
+        "matching": {
+          "matched_pairs": 1982,
+          "matched_treated_fraction": 0.33764906303236797,
+          "eligible_treated": 1982,
+          "eligible_controls": 2112,
+          "discarded_rows_outside_overlap": 8634,
+          "max_absolute_smd": 0.08266834638806833,
+          "balance_passes_0_10": true,
+          "att": {
+            "estimate": 0.005549949545913219,
+            "ci_lower": 0.0010090817356205853,
+            "ci_upper": 0.009598890010090805,
+            "reference_gap_vs_overall_rct_ate": -0.001489825181295511
+          }
+        },
+        "naive_association": 0.0122700803796459,
+        "linear_dml": {
+          "estimate": 0.002579219630212774,
+          "ci_lower": -0.0017304352779662002,
+          "ci_upper": 0.0068888745383917475,
+          "absolute_error_vs_rct_ate": 0.004460555096995956,
+          "covers_rct_ate": false
+        },
+        "runtime_seconds": 2.0667723730002763,
+        "naive_absolute_error_vs_rct_ate": 0.0052303056524371705
+      }
+    ]
+  },
+  "aggregate": {
+    "healthy": {
+      "rows_mean": 12715.8,
+      "rows_min": 12614,
+      "rows_max": 12783,
+      "desired_outside_overlap_fraction_mean": 0.0,
+      "fitted_outside_overlap_fraction_mean": 0.004360350875181496,
+      "desired_weight_p99_mean": 5.849201440016162,
+      "desired_weight_max_max": 10.000000000000002,
+      "fitted_weight_p99_mean": 5.622154686605672,
+      "fitted_weight_max_max": 338.31087644784174,
+      "desired_effective_sample_fraction_mean": 0.8087887720926631,
+      "fitted_effective_sample_fraction_mean": 0.6195421935553921,
+      "matching": {
+        "matched_pairs_mean": 6255.6,
+        "matched_pairs_min": 6154,
+        "matched_treated_fraction_mean": 0.990586681776675,
+        "discarded_rows_outside_overlap_mean": 55.4,
+        "max_absolute_smd_mean": 0.03382389776602823,
+        "balance_pass_rate": 1.0,
+        "att_mean": 0.007742330561152642,
+        "att_replicate_sd": 0.001528333939897436,
+        "att_ci_width_mean": 0.006812629649360662
+      },
+      "naive": {
+        "estimate_mean": 0.009185997174752231,
+        "replicate_sd": 0.0008766063400478246,
+        "absolute_error_mean": 0.002146222447543501
+      },
+      "linear_dml": {
+        "estimate_mean": 0.005736995139763516,
+        "replicate_sd": 0.0015305442525373437,
+        "analytic_ci_width_mean": 0.0066193973185917,
+        "absolute_error_mean": 0.0017990604135035982,
+        "rct_ate_coverage_rate": 1.0
+      }
+    },
+    "limited": {
+      "rows_mean": 12734.4,
+      "rows_min": 12680,
+      "rows_max": 12788,
+      "desired_outside_overlap_fraction_mean": 0.0,
+      "fitted_outside_overlap_fraction_mean": 0.07362251364165937,
+      "desired_weight_p99_mean": 12.86840213979292,
+      "desired_weight_max_max": 20.0,
+      "fitted_weight_p99_mean": 11.62096912494827,
+      "fitted_weight_max_max": 59697.87221552307,
+      "desired_effective_sample_fraction_mean": 0.4763572487679695,
+      "fitted_effective_sample_fraction_mean": 0.10213456383253172,
+      "matching": {
+        "matched_pairs_mean": 5473.4,
+        "matched_pairs_min": 5440,
+        "matched_treated_fraction_mean": 0.890602927018276,
+        "discarded_rows_outside_overlap_mean": 937.6,
+        "max_absolute_smd_mean": 0.07048554954938512,
+        "balance_pass_rate": 1.0,
+        "att_mean": 0.007239658498006547,
+        "att_replicate_sd": 0.0019336794732307688,
+        "att_ci_width_mean": 0.007529512040415685
+      },
+      "naive": {
+        "estimate_mean": 0.010643226098248026,
+        "replicate_sd": 0.0007064368621801402,
+        "absolute_error_mean": 0.0036034513710392958
+      },
+      "linear_dml": {
+        "estimate_mean": 0.005472373412503826,
+        "replicate_sd": 0.0011766577512942263,
+        "analytic_ci_width_mean": 0.007643112803914915,
+        "absolute_error_mean": 0.0015674013147049047,
+        "rct_ate_coverage_rate": 1.0
+      }
+    },
+    "poor": {
+      "rows_mean": 12737.6,
+      "rows_min": 12718,
+      "rows_max": 12795,
+      "desired_outside_overlap_fraction_mean": 0.41205678341622176,
+      "fitted_outside_overlap_fraction_mean": 0.3853370030794819,
+      "desired_weight_p99_mean": 16.335510082373794,
+      "desired_weight_max_max": 100.0,
+      "fitted_weight_p99_mean": 13.921418722703043,
+      "fitted_weight_max_max": 308013.62994748174,
+      "desired_effective_sample_fraction_mean": 0.11029982842302995,
+      "fitted_effective_sample_fraction_mean": 0.002135151656956443,
+      "matching": {
+        "matched_pairs_mean": 3636.0,
+        "matched_pairs_min": 3594,
+        "matched_treated_fraction_mean": 0.6096135141571255,
+        "discarded_rows_outside_overlap_mean": 4908.2,
+        "max_absolute_smd_mean": 0.07441243006448967,
+        "balance_pass_rate": 1.0,
+        "att_mean": 0.005506874674802265,
+        "att_replicate_sd": 0.0011790020692036061,
+        "att_ci_width_mean": 0.008638493356902565
+      },
+      "naive": {
+        "estimate_mean": 0.01182223134786709,
+        "replicate_sd": 0.00041292275933029935,
+        "absolute_error_mean": 0.004782456620658359
+      },
+      "linear_dml": {
+        "estimate_mean": 0.0039755764520652045,
+        "replicate_sd": 0.0019173472065957965,
+        "analytic_ci_width_mean": 0.009650767435253001,
+        "absolute_error_mean": 0.0030641982751435258,
+        "rct_ate_coverage_rate": 0.8
+      }
+    },
+    "severe": {
+      "rows_mean": 12697.8,
+      "rows_min": 12657,
+      "rows_max": 12728,
+      "desired_outside_overlap_fraction_mean": 0.6899496772296525,
+      "fitted_outside_overlap_fraction_mean": 0.6748122222880969,
+      "desired_weight_p99_mean": 11.013372036166759,
+      "desired_weight_max_max": 1000.0,
+      "fitted_weight_p99_mean": 9.783577078802589,
+      "fitted_weight_max_max": 999999.9999712444,
+      "desired_effective_sample_fraction_mean": 0.010247613022188237,
+      "fitted_effective_sample_fraction_mean": 0.0001311779739960848,
+      "matching": {
+        "matched_pairs_mean": 1987.4,
+        "matched_pairs_min": 1950,
+        "matched_treated_fraction_mean": 0.3403879852703728,
+        "discarded_rows_outside_overlap_mean": 8568.6,
+        "max_absolute_smd_mean": 0.11102824659096724,
+        "balance_pass_rate": 0.4,
+        "att_mean": 0.003117497957286457,
+        "att_replicate_sd": 0.002758560589212891,
+        "att_ci_width_mean": 0.010380879599122095
+      },
+      "naive": {
+        "estimate_mean": 0.01253218303267028,
+        "replicate_sd": 0.00048818546983511003,
+        "absolute_error_mean": 0.005492408305461551
+      },
+      "linear_dml": {
+        "estimate_mean": 0.0034516638484222207,
+        "replicate_sd": 0.002801210835065674,
+        "analytic_ci_width_mean": 0.013355231592616677,
+        "absolute_error_mean": 0.003632737214168063,
+        "rct_ate_coverage_rate": 0.6
+      }
+    }
+  },
+  "runtime_seconds": 43.95816073199967,
+  "figures": {
+    "diagnostics": "experiments/figures/overlap_stress_diagnostics.svg",
+    "estimate_stability": "experiments/figures/overlap_estimate_stability.svg"
+  }
+}
