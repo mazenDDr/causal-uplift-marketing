@@ -77,6 +77,204 @@ def plot_failure_taxonomy(cases: list[dict], output: Path) -> None:
     plt.close(figure)
 
 
+def plot_campaign_replication(summary: dict, output: Path) -> None:
+    """Compare frozen Men's and Women's campaign results on their randomized holdouts."""
+    figure, axes = plt.subplots(2, 2, figsize=(14, 10))
+    men_color = "#4c72b0"
+    women_color = "#dd8452"
+
+    axis = axes[0, 0]
+    campaign_effects = [
+        summary["mens_reference"]["rct_conversion_effect"],
+        summary["rct_effects"]["conversion"],
+    ]
+    estimates = np.array([effect["estimate"] for effect in campaign_effects]) * 1000
+    lower = estimates - np.array([effect["ci_lower"] for effect in campaign_effects]) * 1000
+    upper = np.array([effect["ci_upper"] for effect in campaign_effects]) * 1000 - estimates
+    axis.bar(
+        [0, 1],
+        estimates,
+        color=[men_color, women_color],
+        yerr=np.vstack([lower, upper]),
+        capsize=5,
+    )
+    axis.axhline(0, color="#555555", linewidth=1)
+    axis.set_xticks([0, 1], ["Men's Email", "Women's Email"])
+    axis.set_ylabel("Incremental conversions / 1,000")
+    axis.set_title("Randomized campaign effect")
+
+    methods = ["naive", "linear_dml", "causal_forest_dml", "uplift_random_forest"]
+    labels = ["Naive", "LinearDML", "Causal forest", "Uplift forest"]
+    axis = axes[0, 1]
+    positions = np.arange(len(methods))
+    width = 0.36
+    men_errors = [
+        summary["mens_reference"]["medium_ate_estimators"][name]["absolute_error_vs_rct_ate"] * 1000
+        for name in methods
+    ]
+    women_errors = [
+        summary["ate_estimators"][name]["absolute_error_vs_rct_ate"] * 1000 for name in methods
+    ]
+    axis.bar(positions - width / 2, men_errors, width, color=men_color, label="Men's")
+    axis.bar(positions + width / 2, women_errors, width, color=women_color, label="Women's")
+    axis.set_xticks(positions, labels, rotation=18, ha="right")
+    axis.set_ylabel("Absolute ATE error / 1,000")
+    axis.set_title("Medium-confounding ATE recovery")
+    axis.legend(frameon=False)
+
+    methods = [
+        "response_model",
+        "pseudo_uplift",
+        "causal_forest_dml",
+        "uplift_tree",
+        "uplift_random_forest",
+    ]
+    labels = ["Response", "Pseudo-uplift", "Causal forest", "Uplift tree", "Uplift forest"]
+    axis = axes[1, 0]
+    positions = np.arange(len(methods))
+    men_qini = [summary["mens_reference"]["qini"][name]["estimate_per_1000"] for name in methods]
+    women_qini = [
+        summary["ranking"]["models"][name]["qini"]["estimate_per_1000"] for name in methods
+    ]
+    men_qini_error = np.array(
+        [
+            [
+                summary["mens_reference"]["qini"][name]["estimate_per_1000"]
+                - summary["mens_reference"]["qini"][name]["ci_lower_per_1000"],
+                summary["mens_reference"]["qini"][name]["ci_upper_per_1000"]
+                - summary["mens_reference"]["qini"][name]["estimate_per_1000"],
+            ]
+            for name in methods
+        ]
+    ).T
+    women_qini_error = np.array(
+        [
+            [
+                summary["ranking"]["models"][name]["qini"]["estimate_per_1000"]
+                - summary["ranking"]["models"][name]["qini"]["ci_lower_per_1000"],
+                summary["ranking"]["models"][name]["qini"]["ci_upper_per_1000"]
+                - summary["ranking"]["models"][name]["qini"]["estimate_per_1000"],
+            ]
+            for name in methods
+        ]
+    ).T
+    axis.bar(
+        positions - width / 2,
+        men_qini,
+        width,
+        color=men_color,
+        label="Men's",
+        yerr=men_qini_error,
+        capsize=3,
+    )
+    axis.bar(
+        positions + width / 2,
+        women_qini,
+        width,
+        color=women_color,
+        label="Women's",
+        yerr=women_qini_error,
+        capsize=3,
+    )
+    axis.axhline(0, color="#555555", linewidth=1)
+    axis.set_xticks(positions, labels, rotation=18, ha="right")
+    axis.set_ylabel("Qini / 1,000 eligible")
+    axis.set_title("Held-out randomized uplift ranking")
+
+    methods = [
+        "random",
+        "response_model",
+        "pseudo_uplift",
+        "psm_segments",
+        "causal_forest_dml",
+        "uplift_random_forest",
+    ]
+    labels = ["Random", "Response", "Pseudo-uplift", "PSM", "Causal forest", "Uplift forest"]
+    axis = axes[1, 1]
+    positions = np.arange(len(methods))
+    men_profit = [
+        summary["mens_reference"]["medium_policy_at_20_percent"][name][
+            "incremental_profit_per_1000_eligible"
+        ]["estimate"]
+        for name in methods
+    ]
+    women_profit = [
+        summary["policies"]["0.20"]["models"][name]["incremental_profit_per_1000_eligible"][
+            "estimate"
+        ]
+        for name in methods
+    ]
+    men_profit_error = np.array(
+        [
+            [
+                summary["mens_reference"]["medium_policy_at_20_percent"][name][
+                    "incremental_profit_per_1000_eligible"
+                ]["estimate"]
+                - summary["mens_reference"]["medium_policy_at_20_percent"][name][
+                    "incremental_profit_per_1000_eligible"
+                ]["ci_lower"],
+                summary["mens_reference"]["medium_policy_at_20_percent"][name][
+                    "incremental_profit_per_1000_eligible"
+                ]["ci_upper"]
+                - summary["mens_reference"]["medium_policy_at_20_percent"][name][
+                    "incremental_profit_per_1000_eligible"
+                ]["estimate"],
+            ]
+            for name in methods
+        ]
+    ).T
+    women_profit_error = np.array(
+        [
+            [
+                summary["policies"]["0.20"]["models"][name]["incremental_profit_per_1000_eligible"][
+                    "estimate"
+                ]
+                - summary["policies"]["0.20"]["models"][name][
+                    "incremental_profit_per_1000_eligible"
+                ]["ci_lower"],
+                summary["policies"]["0.20"]["models"][name]["incremental_profit_per_1000_eligible"][
+                    "ci_upper"
+                ]
+                - summary["policies"]["0.20"]["models"][name][
+                    "incremental_profit_per_1000_eligible"
+                ]["estimate"],
+            ]
+            for name in methods
+        ]
+    ).T
+    axis.bar(
+        positions - width / 2,
+        men_profit,
+        width,
+        color=men_color,
+        label="Men's",
+        yerr=men_profit_error,
+        capsize=3,
+    )
+    axis.bar(
+        positions + width / 2,
+        women_profit,
+        width,
+        color=women_color,
+        label="Women's",
+        yerr=women_profit_error,
+        capsize=3,
+    )
+    axis.axhline(0, color="#555555", linewidth=1)
+    axis.set_xticks(positions, labels, rotation=18, ha="right")
+    axis.set_ylabel("Incremental profit / 1,000 eligible ($)")
+    axis.set_title("20% policy at $0.05/email")
+
+    for axis in axes.flat:
+        axis.grid(axis="y", alpha=0.2)
+    figure.suptitle(
+        "Frozen pipeline replication: campaign conclusions do not automatically transfer"
+    )
+    figure.tight_layout()
+    _save_figure(figure, output)
+    plt.close(figure)
+
+
 def _save_figure(figure: plt.Figure, output: Path) -> None:
     output.parent.mkdir(parents=True, exist_ok=True)
     figure.savefig(output, bbox_inches="tight")

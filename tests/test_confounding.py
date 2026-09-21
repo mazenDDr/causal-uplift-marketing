@@ -75,3 +75,22 @@ def test_post_treatment_feature_cannot_replace_required_feature() -> None:
     source = synthetic_rct().drop(columns="history")
     with pytest.raises(ValueError, match="confounding features are missing"):
         desired_propensity(source, ConfoundingConfig(strength=1.0))
+
+
+def test_campaign_affinity_column_changes_only_the_pre_treatment_score() -> None:
+    source = synthetic_rct()
+    mens_score = desired_propensity(
+        source,
+        ConfoundingConfig(strength=1.0, affinity_column="mens"),
+    )
+    womens_score = desired_propensity(
+        source,
+        ConfoundingConfig(strength=1.0, affinity_column="womens"),
+    )
+    assert not np.array_equal(mens_score, womens_score)
+    assert np.corrcoef(womens_score, source["womens"])[0, 1] > 0
+
+
+def test_invalid_campaign_affinity_is_rejected() -> None:
+    with pytest.raises(ValueError, match="affinity_column"):
+        ConfoundingConfig(strength=1.0, affinity_column="conversion")
