@@ -285,6 +285,111 @@ def plot_uplift_model_validation(
     plt.close(figure)
 
 
+def plot_uplift_qini_curves(models: dict[str, dict[str, object]], output: Path) -> None:
+    """Plot randomized cumulative gain and Qini curves for every targeting score."""
+    figure, axes = plt.subplots(1, 2, figsize=(15, 6))
+    colors = ["#636363", "#756bb1", "#31a354", "#e6550d", "#3182bd"]
+    labels = {
+        "response_model": "Response model",
+        "pseudo_uplift": "Treatment-as-feature",
+        "causal_forest_dml": "CausalForestDML",
+        "uplift_tree": "Uplift tree",
+        "uplift_random_forest": "Uplift random forest",
+    }
+    first_curve = next(iter(models.values()))["curve"]
+    fractions = np.asarray(first_curve["fraction"], dtype=float)
+    axes[0].plot(
+        fractions * 100,
+        np.asarray(first_curve["random_gain"]) * 1000,
+        color="#969696",
+        linestyle="--",
+        linewidth=1.5,
+        label="Random targeting",
+    )
+    axes[1].axhline(0, color="#969696", linestyle="--", linewidth=1.5)
+    for color, (name, result) in zip(colors, models.items(), strict=True):
+        curve = result["curve"]
+        axes[0].plot(
+            np.asarray(curve["fraction"]) * 100,
+            np.asarray(curve["gain"]) * 1000,
+            color=color,
+            linewidth=2,
+            label=labels.get(name, name.replace("_", " ").title()),
+        )
+        axes[1].plot(
+            np.asarray(curve["fraction"]) * 100,
+            np.asarray(curve["qini_gain"]) * 1000,
+            color=color,
+            linewidth=2,
+            label=labels.get(name, name.replace("_", " ").title()),
+        )
+    axes[0].set_title("Cumulative incremental conversions")
+    axes[0].set_ylabel("Incremental conversions per 1,000 customers")
+    axes[1].set_title("Qini gain over random targeting")
+    axes[1].set_ylabel("Gain over random per 1,000 customers")
+    for axis in axes:
+        axis.set_xlabel("Customers targeted (%)")
+        axis.grid(alpha=0.2)
+    axes[0].legend(frameon=False, fontsize=8)
+    figure.suptitle("Targeting rankings evaluated only on the randomized holdout")
+    figure.tight_layout()
+    _save_figure(figure, output)
+    plt.close(figure)
+
+
+def plot_uplift_metric_intervals(models: dict[str, dict[str, object]], output: Path) -> None:
+    """Plot treatment-stratified bootstrap intervals for AUUC and Qini."""
+    display_names = {
+        "response_model": "Response model",
+        "pseudo_uplift": "Treatment-as-feature",
+        "causal_forest_dml": "CausalForestDML",
+        "uplift_tree": "Uplift tree",
+        "uplift_random_forest": "Uplift random forest",
+    }
+    labels = [display_names.get(name, name.replace("_", " ").title()) for name in models]
+    positions = np.arange(len(labels))
+    figure, axes = plt.subplots(1, 2, figsize=(14, 6), sharey=True)
+    for axis, metric, title in zip(
+        axes,
+        ["qini", "auuc"],
+        ["Qini coefficient", "Area under uplift curve"],
+        strict=True,
+    ):
+        estimates = np.array([models[name][metric]["estimate"] for name in models]) * 1000
+        lower = np.array([models[name][metric]["ci_lower"] for name in models]) * 1000
+        upper = np.array([models[name][metric]["ci_upper"] for name in models]) * 1000
+        axis.errorbar(
+            estimates,
+            positions,
+            xerr=np.vstack([estimates - lower, upper - estimates]),
+            fmt="o",
+            color="#2c7fb8",
+            capsize=4,
+        )
+        if metric == "qini":
+            random_baseline = 0.0
+        else:
+            curve = next(iter(models.values()))["curve"]
+            random_baseline = float(np.trapezoid(curve["random_gain"], curve["fraction"]) * 1000)
+        axis.axvline(
+            random_baseline,
+            color="#555555",
+            linestyle="--",
+            linewidth=1,
+            label="Random-targeting baseline",
+        )
+        axis.set_title(title)
+        axis.set_xlabel("Metric × 1,000 (95% bootstrap CI)")
+        axis.grid(axis="x", alpha=0.2)
+        axis.legend(frameon=False, fontsize=8)
+    axes[0].set_yticks(positions, labels=labels)
+    axes[0].invert_yaxis()
+    figure.suptitle("Ranking uncertainty on the untouched randomized holdout")
+    figure.tight_layout()
+    _save_figure(figure, output)
+    plt.close(figure)
+
+
 def plot_uplift_tree_structure(
     root: object,
     feature_names: tuple[str, ...],
