@@ -1,4 +1,4 @@
-.PHONY: check test foundation naive-baselines propensity-diagnostics matching linear-dml causal-forest uplift-models uplift-metrics business-policies dag
+.PHONY: check test foundation naive-baselines propensity-diagnostics matching linear-dml causal-forest uplift-models uplift-metrics business-policies confounding-ablation dag
 
 check:
 	python -m ruff check .
@@ -34,6 +34,9 @@ uplift-metrics: naive-baselines causal-forest uplift-models
 
 business-policies: matching linear-dml uplift-metrics
 	PYTHONPATH=src python scripts/run_business_policies.py --config configs/base.yaml
+
+confounding-ablation: matching linear-dml
+	PYTHONPATH=src python scripts/run_confounding_ablation.py --config configs/base.yaml
 
 dag:
 	dot -Tsvg docs/causal_dag.dot -o docs/causal_dag.svg
