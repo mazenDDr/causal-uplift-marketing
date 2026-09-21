@@ -11,8 +11,8 @@ than ordinary predictive ML.
 diagnostics, propensity-score matching, LinearDML, randomized CATE validation, and explicit uplift
 tree/forest comparisons are verified. Randomized Qini/AUUC and business policy evaluation are also
 complete, including the confounding-strength ATE and policy ablation; the positivity/overlap stress
-test, broader robustness suite, and consolidated failure analysis are also complete. Women's Email
-replication is next.
+test, broader robustness suite, consolidated failure analysis, and frozen Women's Email replication
+are also complete. The one-command experiment runner and tracking audit are next.
 
 ## Measured business result
 
@@ -250,6 +250,35 @@ The uplift-forest case is labeled as failed generalization and overfit-like beha
 was intentionally not used, so the project does not manufacture a training-versus-test overfit
 gap. Each symptom, cause, diagnostic, fix, estimand, and source artifact is generated in
 [`experiments/results/failure_analysis_summary.json`](experiments/results/failure_analysis_summary.json).
+
+## Women's Email replication
+
+The complete medium-confounding pipeline was frozen and rerun for `Womens E-Mail` versus
+`No E-Mail`. The split seed, confounding strength and coefficients, nuisance model selected on the
+Men's training data, estimator hyperparameters, bootstrap, budgets, and costs were unchanged. The
+only semantic substitution was historical merchandise affinity: `womens` replaces `mens` in the
+simulated targeting rule. Women's randomized outcomes were not used to select any model.
+
+![Frozen Men's and Women's campaign comparison](experiments/figures/womens_replication.svg)
+
+| Result | Men's Email | Women's Email |
+|---|---:|---:|
+| RCT conversion effect / 1,000 | 7.04 [3.99, 10.09] | 1.61 [-0.85, 4.07] |
+| Naive ATE error / 1,000 | 1.98 | 4.15 |
+| LinearDML ATE error / 1,000 | 1.37 | 1.11 |
+| CausalForestDML ATE error / 1,000 | 1.23 | 0.96 |
+| Uplift-forest ATE error / 1,000 | 1.29 | 3.28 |
+| Best observed Qini / 1,000 | Pseudo-uplift: 0.18 | Response: 0.57 |
+
+The average-effect result replicates: naive association is much farther from the randomized
+benchmark than LinearDML or CausalForestDML. The targeting conclusion does **not** replicate. Every
+Women's Qini interval contains zero, and every top-minus-bottom decile interval contains zero. At a
+20% budget the response model has the highest profit point estimate, $158 per 1,000 eligible
+customers, while the causal forest is -$63. Their paired causal-forest-minus-response interval is
+-$447 to -$3, but this is one of several unadjusted model/budget comparisons and is evidence to
+confirm—not a deployment winner declaration. The full design audit, effect intervals, matching
+balance, ranking metrics, policy comparisons, and runtime are generated in
+[`experiments/results/womens_replication_summary.json`](experiments/results/womens_replication_summary.json).
 
 ## Heterogeneous treatment effects
 

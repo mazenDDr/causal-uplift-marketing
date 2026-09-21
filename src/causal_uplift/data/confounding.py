@@ -14,6 +14,7 @@ class ConfoundingConfig:
     strength: float
     clip_min: float = 0.05
     clip_max: float = 0.95
+    affinity_column: str = "mens"
     history: float = 0.55
     recency: float = -0.45
     mens: float = 0.65
@@ -25,6 +26,8 @@ class ConfoundingConfig:
             raise ValueError("strength must be non-negative")
         if not 0 < self.clip_min < self.clip_max < 1:
             raise ValueError("propensity clips must satisfy 0 < min < max < 1")
+        if self.affinity_column not in {"mens", "womens"}:
+            raise ValueError("affinity_column must be 'mens' or 'womens'")
 
 
 def _standardize(series: pd.Series) -> np.ndarray:
@@ -35,7 +38,7 @@ def _standardize(series: pd.Series) -> np.ndarray:
 
 def desired_propensity(frame: pd.DataFrame, config: ConfoundingConfig) -> np.ndarray:
     """Construct the pre-specified historical targeting propensity e(X)."""
-    required = {"history", "recency", "mens", "channel", "newbie"}
+    required = {"history", "recency", config.affinity_column, "channel", "newbie"}
     missing = required.difference(frame.columns)
     if missing:
         raise ValueError(f"confounding features are missing: {sorted(missing)}")
@@ -45,7 +48,7 @@ def desired_propensity(frame: pd.DataFrame, config: ConfoundingConfig) -> np.nda
     score = (
         config.history * _standardize(frame["history"])
         + config.recency * _standardize(frame["recency"])
-        + config.mens * frame["mens"].to_numpy(dtype=float)
+        + config.mens * frame[config.affinity_column].to_numpy(dtype=float)
         + config.multichannel
         * frame["channel"].astype(str).str.lower().eq("multichannel").to_numpy(dtype=float)
         + config.newbie * frame["newbie"].to_numpy(dtype=float)
