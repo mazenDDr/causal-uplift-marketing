@@ -11,7 +11,8 @@ than ordinary predictive ML.
 diagnostics, propensity-score matching, LinearDML, randomized CATE validation, and explicit uplift
 tree/forest comparisons are verified. Randomized Qini/AUUC and business policy evaluation are also
 complete, including the confounding-strength ATE and policy ablation; the positivity/overlap stress
-test and broader robustness suite are also complete. Consolidated failure analysis is next.
+test, broader robustness suite, and consolidated failure analysis are also complete. Women's Email
+replication is next.
 
 ## Measured business result
 
@@ -232,6 +233,23 @@ population: caliper, replacement, ratio, and propensity model change which treat
 represented. Balance is necessary, but it does not make design choices irrelevant. Complete
 per-configuration intervals and runtime are generated in
 [`experiments/results/robustness_summary.json`](experiments/results/robustness_summary.json).
+
+## Failure analysis: every method has a boundary
+
+![Measured estimator failure taxonomy](experiments/figures/failure_taxonomy.svg)
+
+| Method | Measured failure | Diagnostic evidence | Required response |
+|---|---|---|---|
+| Naive association | Strong-confounding ATE is 52.8% above the RCT estimate | Error rises to 0.00371 as selection strengthens | Adjust for pre-treatment confounders and validate against an experiment |
+| PSM | Comparable customers disappear | 1,987 mean pairs, 8,569 rows discarded, balance passes in 2/5 severe runs | Restrict the ATT to supported customers; do not extrapolate |
+| LinearDML | Orthogonalization cannot create missing treatment variation | CI width is 2.02× healthy overlap; 3/5 severe intervals cover the RCT point estimate | Trim or redefine the population and gather overlapping data |
+| Uplift forest | A detailed score fails to become a validated ranking | Predicted top–bottom spread is +12.68 conversions/1,000, observed RCT spread is -2.86 (95% CI -17.23 to +10.54) | Regularize and require held-out uplift/Qini validation before deployment |
+
+The PSM row is an ATT failure in the retained matched treated population, not an ATE-error claim.
+The uplift-forest case is labeled as failed generalization and overfit-like behavior: training Qini
+was intentionally not used, so the project does not manufacture a training-versus-test overfit
+gap. Each symptom, cause, diagnostic, fix, estimand, and source artifact is generated in
+[`experiments/results/failure_analysis_summary.json`](experiments/results/failure_analysis_summary.json).
 
 ## Heterogeneous treatment effects
 
