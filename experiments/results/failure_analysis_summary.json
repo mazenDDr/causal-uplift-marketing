@@ -1,0 +1,106 @@
+{
+  "purpose": "Measured failure cases; each claim is derived from an earlier frozen experiment.",
+  "rct_outcomes_reused_for_model_selection": false,
+  "cases": [
+    {
+      "id": "naive_confounding",
+      "method": "Naive association",
+      "failure": "Selection bias is mistaken for campaign lift",
+      "symptom": "The strong-confounding estimate overstates the randomized conversion ATE by 52.8%.",
+      "cause": "Historically preferred customers have higher baseline purchase propensity, so the treated/control difference mixes treatment effect with pre-existing demand.",
+      "diagnostic": "Track covariate imbalance and compare observational estimates with a held-out randomized benchmark as selection strength increases.",
+      "fix": "Adjust for observed pre-treatment confounders, preserve overlap, and retain an experimental benchmark when one is available.",
+      "estimand": "ATE on the RCT covariate distribution",
+      "evidence": {
+        "rct_ate": 0.00703977472720873,
+        "strong_confounding_naive_estimate": 0.010754500936395642,
+        "ate_error": 0.0037147262091869115,
+        "relative_overestimate": 0.5276768580150007,
+        "linear_dml_ate_error": 0.00047101955106317907
+      },
+      "source_artifacts": [
+        "confounding_ablation_summary.json"
+      ]
+    },
+    {
+      "id": "psm_overlap",
+      "method": "Propensity-score matching",
+      "failure": "Matching runs after the comparable population collapses",
+      "symptom": "Severe overlap stress retains a mean 1,987 matched pairs, discards 8,569 rows, and passes the balance rule in only 2 of 5 resamples.",
+      "cause": "When propensities approach zero or one, nearby controls do not exist for many treated customers; matching must discard them or accept poor matches.",
+      "diagnostic": "Inspect propensity support, retained treated fraction, discarded rows, and post-match standardized mean differences before estimating ATT.",
+      "fix": "Restrict the estimand to supported customers, tighten design diagnostics, and collect or randomize additional comparable examples rather than extrapolating.",
+      "estimand": "ATT in retained matched treated customers",
+      "evidence": {
+        "outside_overlap_fraction": 0.6899496772296525,
+        "matched_pairs_mean": 1987.4,
+        "matched_pairs_healthy_mean": 6255.6,
+        "discarded_rows_mean": 8568.6,
+        "balance_pass_rate": 0.4,
+        "max_absolute_smd_mean": 0.11102824659096724
+      },
+      "source_artifacts": [
+        "overlap_stress_summary.json"
+      ]
+    },
+    {
+      "id": "dml_overlap",
+      "method": "LinearDML",
+      "failure": "Orthogonalization becomes unstable without treatment variation",
+      "symptom": "From healthy to severe overlap, mean interval width doubles and only 3 of 5 severe intervals cover the randomized point estimate.",
+      "cause": "Residualized treatment contains little usable variation in unsupported regions; flexible nuisance models cannot create missing counterfactual comparisons.",
+      "diagnostic": "Monitor propensity extremes, effective sample size, interval width, repeated-seed dispersion, and randomized-benchmark coverage.",
+      "fix": "Trim or redefine the target population, simplify unsupported heterogeneity claims, add data with overlap, or run a randomized intervention.",
+      "estimand": "ATE on the RCT covariate distribution",
+      "evidence": {
+        "healthy_ci_width": 0.0066193973185917,
+        "severe_ci_width": 0.013355231592616677,
+        "ci_width_ratio": 2.017590265371478,
+        "healthy_replicate_sd": 0.0015305442525373437,
+        "severe_replicate_sd": 0.002801210835065674,
+        "severe_rct_coverage_rate": 0.6,
+        "fitted_effective_sample_fraction": 0.0001311779739960848
+      },
+      "source_artifacts": [
+        "overlap_stress_summary.json"
+      ]
+    },
+    {
+      "id": "uplift_forest_ranking",
+      "method": "Uplift random forest",
+      "failure": "A granular observational ranking does not generalize to the RCT",
+      "symptom": "The model predicts a positive top-minus-bottom decile spread, but the observed randomized difference is negative and its interval includes zero.",
+      "cause": "Effect-difference splits can fit rare-outcome noise and observational selection; the uplift objective is not itself propensity adjustment.",
+      "diagnostic": "Freeze scores, then check RCT deciles, top-minus-bottom uplift, Qini, and bootstrap intervals instead of classification accuracy or score granularity.",
+      "fix": "Regularize the forest, consider propensity-aware estimators, gather stronger experimental signal, and do not deploy a ranking that fails held-out validation.",
+      "estimand": "CATE ranking on the randomized holdout",
+      "evidence": {
+        "unique_score_values": 10686,
+        "predicted_top_minus_bottom": 0.012684751915291654,
+        "observed_top_minus_bottom": -0.002859147140491307,
+        "observed_ci_lower": -0.017226466109133098,
+        "observed_ci_upper": 0.010541510821375472,
+        "decile_spearman": -0.11515151515151514,
+        "qini_per_1000": 0.03439654306209497,
+        "qini_ci_per_1000": [
+          -0.8741727058422315,
+          0.8730267934728078
+        ]
+      },
+      "interpretation_limit": "This is evidence of failed held-out ranking and overfit-like behavior, not a training-versus-test Qini gap because training Qini was intentionally not used.",
+      "source_artifacts": [
+        "uplift_models_summary.json",
+        "uplift_metrics_summary.json"
+      ]
+    }
+  ],
+  "figures": {
+    "taxonomy": "experiments/figures/failure_taxonomy.svg"
+  },
+  "source_artifacts": [
+    "confounding_ablation_summary.json",
+    "overlap_stress_summary.json",
+    "uplift_metrics_summary.json",
+    "uplift_models_summary.json"
+  ]
+}

@@ -1,10 +1,80 @@
 from __future__ import annotations
 
 from pathlib import Path
+from textwrap import fill
 
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+
+
+def plot_failure_taxonomy(cases: list[dict], output: Path) -> None:
+    """Summarize measured estimator failures without conflating their estimands."""
+    figure, axes = plt.subplots(2, 2, figsize=(14, 13))
+    colors = ["#c44e52", "#dd8452", "#8172b3", "#4c72b0"]
+    for axis, case, color in zip(axes.flat, cases, colors, strict=True):
+        axis.set_facecolor("#f7f7f7")
+        axis.set_xticks([])
+        axis.set_yticks([])
+        for spine in axis.spines.values():
+            spine.set_color(color)
+            spine.set_linewidth(2)
+        axis.text(
+            0.04,
+            0.91,
+            case["method"],
+            transform=axis.transAxes,
+            fontsize=15,
+            fontweight="bold",
+            color=color,
+            va="top",
+        )
+        axis.text(
+            0.04,
+            0.79,
+            fill(case["failure"], width=48),
+            transform=axis.transAxes,
+            fontsize=11,
+            fontweight="bold",
+            va="top",
+            wrap=True,
+        )
+        rows = [
+            ("SYMPTOM", case["symptom"]),
+            ("CAUSE", case["cause"]),
+            ("DIAGNOSE", case["diagnostic"]),
+            ("FIX", case["fix"]),
+        ]
+        anchors = (0.65, 0.49, 0.33, 0.17)
+        for (label, value), y in zip(rows, anchors, strict=True):
+            axis.text(
+                0.04,
+                y,
+                label,
+                transform=axis.transAxes,
+                fontsize=8.5,
+                fontweight="bold",
+                color="#555555",
+                va="top",
+            )
+            axis.text(
+                0.04,
+                y - 0.06,
+                fill(value, width=65),
+                transform=axis.transAxes,
+                fontsize=8.6,
+                color="#222222",
+                va="top",
+                wrap=True,
+            )
+    figure.suptitle(
+        "How causal estimators fail — measured on the untouched randomized holdout",
+        fontsize=18,
+        fontweight="bold",
+    )
+    figure.subplots_adjust(top=0.90, hspace=0.18, wspace=0.12)
+    _save_figure(figure, output)
+    plt.close(figure)
 
 
 def _save_figure(figure: plt.Figure, output: Path) -> None:
