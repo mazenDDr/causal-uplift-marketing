@@ -11,6 +11,8 @@ import pandas as pd
 class MatchResult:
     pairs: pd.DataFrame
     caliper: float
+    matched_treated: int
+    matching_ratio: int
     eligible_treated: int
     eligible_controls: int
     discarded_outside_overlap: int
@@ -33,11 +35,12 @@ def match_on_propensity(
     *,
     replacement: bool,
     caliper_sd: float = 0.2,
+    matching_ratio: int = 1,
     overlap_min: float = 0.05,
     overlap_max: float = 0.95,
     seed: int = 42,
 ) -> MatchResult:
-    """Greedy 1:1 nearest-neighbor matching on logit propensity."""
+    """Greedy 1:k nearest-neighbor matching on logit propensity."""
     scores = np.asarray(propensity, dtype=float)
     if scores.shape != (len(frame),):
         raise ValueError("propensity must have one value per row")
@@ -45,6 +48,8 @@ def match_on_propensity(
         raise ValueError("overlap thresholds must satisfy 0 < min < max < 1")
     if caliper_sd <= 0:
         raise ValueError("caliper_sd must be positive")
+    if matching_ratio < 1:
+        raise ValueError("matching_ratio must be positive")
     if "source_row_id" not in frame or not frame["source_row_id"].is_unique:
         raise ValueError("source_row_id must exist and be unique")
     treatment = frame["treatment"].to_numpy(dtype=int)
@@ -68,48 +73,70 @@ def match_on_propensity(
     rng = np.random.default_rng(seed)
     treated_order = rng.permutation(treated_positions)
     rows: list[dict[str, int | float]] = []
+    matched_treated = 0
 
     for treated_position in treated_order:
-        if not available_scores:
+        if len(available_scores) < matching_ratio:
             break
         treated_score = logits[treated_position]
         insertion = bisect_left(available_scores, treated_score)
-        candidates = []
-        if insertion < len(available_scores):
-            candidates.append(insertion)
-        if insertion > 0:
-            candidates.append(insertion - 1)
-        selected = min(
-            candidates,
-            key=lambda index: (
-                abs(available_scores[index] - treated_score),
-                available_positions[index],
-            ),
-        )
-        distance = abs(available_scores[selected] - treated_score)
-        if distance > caliper:
+        left = insertion - 1
+        right = insertion
+        selected_indices = []
+        while len(selected_indices) < matching_ratio and (
+            left >= 0 or right < len(available_scores)
+        ):
+            candidates = []
+            if left >= 0:
+                candidates.append(left)
+            if right < len(available_scores):
+                candidates.append(right)
+            selected = min(
+                candidates,
+                key=lambda index: (
+                    abs(available_scores[index] - treated_score),
+                    available_positions[index],
+                ),
+            )
+            selected_indices.append(selected)
+            if selected == left:
+                left -= 1
+            else:
+                right += 1
+        distances = [
+            abs(available_scores[selected] - treated_score) for selected in selected_indices
+        ]
+        if len(selected_indices) < matching_ratio or max(distances) > caliper:
             continue
-        control_position = available_positions[selected]
-        rows.append(
-            {
-                "treated_position": int(treated_position),
-                "control_position": int(control_position),
-                "treated_source_row_id": int(frame.iloc[treated_position]["source_row_id"]),
-                "control_source_row_id": int(frame.iloc[control_position]["source_row_id"]),
-                "logit_distance": float(distance),
-            }
-        )
+        for match_number, (selected, distance) in enumerate(
+            zip(selected_indices, distances, strict=True), start=1
+        ):
+            control_position = available_positions[selected]
+            rows.append(
+                {
+                    "pair_id": matched_treated,
+                    "match_number": match_number,
+                    "treated_position": int(treated_position),
+                    "control_position": int(control_position),
+                    "treated_source_row_id": int(frame.iloc[treated_position]["source_row_id"]),
+                    "control_source_row_id": int(frame.iloc[control_position]["source_row_id"]),
+                    "logit_distance": float(distance),
+                }
+            )
         if not replacement:
-            available_scores.pop(selected)
-            available_positions.pop(selected)
+            for selected in sorted(selected_indices, reverse=True):
+                available_scores.pop(selected)
+                available_positions.pop(selected)
+        matched_treated += 1
 
     pairs = pd.DataFrame(rows)
     if pairs.empty:
         raise ValueError("no matches satisfy the caliper")
-    pairs.insert(0, "pair_id", np.arange(len(pairs), dtype=int))
     return MatchResult(
         pairs=pairs,
         caliper=caliper,
+        matched_treated=matched_treated,
+        matching_ratio=matching_ratio,
         eligible_treated=len(treated_positions),
         eligible_controls=len(control_positions),
         discarded_outside_overlap=int((~eligible).sum()),
@@ -140,13 +167,13 @@ def paired_att(
     """Estimate ATT and a paired percentile-bootstrap confidence interval."""
     if bootstrap_samples < 1:
         raise ValueError("bootstrap_samples must be positive")
-    treated = frame.iloc[pairs["treated_position"].to_numpy(dtype=int)][outcome].to_numpy(
-        dtype=float
+    treated = frame.iloc[pairs["treated_position"].to_numpy(dtype=int)][outcome].to_numpy(float)
+    control = frame.iloc[pairs["control_position"].to_numpy(dtype=int)][outcome].to_numpy(float)
+    pair_outcomes = pd.DataFrame(
+        {"pair_id": pairs["pair_id"].to_numpy(dtype=int), "treated": treated, "control": control}
     )
-    control = frame.iloc[pairs["control_position"].to_numpy(dtype=int)][outcome].to_numpy(
-        dtype=float
-    )
-    differences = treated - control
+    grouped = pair_outcomes.groupby("pair_id", sort=True)
+    differences = grouped["treated"].first().to_numpy() - grouped["control"].mean().to_numpy()
     if len(differences) == 0:
         raise ValueError("at least one matched pair is required")
     rng = np.random.default_rng(seed)

@@ -11,7 +11,7 @@ than ordinary predictive ML.
 diagnostics, propensity-score matching, LinearDML, randomized CATE validation, and explicit uplift
 tree/forest comparisons are verified. Randomized Qini/AUUC and business policy evaluation are also
 complete, including the confounding-strength ATE and policy ablation; the positivity/overlap stress
-test is also complete. The broader robustness suite is next.
+test and broader robustness suite are also complete. Consolidated failure analysis is next.
 
 ## Measured business result
 
@@ -198,6 +198,40 @@ fails first: without comparable treated and control customers, weighting loses e
 matching loses rows and balance, and DML becomes wider and less stable. Full per-seed diagnostics
 and intervals are generated in
 [`experiments/results/overlap_stress_summary.json`](experiments/results/overlap_stress_summary.json).
+
+## Robustness suite
+
+The robustness suite changes one design choice at a time on the medium-confounding problem: three
+propensity models, twelve matching configurations, three DML nuisance specifications, five
+observational-selection seeds, five placebo shuffles, ten irrelevant features, and four training
+fractions across five fits. The grid is configured before execution, and the RCT benchmark remains
+closed until every observational specification is frozen.
+
+![DML nuisance, seed, placebo, sample-size, and noise checks](experiments/figures/robustness_dml.svg)
+
+| Check | Measured result |
+|---|---:|
+| Nuisance-model ATE error range | 0.00133–0.00164 |
+| Selection-seed estimate SD | 0.00161 |
+| Placebo mean effect | -0.00037 |
+| Placebo intervals covering zero | 5 / 5 |
+| Estimate change after 10 noise features | 0.00017 |
+| Mean DML CI width, 25% → 100% data | 0.01399 → 0.00672 |
+
+The three nuisance specifications give nearly identical intervals. Irrelevant features barely move
+the estimate, and the placebo behaves as expected. More data steadily tightens uncertainty, but
+point-estimate error is not monotonic: the 75% subsamples have lower mean error than the 100% fits.
+Precision improves with sample size; realized accuracy need not improve in a perfectly smooth line.
+
+![Propensity-model and matching-specification sensitivity](experiments/figures/robustness_matching.svg)
+
+Every matching specification passes the `|SMD| < 0.10` balance rule, yet retained treated customers
+range from 2,902 to 6,261 and ATT ranges from 0.00411 to 0.00874. Changing the propensity model
+alone moves ATT from 0.00708 to 0.00976. These are not interchangeable estimates of one fixed
+population: caliper, replacement, ratio, and propensity model change which treated customers remain
+represented. Balance is necessary, but it does not make design choices irrelevant. Complete
+per-configuration intervals and runtime are generated in
+[`experiments/results/robustness_summary.json`](experiments/results/robustness_summary.json).
 
 ## Heterogeneous treatment effects
 

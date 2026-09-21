@@ -12,7 +12,7 @@ from sklearn.ensemble import (
     HistGradientBoostingRegressor,
     RandomForestRegressor,
 )
-from sklearn.linear_model import LogisticRegression
+from sklearn.linear_model import LogisticRegression, Ridge
 from sklearn.metrics import brier_score_loss, log_loss, roc_auc_score
 from sklearn.model_selection import StratifiedKFold, cross_val_predict
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
@@ -20,7 +20,11 @@ from sklearn.preprocessing import OneHotEncoder, StandardScaler
 from causal_uplift.causal.baselines import CATEGORICAL_FEATURES, NUMERIC_FEATURES
 from causal_uplift.data.load import PRE_TREATMENT_COLUMNS
 
-NUISANCE_CANDIDATES = ("random_forest_logistic", "hist_gradient_boosting")
+NUISANCE_CANDIDATES = (
+    "linear_logistic",
+    "random_forest_logistic",
+    "hist_gradient_boosting",
+)
 
 
 @dataclass(frozen=True)
@@ -31,11 +35,17 @@ class LinearDMLResult:
     cross_fit_folds: int
 
 
-def make_confounder_encoder() -> ColumnTransformer:
+def make_confounder_encoder(
+    additional_numeric_features: tuple[str, ...] = (),
+) -> ColumnTransformer:
     """Encode only the frozen pre-treatment feature set."""
+    forbidden = {"treatment", "visit", "conversion", "spend", "segment"}
+    if forbidden.intersection(additional_numeric_features):
+        raise ValueError("post-treatment columns cannot enter the confounder encoder")
+    numeric_features = [*NUMERIC_FEATURES, *additional_numeric_features]
     return ColumnTransformer(
         [
-            ("numeric", StandardScaler(), NUMERIC_FEATURES),
+            ("numeric", StandardScaler(), numeric_features),
             (
                 "categorical",
                 OneHotEncoder(handle_unknown="ignore", sparse_output=False),
@@ -78,6 +88,11 @@ def make_nuisance_models(
     min_samples_leaf: int = 100,
     max_iter: int = 200,
 ) -> tuple[RegressorMixin, object]:
+    if name == "linear_logistic":
+        return (
+            Ridge(alpha=1.0),
+            LogisticRegression(max_iter=2000, random_state=seed),
+        )
     if name == "random_forest_logistic":
         return (
             RandomForestRegressor(
@@ -168,10 +183,15 @@ def fit_linear_dml(
     random_forest_trees: int = 200,
     min_samples_leaf: int = 100,
     max_iter: int = 200,
+    additional_numeric_features: tuple[str, ...] = (),
 ) -> LinearDMLResult:
     """Fit a constant-effect LinearDML with explicit cross-fitting."""
-    encoder = make_confounder_encoder()
-    confounders = encoder.fit_transform(frame.loc[:, PRE_TREATMENT_COLUMNS])
+    encoder = make_confounder_encoder(additional_numeric_features)
+    feature_columns = [*PRE_TREATMENT_COLUMNS, *additional_numeric_features]
+    missing = set(feature_columns).difference(frame.columns)
+    if missing:
+        raise ValueError(f"DML features are missing: {sorted(missing)}")
+    confounders = encoder.fit_transform(frame.loc[:, feature_columns])
     model_y, model_t = make_nuisance_models(
         candidate,
         seed=seed,

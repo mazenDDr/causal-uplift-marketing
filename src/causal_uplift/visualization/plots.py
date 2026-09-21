@@ -866,6 +866,186 @@ def plot_overlap_estimate_stability(
     plt.close(figure)
 
 
+def plot_robustness_dml(
+    nuisance_results: dict[str, dict[str, float]],
+    seed_results: list[dict[str, float]],
+    placebo_results: list[dict[str, float]],
+    sample_size_results: dict[str, list[dict[str, float]]],
+    noise_result: dict[str, object],
+    aggregate: dict[str, object],
+    rct_effect: dict[str, float],
+    output: Path,
+) -> None:
+    """Show DML sensitivity to model, sampling, placebo, noise, and sample size."""
+    figure, axes = plt.subplots(2, 3, figsize=(18, 10))
+
+    def effect_errorbar(axis: plt.Axes, rows: list[dict[str, float]], labels: list[str]) -> None:
+        estimates = np.array([row["estimate"] for row in rows])
+        lower = np.array([row["ci_lower"] for row in rows])
+        upper = np.array([row["ci_upper"] for row in rows])
+        positions = np.arange(len(rows))
+        axis.errorbar(
+            positions,
+            estimates,
+            yerr=np.vstack([estimates - lower, upper - estimates]),
+            fmt="o",
+            capsize=3,
+            color="#2c7fb8",
+        )
+        axis.set_xticks(positions, labels=labels, rotation=20, ha="right")
+        axis.grid(axis="y", alpha=0.2)
+
+    nuisance_labels = {
+        "linear_logistic": "Linear + logistic",
+        "random_forest_logistic": "RF + logistic",
+        "hist_gradient_boosting": "Gradient boosting",
+    }
+    effect_errorbar(
+        axes[0, 0],
+        list(nuisance_results.values()),
+        [nuisance_labels[name] for name in nuisance_results],
+    )
+    axes[0, 0].set_title("Nuisance-model choice")
+    axes[0, 0].set_ylabel("Conversion ATE")
+
+    effect_errorbar(
+        axes[0, 1],
+        seed_results,
+        [str(int(row["seed"])) for row in seed_results],
+    )
+    axes[0, 1].set_title("Observational selection seed")
+
+    effect_errorbar(
+        axes[0, 2],
+        placebo_results,
+        [str(int(row["seed"])) for row in placebo_results],
+    )
+    axes[0, 2].axhline(0, color="#252525", linestyle="--", linewidth=1.5)
+    axes[0, 2].set_title("Placebo shuffled treatment")
+
+    fractions = list(sample_size_results)
+    positions = np.arange(len(fractions))
+    axes[1, 0].plot(
+        positions,
+        [aggregate["sample_size"][fraction]["absolute_error_mean"] for fraction in fractions],
+        marker="o",
+        linewidth=2,
+        label="Mean absolute ATE error",
+    )
+    axes[1, 0].plot(
+        positions,
+        [aggregate["sample_size"][fraction]["estimate_sd"] for fraction in fractions],
+        marker="s",
+        linewidth=2,
+        label="Between-fit SD",
+    )
+    axes[1, 0].set_xticks(positions, labels=[f"{float(value):.0%}" for value in fractions])
+    axes[1, 0].set_title("Sample-size stability")
+    axes[1, 0].set_ylabel("Conversion effect")
+    axes[1, 0].legend(frameon=False)
+    axes[1, 0].grid(axis="y", alpha=0.2)
+
+    axes[1, 1].plot(
+        positions,
+        [aggregate["sample_size"][fraction]["ci_width_mean"] for fraction in fractions],
+        marker="o",
+        color="#756bb1",
+        linewidth=2,
+    )
+    axes[1, 1].set_xticks(positions, labels=[f"{float(value):.0%}" for value in fractions])
+    axes[1, 1].set_title("Sample size and analytic uncertainty")
+    axes[1, 1].set_ylabel("Mean DML 95% CI width")
+    axes[1, 1].grid(axis="y", alpha=0.2)
+
+    effect_errorbar(
+        axes[1, 2],
+        [noise_result["baseline"], noise_result["with_noise"]],
+        ["Frozen features", "+ 10 noise features"],
+    )
+    axes[1, 2].set_title("Irrelevant-covariate check")
+
+    for axis in (axes[0, 0], axes[0, 1], axes[1, 2]):
+        axis.axhspan(
+            rct_effect["ci_lower"],
+            rct_effect["ci_upper"],
+            color="#969696",
+            alpha=0.15,
+        )
+        axis.axhline(rct_effect["estimate"], color="#252525", linestyle="--", linewidth=1.2)
+    figure.suptitle("LinearDML robustness checks on observational marketing data")
+    figure.tight_layout()
+    _save_figure(figure, output)
+    plt.close(figure)
+
+
+def plot_robustness_matching(
+    propensity_results: dict[str, dict[str, object]],
+    matching_grid: list[dict[str, object]],
+    output: Path,
+) -> None:
+    """Show matching sensitivity to propensity model and matching specification."""
+    figure, axes = plt.subplots(1, 2, figsize=(15, 6))
+    labels = {
+        "logistic": "Logistic",
+        "gradient_boosting": "Gradient boosting",
+        "random_forest": "Random forest",
+    }
+    annotation_offsets = {
+        "logistic": (5, 5),
+        "gradient_boosting": (5, -13),
+        "random_forest": (5, 8),
+    }
+    for name, result in propensity_results.items():
+        matching = result["matching"]
+        axes[0].scatter(
+            matching["matched_treated"],
+            matching["max_absolute_smd"],
+            s=75,
+            label=labels[name],
+        )
+        axes[0].annotate(
+            labels[name],
+            (matching["matched_treated"], matching["max_absolute_smd"]),
+            xytext=annotation_offsets[name],
+            textcoords="offset points",
+            fontsize=9,
+        )
+    axes[0].axhline(0.10, color="#8c2d04", linestyle="--", linewidth=1.2)
+    axes[0].set_xlabel("Matched treated customers")
+    axes[0].set_ylabel("Maximum absolute SMD after matching")
+    axes[0].set_title("Propensity model changes the matched comparison")
+    axes[0].grid(alpha=0.2)
+
+    styles = {
+        (True, 1): ("With replacement, 1:1", "o", "-"),
+        (True, 2): ("With replacement, 1:2", "s", "-"),
+        (False, 1): ("Without replacement, 1:1", "^", "--"),
+        (False, 2): ("Without replacement, 1:2", "D", "--"),
+    }
+    for key, (label, marker, linestyle) in styles.items():
+        rows = [row for row in matching_grid if (row["replacement"], row["matching_ratio"]) == key]
+        rows.sort(key=lambda row: row["caliper_sd"])
+        axes[1].plot(
+            [row["caliper_sd"] for row in rows],
+            [row["max_absolute_smd"] for row in rows],
+            marker=marker,
+            linestyle=linestyle,
+            linewidth=2,
+            label=label,
+        )
+    axes[1].axhline(0.10, color="#8c2d04", linestyle=":", linewidth=1.5)
+    axes[1].set_xlabel("Caliper × SD(logit propensity)")
+    axes[1].set_ylabel("Maximum absolute SMD after matching")
+    axes[1].set_title("Caliper, replacement, and matching-ratio sensitivity")
+    axes[1].grid(alpha=0.2)
+    axes[1].legend(frameon=False, fontsize=8)
+
+    figure.suptitle("Matching is a design choice, not a single automatic answer")
+    figure.tight_layout()
+    _save_figure(figure, output)
+    plt.close(figure)
+
+
 def plot_uplift_tree_structure(
     root: object,
     feature_names: tuple[str, ...],

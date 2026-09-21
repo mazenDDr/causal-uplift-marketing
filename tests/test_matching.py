@@ -57,6 +57,39 @@ def test_with_replacement_can_reuse_nearest_control() -> None:
     assert result.pairs["control_source_row_id"].nunique() == 1
 
 
+def test_one_to_two_matching_uses_two_distinct_controls_per_treated() -> None:
+    frame, propensity = matching_frame()
+    result = match_on_propensity(
+        frame,
+        propensity,
+        replacement=True,
+        matching_ratio=2,
+        caliper_sd=2.0,
+    )
+    assert result.matching_ratio == 2
+    assert len(result.pairs) == result.matched_treated * 2
+    assert (result.pairs.groupby("pair_id")["control_source_row_id"].nunique() == 2).all()
+
+
+def test_one_to_two_att_averages_controls_within_treated_customer() -> None:
+    frame = pd.DataFrame(
+        {
+            "source_row_id": [0, 1, 2],
+            "treatment": [1, 0, 0],
+            "conversion": [1, 0, 1],
+        }
+    )
+    result = match_on_propensity(
+        frame,
+        np.array([0.50, 0.49, 0.51]),
+        replacement=True,
+        matching_ratio=2,
+        caliper_sd=2.0,
+    )
+    estimate = paired_att(frame, result.pairs, "conversion", bootstrap_samples=20, seed=3)
+    assert estimate["estimate"] == pytest.approx(0.5)
+
+
 def test_matching_preserves_source_outcomes_and_treatment() -> None:
     frame, propensity = matching_frame()
     original = frame.copy(deep=True)
