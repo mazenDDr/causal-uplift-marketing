@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 400" width="880" height="400" role="img" aria-label="Left: absolute error in the average treatment effect per 1,000, worst for naive association and lower for every causal estimator. Right: Qini intervals per 1,000 for five customer rankings, all crossing zero.">
+  <title>Average effects recovered, rankings still uncertain</title>
+  <style>
+    .lab{font:600 10px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;fill:#6E7684;letter-spacing:.11em}
+    .head{font:400 22px Georgia,'Times New Roman',serif;fill:#1A2233}
+    .body{font:400 12.5px -apple-system,'Segoe UI',Helvetica,Arial,sans-serif;fill:#6E7684}
+    .tiny{font:400 10.5px -apple-system,'Segoe UI',Helvetica,Arial,sans-serif;fill:#6E7684}
+    .name{font:400 11.5px -apple-system,'Segoe UI',Helvetica,Arial,sans-serif;fill:#1A2233}
+    .mono{font:500 11px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;fill:#1A2233}
+    .card{fill:#FFFFFF;stroke:#DAD7CE}
+    .bar{transform-box:fill-box;transform-origin:left center;animation:grow 11s both}
+    .zero{stroke:#1A2233;stroke-width:1.2}
+    .ci{stroke:#3A6EA5;stroke-width:2.2;transform-box:fill-box;transform-origin:center;animation:widen 11s both}
+    .dot{fill:#3A6EA5}
+    .late{animation:late 11s both}
+    @keyframes grow{0%,8%{transform:scaleX(0)}30%,100%{transform:scaleX(1)}}
+    @keyframes widen{0%,34%{transform:scaleX(0)}56%,100%{transform:scaleX(1)}}
+    @keyframes late{0%,58%{opacity:0}68%,100%{opacity:1}}
+    @media(prefers-reduced-motion:reduce){*{animation:none!important;opacity:1!important;transform:none!important}}
+  </style>
+  <rect width="880" height="400" rx="14" fill="#EFEDE6"/>
+  <text class="lab" x="30" y="32">MEDIUM CONFOUNDING · UNTOUCHED RANDOMIZED HOLDOUT</text>
+  <text class="head" x="30" y="66">A useful average effect and a useful targeting order</text>
+  <text class="head" x="30" y="94">are different claims.</text>
+  <rect class="card" x="30" y="116" width="396" height="226" rx="9"/>
+  <text class="lab" x="52" y="142">ERROR IN THE AVERAGE EFFECT · PER 1,000</text>
+  <rect class="card" x="454" y="116" width="396" height="226" rx="9"/>
+  <text class="lab" x="476" y="142">QINI · PER 1,000 · 95% INTERVAL</text>
+  <text class="name" x="52" y="168">Naive association</text>
+  <rect class="bar" x="52" y="176" width="232.0" height="12" rx="3" fill="#C0272D"/>
+  <text class="mono" x="293.0" y="186">1.98</text>
+  <text class="name" x="52" y="212">LinearDML</text>
+  <rect class="bar" x="52" y="220" width="160.6" height="12" rx="3" fill="#3A6EA5"/>
+  <text class="mono" x="221.6" y="230">1.37</text>
+  <text class="name" x="52" y="256">Uplift random forest</text>
+  <rect class="bar" x="52" y="264" width="150.4" height="12" rx="3" fill="#3A6EA5"/>
+  <text class="mono" x="211.4" y="274">1.29</text>
+  <text class="name" x="52" y="300">CausalForestDML</text>
+  <rect class="bar" x="52" y="308" width="143.6" height="12" rx="3" fill="#3A6EA5"/>
+  <text class="mono" x="204.6" y="318">1.23</text>
+  <text class="name" x="476" y="176">Response model</text>
+  <line class="ci" x1="614.0" y1="172" x2="808.8" y2="172"/>
+  <circle class="dot" cx="712.2" cy="172" r="3.2"/>
+  <text class="name" x="476" y="210">Treatment-as-feature</text>
+  <line class="ci" x1="617.2" y1="206" x2="824.0" y2="206"/>
+  <circle class="dot" cx="721.2" cy="206" r="3.2"/>
+  <text class="name" x="476" y="244">CausalForestDML</text>
+  <line class="ci" x1="580.6" y1="240" x2="776.2" y2="240"/>
+  <circle class="dot" cx="677.0" cy="240" r="3.2"/>
+  <text class="name" x="476" y="278">Uplift tree</text>
+  <line class="ci" x1="579.2" y1="274" x2="783.0" y2="274"/>
+  <circle class="dot" cx="678.2" cy="274" r="3.2"/>
+  <text class="name" x="476" y="312">Uplift random forest</text>
+  <line class="ci" x1="599.6" y1="308" x2="800.3" y2="308"/>
+  <circle class="dot" cx="704.0" cy="308" r="3.2"/>
+  <line class="zero" x1="700" y1="156" x2="700" y2="322"/>
+  <text class="tiny" x="700" y="336" text-anchor="middle">no effect</text>
+  <g class="late">
+  <text class="body" x="30" y="376">Causal adjustment cut the average-effect error. Every ranking interval still crosses zero, so no targeting winner is claimed.</text>
+  </g>
+</svg>

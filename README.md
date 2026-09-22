@@ -1,6 +1,26 @@
-# Causal inference and uplift modeling for marketing
+<p align="center">
+  <img src="docs/assets/hero.svg" width="100%" alt="The response model and the uplift tree each pick 852 customers from the randomized holdout and share only 76. Switching to the uplift tree is worth $162 per 1,000 eligible customers, 95% CI $28 to $312.">
+</p>
 
-> Prediction estimates what will happen. Causal inference estimates what will happen because we intervene.
+<h1 align="center">Causal inference and uplift modeling for marketing</h1>
+
+<p align="center">
+  <b>Prediction estimates what will happen. Causal inference estimates what will happen <i>because we intervene</i>.</b><br>
+  A randomized experiment held back untouched, training data made confounded on purpose,
+  and eight methods measured against both.
+</p>
+
+<p align="center">
+  <a href="#results-at-a-glance"><b>Results</b></a>
+  &nbsp;·&nbsp;
+  <a href="#experimental-design"><b>The design</b></a>
+  &nbsp;·&nbsp;
+  <a href="#failure-analysis-every-method-has-a-boundary"><b>Failure taxonomy</b></a>
+  &nbsp;·&nbsp;
+  <a href="#reproduce-from-raw-data"><b>Reproduce it</b></a>
+</p>
+
+---
 
 This project asks which customers should receive a marketing email. It uses the randomized
 Hillstrom email experiment as an untouched benchmark, deliberately turns only the training split
@@ -52,6 +72,8 @@ selected from the configured budget grid after inspecting the policy curves, so 
 intervals are not multiplicity-adjusted and should be confirmed in a new experiment.
 
 ## Experimental design
+
+<p align="center"><img src="docs/assets/design.svg" width="100%" alt="The 42,613-customer randomized campaign splits once into a 25,567-row training pool, deliberately confounded down to 12,781 rows with worst imbalance SMD 0.58, and a 17,046-row randomized holdout never used for selection."></p>
 
 ```text
 Original randomized Men's Email vs No Email experiment
@@ -429,6 +451,8 @@ interference. These assumptions are documented in [the causal design](docs/causa
 stress tests are designed to show where they become implausible or uninformative.
 
 ## Methods compared
+
+<p align="center"><img src="docs/assets/estimators.svg" width="100%" alt="Left: absolute error in the average treatment effect per 1,000, worst for naive association and lower for every causal estimator. Right: Qini intervals per 1,000 for five customer rankings, all crossing zero."></p>
 
 The fixed comparison includes naive differences, a response model, treatment-as-feature pseudo-
 uplift, propensity-score matching, LinearDML, CausalForestDML, an uplift tree, and an uplift random

@@ -1,4 +1,4 @@
-.PHONY: check test dashboard readme-assets experiments experiment-plan foundation naive-baselines propensity-diagnostics matching linear-dml causal-forest uplift-models uplift-metrics business-policies confounding-ablation overlap-stress robustness failure-analysis womens-replication dag
+.PHONY: check test dashboard readme-assets portfolio-assets experiments experiment-plan foundation naive-baselines propensity-diagnostics matching linear-dml causal-forest uplift-models uplift-metrics business-policies confounding-ablation overlap-stress robustness failure-analysis womens-replication dag
 
 check:
 	python -m ruff check .
@@ -13,6 +13,9 @@ dashboard:
 
 readme-assets:
 	PYTHONPATH=src python scripts/build_readme_assets.py
+
+portfolio-assets:
+	PYTHONPATH=src python scripts/build_portfolio_svgs.py
 
 experiments:
 	PYTHONPATH=src python scripts/run_experiments.py --config configs/base.yaml
