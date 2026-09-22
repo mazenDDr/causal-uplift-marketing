@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 420" width="880" height="420" role="img" aria-label="The 42,613-customer randomized campaign splits once into a 25,567-row training pool, deliberately confounded down to 12,781 rows with worst imbalance 0.58, and a 17,046-row randomized holdout that is never used for selection.">
+  <title>Split once: confounded training, untouched holdout</title>
+  <style>
+    .lab{font:600 10px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;fill:#6E7684;letter-spacing:.11em}
+    .head{font:400 22px Georgia,'Times New Roman',serif;fill:#1A2233}
+    .body{font:400 12.5px -apple-system,'Segoe UI',Helvetica,Arial,sans-serif;fill:#6E7684}
+    .tiny{font:400 10.5px -apple-system,'Segoe UI',Helvetica,Arial,sans-serif;fill:#6E7684}
+    .mono{font:500 13px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;fill:#1A2233}
+    .card{fill:#FFFFFF;stroke:#DAD7CE}
+    .flow{fill:none;stroke:#6E7684;stroke-width:1.4;stroke-dasharray:320;stroke-dashoffset:320;animation:draw 11s both}
+    .bar{transform-box:fill-box;transform-origin:left center;animation:grow 11s both}
+    .seal rect{fill:none;stroke:#2E7D4F;stroke-width:2.4}
+    .seal text{font:500 11px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;fill:#2E7D4F;letter-spacing:.14em}
+    .seal{transform-box:fill-box;transform-origin:center;transform:rotate(-7deg);animation:stamp 11s both}
+    .step{animation:show 11s both}
+    @keyframes draw{0%,16%{stroke-dashoffset:320}34%,100%{stroke-dashoffset:0}}
+    @keyframes show{0%,34%{opacity:0}44%,100%{opacity:1}}
+    @keyframes grow{0%,46%{transform:scaleX(0)}64%,100%{transform:scaleX(1)}}
+    @keyframes stamp{0%,62%{opacity:0;transform:rotate(-7deg) scale(1.6)}70%,100%{opacity:1;transform:rotate(-7deg) scale(1)}}
+    @media(prefers-reduced-motion:reduce){*{animation:none!important;opacity:1!important;transform:none!important}}
+  </style>
+  <rect width="880" height="420" rx="14" fill="#EFEDE6"/>
+  <text class="lab" x="30" y="32">THE DESIGN · SPLIT ONCE, SEEDED</text>
+  <text class="head" x="30" y="66">One randomized experiment, split before anything else happens.</text>
+  <rect class="card" x="284" y="92" width="312" height="66" rx="9"/>
+  <text class="lab" x="304" y="116">HILLSTROM RANDOMIZED EXPERIMENT</text>
+  <text class="mono" x="304" y="140">42,613 customers · Men’s Email vs No Email</text>
+  <path class="flow" d="M440 158 L440 184 L196 184 L196 208"/>
+  <path class="flow" d="M440 158 L440 184 L684 184 L684 208"/>
+  <g class="step">
+    <rect class="card" x="30" y="208" width="332" height="164" rx="9"/>
+    <text class="lab" x="52" y="234">TRAINING POOL, MADE OBSERVATIONAL</text>
+    <text class="mono" x="52" y="260">25,567 rows in</text>
+    <text class="body" x="52" y="282">Confounding applied on purpose, then</text>
+    <text class="mono" x="52" y="304">12,781 rows kept</text>
+    <text class="lab" x="52" y="330">WORST COVARIATE IMBALANCE</text>
+  </g>
+  <rect class="bar" x="52" y="340" width="162.3" height="11" rx="3" fill="#C0272D"/>
+  <text class="tiny" x="224.3" y="350">SMD 0.58</text>
+  <g class="step">
+    <rect class="card" x="518" y="208" width="332" height="164" rx="9"/>
+    <text class="lab" x="540" y="234">RANDOMIZED HOLDOUT</text>
+    <text class="mono" x="540" y="260">17,046 rows</text>
+    <text class="body" x="540" y="282">Never used to select features, models</text>
+    <text class="body" x="540" y="300">or hyperparameters. Read once, at the end.</text>
+    <text class="tiny" x="540" y="330">Imbalance by construction: SMD 0.02</text>
+  </g>
+  <g class="seal">
+    <rect x="700" y="332" width="122" height="28" rx="4"/>
+    <text x="716" y="351">UNTOUCHED</text>
+  </g>
+  <text class="body" x="30" y="398">Every number this project reports about targeting was measured on the right-hand side.</text>
+</svg>

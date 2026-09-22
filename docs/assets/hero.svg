@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 420" width="880" height="420" role="img" aria-label="Two overlapping circles: the response model and the uplift tree each pick 852 customers and share only 76. Switching to the uplift tree is worth $162 per 1,000 eligible customers, 95% confidence interval $28 to $312.">
+  <title>Two target lists that barely overlap</title>
+  <style>
+    .lab{font:600 10px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;fill:#6E7684;letter-spacing:.11em}
+    .head{font:400 25px Georgia,'Times New Roman',serif;fill:#1A2233}
+    .body{font:400 13px -apple-system,'Segoe UI',Helvetica,Arial,sans-serif;fill:#6E7684}
+    .tiny{font:400 11px -apple-system,'Segoe UI',Helvetica,Arial,sans-serif;fill:#6E7684}
+    .mono{font:500 12px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;fill:#1A2233}
+    .big{font:600 44px -apple-system,'Segoe UI',Helvetica,Arial,sans-serif;fill:#2E7D4F}
+    .setname{font:600 12px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;letter-spacing:.06em}
+    .card{fill:#FFFFFF;stroke:#DAD7CE}
+    .ring{fill:none;stroke-width:2.2}
+    .fillA{fill:#C0272D;opacity:.10}
+    .fillB{fill:#3A6EA5;opacity:.12}
+    .lens{fill:#FFE36A;opacity:.85}
+    .leader{fill:none;stroke:#6E7684;stroke-width:1}
+    .ci{fill:#2E7D4F;transform-box:fill-box;transform-origin:left center}
+    .zero{stroke:#6E7684;stroke-width:1;stroke-dasharray:3 3}
+    .setA{animation:pop 11s both}
+    .setB{animation:popb 11s both}
+    .overlap{animation:late 11s both}
+    .money{animation:later 11s both}
+    .interval{animation:last 11s both}
+    @keyframes pop{0%,4%{opacity:0}12%,100%{opacity:1}}
+    @keyframes popb{0%,14%{opacity:0}22%,100%{opacity:1}}
+    @keyframes late{0%,28%{opacity:0}36%,100%{opacity:1}}
+    @keyframes later{0%,44%{opacity:0}52%,100%{opacity:1}}
+    @keyframes last{0%,58%{opacity:0}66%,100%{opacity:1}}
+    @media(prefers-reduced-motion:reduce){*{animation:none!important;opacity:1!important;transform:none!important}}
+  </style>
+  <rect width="880" height="420" rx="14" fill="#EFEDE6"/>
+  <text class="lab" x="30" y="34">UNTOUCHED RANDOMIZED HOLDOUT · 17,046 CUSTOMERS · 5% CAMPAIGN BUDGET</text>
+  <text class="head" x="30" y="76">Two ways to choose 852 customers.</text>
+  <text class="head" x="30" y="108">They agree on 76.</text>
+  <g class="setA">
+    <circle class="fillA" cx="205.32" cy="214" r="74.0"/>
+    <circle class="ring" cx="205.32" cy="214" r="74.0" stroke="#C0272D"/>
+    <text class="setname" x="205.32" y="206" fill="#C0272D" text-anchor="middle">RESPONSE</text>
+    <text class="setname" x="205.32" y="224" fill="#C0272D" text-anchor="middle">MODEL</text>
+    <text class="tiny" x="205.32" y="244" text-anchor="middle">852 picked</text>
+  </g>
+  <g class="setB">
+    <circle class="fillB" cx="326.68" cy="214" r="74.0"/>
+    <circle class="ring" cx="326.68" cy="214" r="74.0" stroke="#3A6EA5"/>
+    <text class="setname" x="326.68" y="206" fill="#3A6EA5" text-anchor="middle">UPLIFT</text>
+    <text class="setname" x="326.68" y="224" fill="#3A6EA5" text-anchor="middle">TREE</text>
+    <text class="tiny" x="326.68" y="244" text-anchor="middle">852 picked</text>
+  </g>
+  <g class="overlap">
+    <clipPath id="lensclip"><circle cx="205.32" cy="214" r="74.0"/></clipPath>
+    <circle class="lens" cx="326.68" cy="214" r="74.0" clip-path="url(#lensclip)"/>
+    <path class="leader" d="M266.0 284.0 L266.0 332"/>
+    <text class="mono" x="266.0" y="348" text-anchor="middle">76 in both</text>
+  </g>
+  <rect class="card" x="512" y="120" width="338" height="216" rx="9"/>
+  <g class="money">
+    <text class="lab" x="534" y="152">SWITCHING THE LIST IS WORTH</text>
+    <text class="big" x="534" y="200">$162</text>
+    <text class="tiny" x="534" y="222">incremental profit per 1,000 eligible customers</text>
+  </g>
+  <g class="interval">
+    <line class="zero" x1="534" y1="240" x2="534" y2="274"/>
+    <text class="tiny" x="534" y="288">no effect</text>
+    <rect class="ci" x="558.9" y="254" width="252.5" height="3.4" rx="1.7"/>
+    <circle cx="677.6" cy="255.7" r="4.2" fill="#2E7D4F"/>
+    <text class="tiny" x="534" y="308">95% CI $28 to $312 · excludes zero</text>
+    <text class="tiny" x="534" y="326">Response model on its own: -$63 [-$188, $30]</text>
+  </g>
+  <text class="body" x="30" y="376">The customers most likely to buy are not the customers the email changes.</text>
+  <text class="tiny" x="30" y="400">5% came from the prespecified budget grid but was chosen for this diagnostic after inspecting the policy curves, so the interval is not adjusted for that choice.</text>
+</svg>
